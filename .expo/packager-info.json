@@ -1,0 +1,10 @@
+{
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 11424,
+  "expoServerNgrokUrl": "https://zc-6pi.anonymous.penqapp.exp.direct",
+  "packagerNgrokUrl": "https://packager.zc-6pi.anonymous.penqapp.exp.direct",
+  "ngrokPid": 5300,
+  "webpackServerPort": null
+}
