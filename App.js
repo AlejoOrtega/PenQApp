@@ -14,13 +14,14 @@ export default class App extends React.Component {
     super(props);
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     if(!firebase.apps.length){
       firebase.initializeApp(ApiKeys.FirebaseConfig);
     }
     
-    isSignedIn("Log").then((value) => {
+    await isSignedIn('Log').then((value) => {
       if(value != 'empty'){
+         firebase.auth().signInWithEmailAndPassword(value.correo, value.contra);
         if(value.type ==0){
           this.navigator &&
             this.navigator.dispatch(

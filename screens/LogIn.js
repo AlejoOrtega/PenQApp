@@ -33,7 +33,7 @@ export default class Login extends React.Component {
         currentUser = firebase.auth().currentUser;
         firebase.database().ref('Users/'+currentUser.uid+'/Account-Info').once('value', (dataSnapshot)=>{
           const credencials = Object.values(dataSnapshot.val());
-          var CredeStorage ={email: credencials[2], contra: credencials[1], type: credencials[4], nombre: credencials[3], apellido: credencials[0]}
+          var CredeStorage ={correo: credencials[2], contra: credencials[1], type: credencials[4], nombre: credencials[3], apellido: credencials[0]}
           
           onSignIn("Log",CredeStorage).then().catch((err)=>alert(err));
 

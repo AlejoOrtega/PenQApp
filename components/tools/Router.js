@@ -6,6 +6,9 @@ import LogInScreen from '../../screens/LogIn'
 import RegisterScreen from '../../screens/Register'
 import ClientScreen from '../../screens/ClientFolder/ClientStart'
 import BossScreen from '../../screens/BossFolder/BossStart'
+import AccountBoss from "../../screens/BossFolder/AccountBoss";
+import AccountClient from '../../screens/ClientFolder/AccountClient';
+import AddPension from '../../screens/BossFolder/AddPension'
 
 //Loggin Stack - Usuarios que no han iniciado sesion o no se han registrado
 const LogStack = createStackNavigator({
@@ -20,8 +23,7 @@ const LogStack = createStackNavigator({
     navigationOptions: () => ({
       header: null,
     }),
-    
-  },
+  }
 },{
     initialRouteName: 'Login',
 }
@@ -34,6 +36,12 @@ const ClientStack = createStackNavigator({
     navigationOptions: () => ({
       header: null
     }),
+  },
+  AccountClient:{
+    screen: AccountClient,
+    navigationOptions: () => ({
+      header: null,
+    }),
   }
 },{
   initialRouteName: 'ClientStart',
@@ -45,6 +53,18 @@ const BossStack = createStackNavigator({
     screen: BossScreen,
     navigationOptions: () => ({
       header: null
+    }),
+  },
+  AccountBoss:{
+    screen: AccountBoss,
+    navigationOptions: () => ({
+      // header: null,
+    }),
+  },
+  AddPension:{
+    screen: AddPension,
+    navigationOptions: () => ({
+      // header: null,
     }),
   }
 },{
