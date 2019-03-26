@@ -8,6 +8,8 @@ import Button from '../components/Button';
 //Fire Base
 import * as firebase from 'firebase';
 
+import {onSignIn} from '../components/tools/Auth';
+
 
 //Vista Login, Vista principal de la aplicacion
 export default class Login extends React.Component {
@@ -23,18 +25,24 @@ export default class Login extends React.Component {
 
     //Inicia sesion y determina el tipo de usuario.
     _onPressLogIn=()=>{
+      
 
       firebase.auth().signInWithEmailAndPassword(this.state.correo, this.state.contra)
       .then(()=>
       {
         currentUser = firebase.auth().currentUser;
-        firebase.database().ref('Users/'+currentUser.uid+'/GeneralInformation').once('value', (dataSnapshot)=>{
+        firebase.database().ref('Users/'+currentUser.uid+'/Account-Info').once('value', (dataSnapshot)=>{
           const credencials = Object.values(dataSnapshot.val());
-          if(credencials[2] == 0){
+          var CredeStorage ={email: credencials[2], contra: credencials[1], type: credencials[4], nombre: credencials[3], apellido: credencials[0]}
+          
+          onSignIn("Log",CredeStorage).then().catch((err)=>alert(err));
+
+          if(credencials[4] == 0){
             this.props.navigation.navigate('ClientStart');
           }else{
             this.props.navigation.navigate('BossStart');
           }
+          
         })
       })
       .catch((err)=>alert(err));

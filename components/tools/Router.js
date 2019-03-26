@@ -4,8 +4,8 @@ import {createStackNavigator, createAppContainer, NavigationEvents, createSwitch
 //Screens
 import LogInScreen from '../../screens/LogIn'
 import RegisterScreen from '../../screens/Register'
-import ClientScreen from '../../screens/ClientStart'
-import BossScreen from '../../screens/BossStart'
+import ClientScreen from '../../screens/ClientFolder/ClientStart'
+import BossScreen from '../../screens/BossFolder/BossStart'
 
 //Loggin Stack - Usuarios que no han iniciado sesion o no se han registrado
 const LogStack = createStackNavigator({
@@ -59,7 +59,7 @@ const RootStack = createSwitchNavigator({
   Boss: {screen: BossStack},
 },
 {
-  initialRouteName: 'Log'
+    initialRouteName: 'Log'
 })
 
 

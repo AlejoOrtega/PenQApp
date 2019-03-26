@@ -1,27 +1,48 @@
 import React from 'react';
-import { StyleSheet, Text, View, Picker } from 'react-native';
+import { StyleSheet, Alert} from 'react-native';
 
 import RootStack from './components/tools/Router';
 import * as firebase from 'firebase';
 import ApiKeys from './components/tools/ApiKeys';
 
-// Redux Falta
-import {createStore} from 'redux';
-import {Provider} from 'react-redux'
+import {isSignedIn, onSignOut} from './components/tools/Auth';
+import { NavigationActions } from 'react-navigation';
+
 
 export default class App extends React.Component {
   constructor(props){
     super(props);
-
-    if(!firebase.apps.length){firebase.initializeApp(ApiKeys.FirebaseConfig);}
   }
+
+  componentDidMount(){
+    if(!firebase.apps.length){
+      firebase.initializeApp(ApiKeys.FirebaseConfig);
+    }
+    
+    isSignedIn("Log").then((value) => {
+      if(value != 'empty'){
+        if(value.type ==0){
+          this.navigator &&
+            this.navigator.dispatch(
+              NavigationActions.navigate({routeName: 'ClientStart'})
+            );
+        }else if(value.type ==1){
+          this.navigator &&
+            this.navigator.dispatch(
+              NavigationActions.navigate({routeName: 'BossStart'})
+            );
+        }
+      }
+    }).catch();
+  }
+
   
   render() {
+    
     return (
-      <RootStack/>
-      // <Provider store={store}>
-      //   <RootStack/>
-      // </Provider>
+      <RootStack
+      ref={nav => this.navigator =nav}/>
+      
     );
     
   }
