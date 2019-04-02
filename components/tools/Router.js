@@ -1,14 +1,23 @@
 import React from "react";
-import {createStackNavigator, createAppContainer, NavigationEvents, createSwitchNavigator} from 'react-navigation';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {createStackNavigator, createAppContainer, createBottomTabNavigator, createSwitchNavigator} from 'react-navigation';
 
 //Screens
+//Log Module
 import LogInScreen from '../../screens/LogIn'
 import RegisterScreen from '../../screens/Register'
-import ClientScreen from '../../screens/ClientFolder/ClientStart'
-import BossScreen from '../../screens/BossFolder/BossStart'
+//Boss Module
+import BossScreen from '../../screens/BossFolder/BossStart';
 import AccountBoss from "../../screens/BossFolder/AccountBoss";
+import AddPension from '../../screens/BossFolder/AddPension';
+import Edit from '../../screens/BossFolder/Edit';
+import LocatePension from '../../screens/BossFolder/LocatePension';
+import PensionView from '../../screens/BossFolder/PensionView';
+//Client Module
+import ClientScreen from '../../screens/ClientFolder/ClientStart';
 import AccountClient from '../../screens/ClientFolder/AccountClient';
-import AddPension from '../../screens/BossFolder/AddPension'
+import EngineSearch from '../../screens/ClientFolder/EngineSearch';
+
 
 //Loggin Stack - Usuarios que no han iniciado sesion o no se han registrado
 const LogStack = createStackNavigator({
@@ -30,19 +39,47 @@ const LogStack = createStackNavigator({
 );
 
 // Client Stack - Usuarios que han iniciado sesion y son tipo clientes
-const ClientStack = createStackNavigator({
-  ClientStart:{
+const ClientStack = createBottomTabNavigator({
+  Engine:{
+    screen: EngineSearch,
+    navigationOptions: () => ({
+      title: 'Busqueda'
+    }),
+  },ClientStart:{
     screen: ClientScreen,
     navigationOptions: () => ({
-      header: null
+      title: 'Map'
     }),
   },
   AccountClient:{
     screen: AccountClient,
     navigationOptions: () => ({
-      header: null,
+      title: 'Cuenta'
     }),
-  }
+  },
+  
+},{
+  defaultNavigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({tintColor }) => {
+      const { routeName } = navigation.state;
+      let IconComponent = Ionicons;
+      let iconName;
+      if (routeName === 'ClientStart') {
+        iconName = 'md-map';
+      } else if (routeName === 'AccountClient') {
+        iconName = 'ios-contact';
+      }else if (routeName === 'Engine') {
+        iconName = 'ios-search';
+      }
+
+      // You can return any component that you like here!
+      return <IconComponent name={iconName} size={25} color={tintColor} />;
+    },
+  }),
+  tabBarOptions: {
+    activeTintColor: 'blue',
+    inactiveTintColor: 'gray',
+  },
 },{
   initialRouteName: 'ClientStart',
 });
@@ -58,13 +95,31 @@ const BossStack = createStackNavigator({
   AccountBoss:{
     screen: AccountBoss,
     navigationOptions: () => ({
-      // header: null,
+       header: null,
+    }),
+  },
+  Edit:{
+    screen: Edit,
+    navigationOptions: () => ({
+       header: null,
     }),
   },
   AddPension:{
     screen: AddPension,
     navigationOptions: () => ({
-      // header: null,
+      header: null,
+    }),
+  },
+  Locate:{
+    screen: LocatePension,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
+  PensionView:{
+    screen: PensionView,
+    navigationOptions: () => ({
+      header: null,
     }),
   }
 },{

@@ -1,33 +1,39 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert } from 'react-native';
 import {Button, Icon, Fab } from 'native-base';
 import {onSignOut, isSignedIn} from '../../components/tools/Auth';
 import firebase from 'firebase';
 
+import Cards from '../../components/CardList';
 
-export default class FABExample extends Component {
+
+import {connect} from 'react-redux';
+import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
+import {bindActionCreators} from 'redux';
+const users = [
+  {
+     name: 'brynn',
+     avatar: 'https://cdn.iconscout.com/icon/free/png-256/avatar-375-456327.png'
+  }
+ ]
+
+
+ class BossStart extends Component {
   constructor(props) {
     super(props)
 
     this.state={
       active:false,
-      nombre:'',
-      apellido:'',
-      correo:'',
-      contra:'',
     }
+
+    
     
   }
-  componentWillMount(){
-    isSignedIn('Log').then((value)=>{
-      const data = Object.values(value);
-      this.setState({
-        nombre: data[3],
-        apellido: data[4],
-        correo:data[0],
-        contra:data[1]
-      });
-    }).catch((err)=>alert(err));
+  
+  _onPressPension=(pension)=>{
+    this.props.pensionTarget(pension);
+    this.props.navigation.navigate('PensionView');
+
   }
 
   _onPressAccount=()=>{
@@ -43,18 +49,19 @@ export default class FABExample extends Component {
     }).catch((err)=>alert(err));
   }
   _onPressFab=()=>{
-    this.setState({ active: !this.state.active })
+    this.setState({ active: !this.state.active });
   }
 
   render() {
     return (  
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text>{'Hola! '+this.state.nombre + ' '+ this.state.apellido}</Text>
+          <Text>{'Hola! '+ this.props.user.apellido}</Text>
           <Text>Tus Pensiones</Text>
         </View>
         <View style={styles.center}>
-
+          <Cards data={this.props.pensiones} Press={this._onPressPension}
+          />
         </View>
         <View style={styles.footer}>
         <Fab
@@ -85,6 +92,26 @@ export default class FABExample extends Component {
     );
   }
 }
+
+
+
+function mapStateToProps(state){
+  const {user, pensiones} = state;
+  return{
+    user,
+    pensiones
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return{
+    updateData: bindActionCreators(Actions.updateData,dispatch),
+    pensionTarget: bindActionCreators(Actions.pensionTarget, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BossStart);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -94,7 +121,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: 'blue',
+    backgroundColor: 'lightblue',
   },
   center:{
     justifyContent: 'center',
@@ -105,10 +132,10 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   fab:{
-    backgroundColor: '#5067FF', 
+    backgroundColor: '#5067FF',
   },
   logOutButton:{
-    backgroundColor: '#DD5144' 
+    backgroundColor: '#DD5144',
   },
   addButton:{
     backgroundColor: '#34A34F' 

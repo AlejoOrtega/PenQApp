@@ -4,7 +4,7 @@ import { StyleSheet,TextInput } from 'react-native';
 // Componente TextInput recibe:
 // #1 - placeHolder, texto que se mostrara en el componente
 // #2 - onChange, devuelve el texto que se esta modificando
-export default class Login extends React.Component {
+export default class Field extends React.Component {
   constructor(props){
       super(props);
   }

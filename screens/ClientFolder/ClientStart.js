@@ -1,13 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, Picker } from 'react-native';
-
-
+import Map from '../../components/Map'
 //Vista principal del cliente
 export default class ClientStart extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text> Hi! Iam a Client</Text>
+       <Map></Map>
       </View>
     );
     

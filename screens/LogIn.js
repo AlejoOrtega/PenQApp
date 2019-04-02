@@ -8,11 +8,17 @@ import Button from '../components/Button';
 //Fire Base
 import * as firebase from 'firebase';
 
-import {onSignIn} from '../components/tools/Auth';
+import {onSignIn, isSignedIn, onSignOut} from '../components/tools/Auth';
+
+import {connect} from 'react-redux';
+import {actionsCreator as Actions} from '../components/tools/redux/Actions';
+import {bindActionCreators} from 'redux';
+
+
 
 
 //Vista Login, Vista principal de la aplicacion
-export default class Login extends React.Component {
+class LogIn extends React.Component {
     constructor(props){
         super(props);
 
@@ -20,12 +26,56 @@ export default class Login extends React.Component {
           correo:'',
           contra:'',
         }
-
     }
+
+    componentWillMount(){
+      var user = {correo: '', contra: '', type: '', nombre: '', apellido: ''};
+      this.props.updateData(user);
+    }
+
+    componentDidMount(){
+      // onSignOut('Log');
+
+      isSignedIn('Log').then((value)=>{
+        this.props.updateData(value);
+        if(value != 'empty'){
+          firebase.auth().signInWithEmailAndPassword(value.correo, value.contra)
+          .then(()=>{
+            currentUser=firebase.auth().currentUser.uid;
+            
+            if(value.type ==0){
+              this.props.navigation.navigate('ClientStart');
+            }else if(value.type ==1){
+              var query = firebase.database().ref('Pensiones/');
+              query.once("value")
+               .then((snapshot)=> {
+                 currentUser = firebase.auth().currentUser;
+                 var Pensiones=[];
+                 var find=[];
+                 snapshot.forEach((childSnapshot)=> {       
+                     find = find.concat(childSnapshot.val());
+                 });
+                 for(var i=0; i<find.length;i=i+1){
+                   var Pension=Object.values(find[i]);
+                   var PensionInfo = Object.values(Pension[2]);
+                   if(PensionInfo[12]==currentUser.uid){
+                       Pensiones=Pensiones.concat(Pension[2]);
+                   }
+                 }
+               this.props.updateDataBoss(Pensiones);
+               this.props.navigation.navigate('BossStart');
+             });
+             
+            }
+          }).catch((err)=>alert(err));
+        }
+      });
+    }
+
+
 
     //Inicia sesion y determina el tipo de usuario.
     _onPressLogIn=()=>{
-      
 
       firebase.auth().signInWithEmailAndPassword(this.state.correo, this.state.contra)
       .then(()=>
@@ -34,18 +84,37 @@ export default class Login extends React.Component {
         firebase.database().ref('Users/'+currentUser.uid+'/Account-Info').once('value', (dataSnapshot)=>{
           const credencials = Object.values(dataSnapshot.val());
           var CredeStorage ={correo: credencials[2], contra: credencials[1], type: credencials[4], nombre: credencials[3], apellido: credencials[0]}
-          
-          onSignIn("Log",CredeStorage).then().catch((err)=>alert(err));
+          this.props.updateData(CredeStorage);
+          onSignIn('Log',CredeStorage).then().catch((err)=>alert(err));
 
           if(credencials[4] == 0){
             this.props.navigation.navigate('ClientStart');
           }else{
-            this.props.navigation.navigate('BossStart');
+            var query = firebase.database().ref('Pensiones/');
+              query.once("value")
+               .then((snapshot)=> {
+                 currentUser = firebase.auth().currentUser;
+                 var Pensiones=[];
+                 var find=[];
+                 snapshot.forEach((childSnapshot)=> {       
+                     find = find.concat(childSnapshot.val());
+                 });
+                 for(var i=0; i<find.length;i=i+1){
+                   var Pension=Object.values(find[i]);
+                   var PensionInfo = Object.values(Pension[2]);
+                   if(PensionInfo[12]==currentUser.uid){
+                       Pensiones=Pensiones.concat(Pension[2]);
+                   }
+                 }
+               this.props.updateDataBoss(Pensiones);
+               this.props.navigation.navigate('BossStart');
+             });
           }
           
         })
       })
       .catch((err)=>alert(err));
+
 
     }
 
@@ -109,6 +178,19 @@ export default class Login extends React.Component {
       );
     }
 }
+
+function mapStateToProps(state){
+  return {};
+}
+
+function mapDispatchToProps(dispatch){
+  return{
+    updateData: bindActionCreators(Actions.updateData,dispatch),
+    updateDataBoss: bindActionCreators(Actions.updateDataBoss,dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
 
 const styles = StyleSheet.create({
   container: {
