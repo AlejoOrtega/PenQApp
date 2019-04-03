@@ -39,6 +39,18 @@ const LogStack = createStackNavigator({
 }
 );
 
+const ClientAccountStack = createStackNavigator({
+  AccountClient: {
+    screen: AccountClient,
+    navigationOptions: () => ({
+      header: null
+    }),
+  }
+},{
+    initialRouteName: 'AccountClient',
+});
+
+
 // Client Stack - Usuarios que han iniciado sesion y son tipo clientes
 const ClientStack = createBottomTabNavigator({
   Engine:{
@@ -52,8 +64,8 @@ const ClientStack = createBottomTabNavigator({
       title: 'Map'
     }),
   },
-  AccountClient:{
-    screen: AccountClient,
+  Account:{
+    screen: ClientAccountStack,
     navigationOptions: () => ({
       title: 'Cuenta'
     }),
