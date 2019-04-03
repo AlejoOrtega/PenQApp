@@ -14,7 +14,8 @@ class PensionView extends React.Component {
       super(props);
 
       this.state={
-        user:''
+        user:'',
+        comida: this.props.target.Comida,
       }
   }
 
@@ -33,8 +34,12 @@ class PensionView extends React.Component {
     
   }
 
-  
-  _onPressEditPension=()=>{}
+  _onPressCheck=()=>{
+
+  }
+  _onPressEditPension=()=>{
+    this.props.navigation.navigate('EditPension')
+  }
   _rating(){
     code=[];
     code.push(
@@ -48,9 +53,14 @@ class PensionView extends React.Component {
     )
     
   }
+  _checkComida(){
+    if(this.props.target.Comida){
+      return 'Comida';
+    }
+  }
   _services(){
     code=[]
-    if(this.props.target.Comida){
+    if(this.state.comida){
       code.push(<Text>Comida</Text>)
     }
     if(this.props.target.Aseo){
@@ -72,7 +82,7 @@ class PensionView extends React.Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <Text>{this.props.target.Alias}</Text>
-          {this._ratings}
+          {/* {this._ratings} No funciona aun */} 
         </View>
         <View style={styles.center}>
           <View style={styles.penInfo}>
@@ -91,7 +101,7 @@ class PensionView extends React.Component {
               onPress={this._onPressFab}>
               <Icon name="settings" />
               <Button style={styles.logOutButton}
-                onPress={this._onPressLogOut}>
+                onPress={this._onPressCheck}>
                 <Icon name="log-out" />
               </Button>
               <Button style={styles.addButton}

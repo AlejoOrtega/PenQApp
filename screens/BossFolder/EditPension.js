@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View, Alert, TextInput, Button} from 'react-native';
+import CheckBox from 'react-native-check-box';
 import {isSignedIn,onSignIn} from '../../components/tools/Auth'
 import firebase from 'firebase';
 
@@ -25,26 +26,51 @@ class EditPension extends Component {
       };
     }
 
-    _changeNombre=(text)=>{
-      this.setState({nombre: text});
+    _changeAlias=(text)=>{
+      this.setState({alias: text});
     }
-    _changeApellido=(text)=>{
-      this.setState({apellido: text});
+    _changeBarrio=(text)=>{
+      this.setState({barrio: text});
+    }
+    _changeDireccion=(text)=>{
+      this.setState({direccion: text});
+    }
+    _changeEspe=(text)=>{
+      this.setState({espe: text});
+    }
+    _changeReglas=(text)=>{
+      this.setState({reglas: text});
     }
     _onPressSendChanges=() =>{
-      isSignedIn('Log').then((value)=>{
-        value.nombre=this.state.nombre;
-        value.apellido=this.state.apellido;
-        onSignIn('Log',value).then().catch((err)=>alert(err));
-        this.props.updateData(value);
+      this.props.target.Alias= this.state.alias;
+      this.props.target.Aseo=this.state.aseo;
+      this.props.target.Barrio = this.state.barrio;
+      this.props.target.Comida = this.state.comida;
+      this.props.target.Direccion = this.state.direccion;
+      this.props.target.Especific = this.state.espe;
+      this.props.target.Internet = this.state.internet;
+      this.props.target.Lavado = this.state.lavado;
+      this.props.target.Llaves = this.state.llave;
+      this.props.target.Rating = this.state.rating;
+      this.props.target.Reglas = this.state.reglas;
 
-        user = firebase.auth().currentUser;
-        firebase.database().ref('Users/'+user.uid+'/Account-Info').update({
-          Nombre: this.state.nombre,
-          Apellido: this.state.apellido
-        })
-        this.props.navigation.navigate('AccountBoss');
-      })
+      firebase.database().ref('Pensiones/'+this.props.target.ID+'/Pension-Info').update({
+        Alias: this.state.alias,
+        Aseo:this.state.aseo,
+        Barrio : this.state.barrio,
+        Comida : this.state.comida,
+        Direccion : this.state.direccion,
+        Especific : this.state.espe,
+        Internet : this.state.internet,
+        Lavado : this.state.lavado,
+        Llaves : this.state.llave,
+        Rating : this.state.rating,
+        Reglas : this.state.reglas,
+      });
+      
+
+      this.props.navigation.navigate('PensionView');
+
     }
     render(){
       return(
@@ -53,11 +79,70 @@ class EditPension extends Component {
                   <Text>Modifica los datos de tu pension</Text>
                 </View>
                 <View style={styles.center}>
-                  <Text>Apellido</Text>
+                  <Text>Alias</Text>
                   <TextInput
                     style={styles.textInput}
-                    placeholder={this.props.user.apellido}
+                    placeholder={this.props.target.Alias}
+                    onChangeText={this._changeAlias}
+                  ></TextInput>
+                  <Text>Barrio</Text>
+                  <TextInput
+                    style={styles.textInput}
+                    placeholder={this.props.target.Barrio}
                     onChangeText={this._changeApellido}
+                  ></TextInput>
+                  <Text>Direccion</Text>
+                  <TextInput
+                    style={styles.textInput}
+                    placeholder={this.props.target.Direccion}
+                    onChangeText={this._changeApellido}
+                  ></TextInput>
+                  <CheckBox
+                        onClick={()=>{
+                            this.setState({comida: !this.state.comida})
+                        }}
+                        isChecked={this.state.comida}
+                        leftText={"Comida"}
+                    />
+                    <CheckBox
+                        onClick={()=>{
+                            this.setState({internet: !this.state.internet})
+                        }}
+                        isChecked={this.state.internet}
+                        leftText={"Internet"}
+                    />
+                    <CheckBox
+                        onClick={()=>{
+                            this.setState({lavado: !this.state.lavado})
+                        }}
+                        isChecked={this.state.lavado}
+                        leftText={"Lavado"}
+                    />
+                    <CheckBox
+                        onClick={()=>{
+                            this.setState({aseo: !this.state.aseo})
+                        }}
+                        isChecked={this.state.aseo}
+                        leftText={"Aseo en los cuartos"}
+                    />
+                    <CheckBox
+                        onClick={()=>{
+                            this.setState({llave: !this.state.llave})
+                        }}
+                        isChecked={this.state.llave}
+                        leftText={"al cliente se le da llaves de la casa"}
+                    />
+                  <Text>Especificaciones de los servicios</Text>
+                  <TextInput
+                    style={styles.textInput}
+                    placeholder={this.props.target.Especific}
+                    onChangeText={this._changeEspe}
+                  ></TextInput>
+                  <Text>Reglas</Text>
+                  <TextInput
+                    style={styles.textInput}
+                    placeholder={this.props.target.Reglas}
+                    onChangeText={this._changeReglas}
                   ></TextInput>
                 </View>
                 <View style={styles.footer}>
@@ -105,15 +190,15 @@ const styles = StyleSheet.create({
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 3,
+    flex: 0.5,
   },
   center:{
     justifyContent: 'center',
-    flex: 3,
+    flex: 4,
   },
   footer:{
     flexDirection: 'row',
     alignItems: 'baseline',
-    flex: 3,
+    flex: 0.5,
   }
 });

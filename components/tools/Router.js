@@ -13,6 +13,7 @@ import AddPension from '../../screens/BossFolder/AddPension';
 import Edit from '../../screens/BossFolder/Edit';
 import LocatePension from '../../screens/BossFolder/LocatePension';
 import PensionView from '../../screens/BossFolder/PensionView';
+import EditPension from '../../screens/BossFolder/EditPension';
 //Client Module
 import ClientScreen from '../../screens/ClientFolder/ClientStart';
 import AccountClient from '../../screens/ClientFolder/AccountClient';
@@ -92,18 +93,6 @@ const BossStack = createStackNavigator({
       header: null
     }),
   },
-  AccountBoss:{
-    screen: AccountBoss,
-    navigationOptions: () => ({
-       header: null,
-    }),
-  },
-  Edit:{
-    screen: Edit,
-    navigationOptions: () => ({
-       header: null,
-    }),
-  },
   AddPension:{
     screen: AddPension,
     navigationOptions: () => ({
@@ -121,11 +110,28 @@ const BossStack = createStackNavigator({
     navigationOptions: () => ({
       header: null,
     }),
+  },
+  EditPension:{
+    screen: EditPension,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
+  AccountBoss:{
+    screen: AccountBoss,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
+  Edit:{
+    screen: Edit,
+    navigationOptions: () => ({
+      header: null,
+    }),
   }
 },{
   initialRouteName: 'BossStart',
 });
-
 
 // Root Stack - Stack principal para navegar entre stacks
 const RootStack = createSwitchNavigator({

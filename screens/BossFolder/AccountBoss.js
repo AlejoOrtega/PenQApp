@@ -14,7 +14,7 @@ class AccountBoss extends Component {
       
     }
     _goBack=()=>{
-      this.props.navigation.navigate('BossStart');
+        this.props.navigation.navigate('BossStart');
     }
     _onPressEditAccount=()=>{
       this.props.navigation.navigate('Edit');
