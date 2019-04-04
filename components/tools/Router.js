@@ -22,6 +22,7 @@ import ViewCuarto from '../../screens/BossFolder/ViewCuarto';
 import EditCuarto from '../../screens/BossFolder/EditCuarto';
 
 //Client Module
+import EditClient from '../../screens/ClientFolder/EditClient';
 import ClientScreen from '../../screens/ClientFolder/ClientStart';
 import AccountClient from '../../screens/ClientFolder/AccountClient';
 import EngineSearch from '../../screens/ClientFolder/EngineSearch';
@@ -49,6 +50,12 @@ const LogStack = createStackNavigator({
 const ClientAccountStack = createStackNavigator({
   AccountClient: {
     screen: AccountClient,
+    navigationOptions: () => ({
+      header: null
+    }),
+  },
+  EditClient: {
+    screen: EditClient,
     navigationOptions: () => ({
       header: null
     }),
@@ -86,7 +93,7 @@ const ClientStack = createBottomTabNavigator({
       let iconName;
       if (routeName === 'ClientStart') {
         iconName = 'md-map';
-      } else if (routeName === 'AccountClient') {
+      } else if (routeName === 'ClientAccountStack') {
         iconName = 'ios-contact';
       }else if (routeName === 'Engine') {
         iconName = 'ios-search';
