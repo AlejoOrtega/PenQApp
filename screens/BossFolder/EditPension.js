@@ -69,7 +69,7 @@ class EditPension extends Component {
       });
       
 
-      this.props.navigation.navigate('PensionView');
+      this.props.navigation.navigate('PensionView',{render: true});
 
     }
     render(){

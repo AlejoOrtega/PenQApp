@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {Button as Btn, Rating} from 'react-native-elements';
 import {Button, Icon, Fab } from 'native-base';
+import Service from '../../components/Services';
 
 import * as firebase from 'firebase';
 
@@ -16,7 +17,9 @@ class PensionView extends React.Component {
       this.state={
         user:'',
         comida: this.props.target.Comida,
+        render:false,
       }
+      
   }
 
   componentDidMount(){
@@ -31,32 +34,35 @@ class PensionView extends React.Component {
       })
       
     })
+
+
+    var cuartos = firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos');
+    cuartos.once('value', (snap)=>{
+      var cuartos=[]
+      snap.forEach((childSnap)=>{
+        var futu = childSnap.val();
+        console.log(futu.Precio)
+        if(typeof futu.Precio==='string'){
+          cuartos=cuartos.concat(childSnap.val());
+        }
+          
+        
+          
+      })
+      this.props.loadCuartos(cuartos);
+      
+    })
     
   }
 
-  _onPressCheck=()=>{
-
+  _onPressAddCuarto=()=>{
+    this.props.navigation.navigate('AddCuarto')
+  }
+  _onPressVerCuartos=()=>{
+    this.props.navigation.navigate('CuartosView')
   }
   _onPressEditPension=()=>{
     this.props.navigation.navigate('EditPension')
-  }
-  _rating(){
-    code=[];
-    code.push(
-      <Rating
-        imageSize={20}
-        readonly
-        startingValue={this.props.target.rating}
-        // style={{ styles.rating }}
-      />
-
-    )
-    
-  }
-  _checkComida(){
-    if(this.props.target.Comida){
-      return 'Comida';
-    }
   }
   _services(){
     code=[]
@@ -82,7 +88,6 @@ class PensionView extends React.Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <Text>{this.props.target.Alias}</Text>
-          {/* {this._ratings} No funciona aun */} 
         </View>
         <View style={styles.center}>
           <View style={styles.penInfo}>
@@ -90,7 +95,7 @@ class PensionView extends React.Component {
             <Text>{this.props.target.Direccion}</Text>
             <Text>{this.props.target.Barrio}</Text>
             <Text>Servicios</Text>
-            {this._services()}
+            <Service data={this.props.target}/>
           </View>
           <Fab
               active={this.state.active}
@@ -101,13 +106,13 @@ class PensionView extends React.Component {
               onPress={this._onPressFab}>
               <Icon name="settings" />
               <Button style={styles.logOutButton}
-                onPress={this._onPressCheck}>
-                <Icon name="log-out" />
+                onPress={this._onPressVerCuartos}>
+                <Icon name="ios-albums" />
               </Button>
               <Button style={styles.addButton}
-                onPress={this._onPressAddPension}
+                onPress={this._onPressAddCuarto}
                 >
-                <Icon name="add" />
+                <Icon name="ios-add-circle" />
               </Button>
             </Fab>
             <Btn
@@ -137,7 +142,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return{
     updateData: bindActionCreators(Actions.updateData,dispatch),
-    updateDataBoss: bindActionCreators(Actions.updateDataBoss,dispatch)
+    updateDataBoss: bindActionCreators(Actions.updateDataBoss,dispatch),
+    loadCuartos: bindActionCreators(Actions.loadCuartos,dispatch),
   };
 }
 

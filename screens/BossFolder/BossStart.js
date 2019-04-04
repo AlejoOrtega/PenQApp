@@ -33,7 +33,6 @@ const users = [
   _onPressPension=(pension)=>{
     this.props.pensionTarget(pension);
     this.props.navigation.navigate('PensionView');
-
   }
 
   _onPressAccount=()=>{

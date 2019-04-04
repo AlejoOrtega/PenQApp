@@ -3,9 +3,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createStackNavigator, createAppContainer, createBottomTabNavigator, createSwitchNavigator} from 'react-navigation';
 
 //Screens
+
 //Log Module
-import LogInScreen from '../../screens/LogIn'
-import RegisterScreen from '../../screens/Register'
+import LogInScreen from '../../screens/LogIn';
+import RegisterScreen from '../../screens/Register';
+
 //Boss Module
 import BossScreen from '../../screens/BossFolder/BossStart';
 import AccountBoss from "../../screens/BossFolder/AccountBoss";
@@ -14,6 +16,11 @@ import Edit from '../../screens/BossFolder/Edit';
 import LocatePension from '../../screens/BossFolder/LocatePension';
 import PensionView from '../../screens/BossFolder/PensionView';
 import EditPension from '../../screens/BossFolder/EditPension';
+import AddCuarto from '../../screens/BossFolder/AddCuarto';
+import CuartosView from '../../screens/BossFolder/CuartosView';
+import ViewCuarto from '../../screens/BossFolder/ViewCuarto';
+import EditCuarto from '../../screens/BossFolder/EditCuarto';
+
 //Client Module
 import ClientScreen from '../../screens/ClientFolder/ClientStart';
 import AccountClient from '../../screens/ClientFolder/AccountClient';
@@ -137,6 +144,30 @@ const BossStack = createStackNavigator({
   },
   Edit:{
     screen: Edit,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
+  AddCuarto:{
+    screen: AddCuarto,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
+  CuartosView:{
+    screen: CuartosView,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
+  ViewCuarto:{
+    screen: ViewCuarto,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
+  EditCuarto:{
+    screen: EditCuarto,
     navigationOptions: () => ({
       header: null,
     }),
