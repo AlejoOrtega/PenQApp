@@ -43,8 +43,26 @@ class LogIn extends React.Component {
           .then(()=>{
             currentUser=firebase.auth().currentUser.uid;
             
-            if(value.type ==0){
-              this.props.navigation.navigate('ClientStart');
+            if (value.type == 0) {
+              var query = firebase.database().ref('Pensiones/');
+              query.once("value")
+                .then((snapshot) => {
+                  currentUser = firebase.auth().currentUser;
+                  var Pensiones = [];
+                  var find = [];
+                  snapshot.forEach((childSnapshot) => {
+                    find = find.concat(childSnapshot.val());
+                  });
+                  for (var i = 0; i < find.length; i = i + 1) {
+                    var Pension = Object.values(find[i]);
+                    //var PensionInfo = Object.values(Pension[2]);
+                    //if (PensionInfo[12] == currentUser.uid) {
+                      Pensiones = Pensiones.concat(Pension[2]);
+                    //}
+                  }               
+                  this.props.updateDataBoss(Pensiones);
+                  this.props.navigation.navigate('ClientStart');
+                });
             }else if(value.type ==1){
               var query = firebase.database().ref('Pensiones/');
               query.once("value")

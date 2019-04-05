@@ -22,6 +22,8 @@ import ViewCuarto from '../../screens/BossFolder/ViewCuarto';
 import EditCuarto from '../../screens/BossFolder/EditCuarto';
 
 //Client Module
+import PensionViewClient from '../../screens/ClientFolder/PensionViewClient'
+import ClientMap from '../../screens/ClientFolder/ClientMap'
 import EditClient from '../../screens/ClientFolder/EditClient';
 import ClientScreen from '../../screens/ClientFolder/ClientStart';
 import AccountClient from '../../screens/ClientFolder/AccountClient';
@@ -64,6 +66,22 @@ const ClientAccountStack = createStackNavigator({
     initialRouteName: 'AccountClient',
 });
 
+const ClientMapStack = createStackNavigator({
+  ClientMapaView:{
+    screen: ClientMap,
+    navigationOptions: () => ({
+      header: null
+    }),
+  },
+  PensionViewClient:{
+    screen: PensionViewClient,
+    navigationOptions: () => ({
+      header: null
+    }),
+  }
+},{
+    initialRouteName: 'ClientMapaView',
+});
 
 // Client Stack - Usuarios que han iniciado sesion y son tipo clientes
 const ClientStack = createBottomTabNavigator({
@@ -72,10 +90,15 @@ const ClientStack = createBottomTabNavigator({
     navigationOptions: () => ({
       title: 'Busqueda'
     }),
+  },ClientMapa:{
+    screen: ClientMapStack,
+    navigationOptions: () => ({
+      title: 'Map'
+    }),
   },ClientStart:{
     screen: ClientScreen,
     navigationOptions: () => ({
-      title: 'Map'
+      title: 'Inicio'
     }),
   },
   Account:{
@@ -83,7 +106,8 @@ const ClientStack = createBottomTabNavigator({
     navigationOptions: () => ({
       title: 'Cuenta'
     }),
-  },
+  }
+
   
 },{
   defaultNavigationOptions: ({ navigation }) => ({
@@ -92,11 +116,13 @@ const ClientStack = createBottomTabNavigator({
       let IconComponent = Ionicons;
       let iconName;
       if (routeName === 'ClientStart') {
-        iconName = 'md-map';
-      } else if (routeName === 'ClientAccountStack') {
+        iconName = 'ios-home';
+      } else if (routeName === 'Account') {
         iconName = 'ios-contact';
       }else if (routeName === 'Engine') {
         iconName = 'ios-search';
+      }else if (routeName === 'ClientMapa'){
+        iconName = 'md-map';
       }
 
       // You can return any component that you like here!
