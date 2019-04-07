@@ -34,55 +34,54 @@ class PensionView extends React.Component {
       })
       
     })
+    
+    
+  }
 
-
+  _onPressRemovePension=()=>{
+    firebase.database().ref('Pensiones/'+this.props.target.ID).remove();
+    var query = firebase.database().ref('Pensiones/');
+    query.once("value")
+      .then((snapshot)=> {
+        currentUser = firebase.auth().currentUser;
+        var Pensiones=[];
+        var find=[];
+        snapshot.forEach((childSnapshot)=> {       
+            find = find.concat(childSnapshot.val());
+        });
+        for(var i=0; i<find.length;i=i+1){
+          var Pension=Object.values(find[i]);
+          var PensionInfo = Object.values(Pension[2]);
+          if(PensionInfo[12]==currentUser.uid){
+              Pensiones=Pensiones.concat(Pension[2]);
+          }
+        }
+      this.props.updateDataBoss(Pensiones);
+      this.props.navigation.navigate('BossStart');
+    });
+  }
+  _onPressAddCuarto=()=>{
+    this.props.navigation.navigate('AddCuarto')
+  }
+  _onPressVerCuartos=()=>{
     var cuartos = firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos');
     cuartos.once('value', (snap)=>{
       var cuartos=[]
       snap.forEach((childSnap)=>{
         var futu = childSnap.val();
-        console.log(futu.Precio)
-        if(typeof futu.Precio==='string'){
+
+        if(typeof futu === 'object'){
           cuartos=cuartos.concat(childSnap.val());
-        }
-          
-        
-          
+        }  
       })
       this.props.loadCuartos(cuartos);
-      
     })
-    
-  }
-
-  _onPressAddCuarto=()=>{
-    this.props.navigation.navigate('AddCuarto')
-  }
-  _onPressVerCuartos=()=>{
     this.props.navigation.navigate('CuartosView')
   }
   _onPressEditPension=()=>{
     this.props.navigation.navigate('EditPension')
   }
-  _services(){
-    code=[]
-    if(this.state.comida){
-      code.push(<Text>Comida</Text>)
-    }
-    if(this.props.target.Aseo){
-      code.push(<Text>Aseo</Text>)
-    }
-    if(this.props.target.Internet){
-      code.push(<Text>Internet</Text>)
-    }
-    if(this.props.target.Llaves){
-      code.push(<Text>Llaves de la Casa</Text>)
-    }
-    if(this.props.target.Lavado){
-      code.push(<Text>Lavado de Ropa</Text>)
-    }
-    return code;
-  }
+
     render() {
       return (
       <View style={styles.container}>
@@ -113,6 +112,11 @@ class PensionView extends React.Component {
                 onPress={this._onPressAddCuarto}
                 >
                 <Icon name="ios-add-circle" />
+              </Button>
+              <Button style={styles.removeButton}
+                onPress={this._onPressRemovePension}
+                >
+                <Icon name="ios-remove-circle-outline" />
               </Button>
             </Fab>
             <Btn
@@ -181,6 +185,9 @@ const styles = StyleSheet.create({
   },
   addButton:{
     backgroundColor: '#34A34F' 
+  },
+  removeButton:{
+    backgroundColor: '#ff0000' 
   },
   accountButton:{
     backgroundColor: '#3B5998'

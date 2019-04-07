@@ -4,6 +4,7 @@ import {Button, Rating} from 'react-native-elements';
 import { Icon, Fab } from 'native-base';
 import Service from '../../components/Services';
 import CuartosList from '../../components/CuartosList';
+import DetallesCuartos from '../../components/DetallesCuarto';
 
 import * as firebase from 'firebase';
 
@@ -15,7 +16,23 @@ import {bindActionCreators} from 'redux';
 class ViewCuarto extends React.Component {
 	
 	_onPressEditCuarto=()=>{
-		this.props.navigation.navigate('EditCuarto')
+		this.props.navigation.navigate('EditionCuarto')
+	}
+	_onPressEliminarCuarto=()=>{
+		firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos/'+this.props.cuartoTarget.ID).remove();
+		var cuartos = firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos');
+    cuartos.once('value', (snap)=>{
+      var cuartos=[]
+      snap.forEach((childSnap)=>{
+        var futu = childSnap.val();
+
+        if(typeof futu === 'object'){
+          cuartos=cuartos.concat(childSnap.val());
+        }  
+      })
+      this.props.loadCuartos(cuartos);
+    })
+    this.props.navigation.navigate('CuartosView');
 	}
 	render(){
 		return(
@@ -24,16 +41,15 @@ class ViewCuarto extends React.Component {
 
 				</View>
 				<View style={styles.center}>
-					<Text>Aqui va el alias</Text>
-					<Text>{this.props.cuartoTarget.Descrip}</Text>
-					<Text>{this.props.cuartoTarget.Capacidad}</Text>
-					<Text>{this.props.cuartoTarget.Obser}</Text>
-					<Text>{this.props.cuartoTarget.Precio}</Text>
+					<DetallesCuartos data={this.props.cuartoTarget}/>
 				</View>
 				<View style={styles.footer}>
 					<Button
 					title='Editar'
 					onPress={this._onPressEditCuarto}/>
+					<Button
+					title='Eliminar Cuarto'
+					onPress={this._onPressEliminarCuarto}/>
 				</View>
 			</View>
 		);
@@ -41,14 +57,16 @@ class ViewCuarto extends React.Component {
 }
 
 function mapStateToProps(state){
-	const {cuartoTarget}=state;
+	const {cuartoTarget,target}=state;
 	return {
-		cuartoTarget
+		cuartoTarget,
+		target
 	};
  }
  
  function mapDispatchToProps(dispatch){
 	return{
+		loadCuartos: bindActionCreators(Actions.loadCuartos,dispatch),
 	};
  }
  

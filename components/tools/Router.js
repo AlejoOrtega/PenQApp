@@ -19,7 +19,7 @@ import EditPension from '../../screens/BossFolder/EditPension';
 import AddCuarto from '../../screens/BossFolder/AddCuarto';
 import CuartosView from '../../screens/BossFolder/CuartosView';
 import ViewCuarto from '../../screens/BossFolder/ViewCuarto';
-import EditCuarto from '../../screens/BossFolder/EditCuarto';
+import EditionCuarto from '../../screens/BossFolder/EditionCuarto';
 
 //Client Module
 import PensionViewClient from '../../screens/ClientFolder/PensionViewClient'
@@ -199,8 +199,8 @@ const BossStack = createStackNavigator({
       header: null,
     }),
   },
-  EditCuarto:{
-    screen: EditCuarto,
+  EditionCuarto:{
+    screen: EditionCuarto,
     navigationOptions: () => ({
       header: null,
     }),
