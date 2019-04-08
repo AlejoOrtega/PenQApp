@@ -1,39 +1,89 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import DropdownMenu from 'react-native-dropdown-menu';
+import { StyleSheet, Text, View, Image, Button} from 'react-native';
+import { Dropdown } from 'react-native-material-dropdown';
 
 export default class EngineSearch extends Component {
     constructor(props) {
       super(props)
       this.state = {
-        DropdownValue : ''
+        Barrio: 'Recreo',
+        Servicio: 'Aseo',
+        Rating: '0',
+        Precio: '0',
+
       }
     }
     
   render() {
-    var data = [["Alo", "5k", "voy", "HP"]];
+    let Barrios = [{
+      value: 'Recreo',
+    }, {
+      value: 'Delicias',
+    }, {
+      value: 'Nogales',
+    }];
+
+    let Precios = [{
+      value: '500.000-1.000.000',
+    }, {
+      value: '1.000.000-1.500.000',
+    }, {
+      value: '1.500.000-2.000.000',
+    }, {
+      value: 'Mas de 2.000.000',
+    }];
+
+    let Servicios = [{
+      value: 'Aseo',
+    }, {
+      value: 'Alimentacion',
+    }];
+
+    let Ratings = [{
+      value: '0-1',
+    }, {
+      value: '1-2',
+    }, {
+      value: '2-3',
+    }, {
+      value: '3-4',
+    }, {
+      value: '4-5',
+    }];
     return (
-      <View style={styles.container}>
-        <Text>Barrio</Text>
-        <DropdownMenu
-          style={{ flex: 1 }}
-          bgColor={'white'}
-          tintColor={'#666666'}
-          activityTintColor={'green'}
-          // arrowImg={}      
-          // checkImage={}   
-          // optionTextStyle={{color: '#333333'}}
-          // titleStyle={{color: '#333333'}} 
-          // maxHeight={300} 
-          handler={(selection, row) => this.setState({ DropdownValue: data[selection][row] })}
-          data={data}
-        >
-          <View style={{ flex: 1 }}>
-            <Text>
-              {this.state.DropdownValue} is the best language in the world
-            </Text>
-          </View>
-        </DropdownMenu>
+      <View>
+        <View style={styles.container}>
+          <Dropdown
+            value={this.Barrio}
+            label='Seleccione un barrio'
+            data={Barrios}
+          />
+        </View>
+        <View style={styles.container}>
+          <Dropdown
+            value={this.Precio}
+            label='Seleccione un rango de precios'
+            data={Precios}
+          />
+        </View>
+        <View style={styles.container}>
+          <Dropdown
+            value={this.Rating}
+            label='Seleccione un rango de puntajes'
+            data={Ratings}
+          />
+        </View>
+        <View style={styles.container}>
+          <Dropdown
+            value={this.Servicio}
+            label='Seleccione servicios deseados'
+            data={Servicios}
+          />
+        </View>
+        <Button
+          title="Buscar"
+          style={styles.bottom}
+        />
       </View >
     );
   }
@@ -41,18 +91,16 @@ export default class EngineSearch extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+      marginHorizontal: 4,
+      marginTop: 30,
+      paddingHorizontal: 8,
     },
     textInput:{
       borderColor: 'black',
       backgroundColor: 'grey',
     },
     text:{
-        borderColor: 'black',
-        backgroundColor: 'grey',
+        marginTop: 20,
     },
     edit:{
       color: 'blue',
@@ -67,9 +115,17 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       flex: 3,
     },
+    DropStyle:{
+      marginTop: 20,
+      flex: 3
+    },
     footer:{
       flexDirection: 'row',
       alignItems: 'baseline',
       flex: 3,
+    },
+    bottom: {
+      flex: 1,
+      justifyContent: 'flex-end'
     }
   });
