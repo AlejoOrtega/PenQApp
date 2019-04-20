@@ -28,6 +28,8 @@ import EditClient from '../../screens/ClientFolder/EditClient';
 import ClientScreen from '../../screens/ClientFolder/ClientStart';
 import AccountClient from '../../screens/ClientFolder/AccountClient';
 import EngineSearch from '../../screens/ClientFolder/EngineSearch';
+import resultPension from '../../screens/ClientFolder/resultPension';
+import resultCuarto from '../../screens/ClientFolder/resultCuarto';
 
 
 //Loggin Stack - Usuarios que no han iniciado sesion o no se han registrado
@@ -83,10 +85,33 @@ const ClientMapStack = createStackNavigator({
     initialRouteName: 'ClientMapaView',
 });
 
+const EngineStack = createStackNavigator({
+  Engine:{
+    screen: EngineSearch,
+    navigationOptions:()=>({
+      header:null
+    })
+  },
+  resultPen:{
+    screen: resultPension,
+    navigationOptions:()=>({
+      header:null
+    })
+  },
+  resultCua:{
+    screen: resultCuarto,
+    navigationOptions:()=>({
+      header:null
+    })
+  }
+},{
+  initialRouteName: 'Engine',
+})
+
 // Client Stack - Usuarios que han iniciado sesion y son tipo clientes
 const ClientStack = createBottomTabNavigator({
   Engine:{
-    screen: EngineSearch,
+    screen: EngineStack,
     navigationOptions: () => ({
       title: 'Busqueda'
     }),
