@@ -30,6 +30,7 @@ import AccountClient from '../../screens/ClientFolder/AccountClient';
 import EngineSearch from '../../screens/ClientFolder/EngineSearch';
 import resultPension from '../../screens/ClientFolder/resultPension';
 import resultCuarto from '../../screens/ClientFolder/resultCuarto';
+import RatingPension from '../../screens/ClientFolder/RatingPension';
 
 
 //Loggin Stack - Usuarios que no han iniciado sesion o no se han registrado
@@ -77,6 +78,12 @@ const ClientMapStack = createStackNavigator({
   },
   PensionViewClient:{
     screen: PensionViewClient,
+    navigationOptions: () => ({
+      header: null
+    }),
+  },
+  Rating:{
+    screen: RatingPension,
     navigationOptions: () => ({
       header: null
     }),

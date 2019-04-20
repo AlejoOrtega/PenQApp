@@ -1,7 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import {Button as Btn, Rating} from 'react-native-elements';
-import {Button, Icon, Fab } from 'native-base';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import Service from '../../components/Services';
 
 import * as firebase from 'firebase';
@@ -32,7 +30,6 @@ class PensionViewClient extends React.Component {
       owner.once('value',(dataSnapshot)=>{
         this.setState({user: dataSnapshot.val()})
       })
-      
     })
 
     var cuartos = firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos');
@@ -40,7 +37,6 @@ class PensionViewClient extends React.Component {
       var cuartos=[]
       snap.forEach((childSnap)=>{
         var futu = childSnap.val();
-        console.log(futu.Precio)
         if(typeof futu.Precio==='string'){
           cuartos=cuartos.concat(childSnap.val());
         }       
@@ -50,9 +46,11 @@ class PensionViewClient extends React.Component {
     })
     
   }
-
   _onPressVerCuartos=()=>{
     this.props.navigation.navigate('CuartosView')
+  }
+  _onPressCalificar=()=>{
+    this.props.navigation.navigate('Rating')
   }
   
   _services(){
@@ -91,6 +89,9 @@ class PensionViewClient extends React.Component {
         </View>
         <View style={styles.footer}>
           <Text>Seccion de Comentarios</Text>
+          <Button
+          title='Viviste aqui? Calificalo!'
+          onPress={this._onPressCalificar}/>
         </View>
       </View>
 
