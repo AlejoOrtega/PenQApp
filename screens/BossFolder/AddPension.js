@@ -45,6 +45,9 @@ class AddPension extends Component {
     _onChangeBarrio=(text)=>{
         this.setState({barrio: text});
     }
+    _onPressPictures=()=>{
+        this.props.navigation.navigate('Camera')
+    }
 
     _onPressSendData=()=>{
         currentUser = firebase.auth().currentUser;
@@ -167,6 +170,10 @@ class AddPension extends Component {
                     <Button
                         title='Localiza tu pension!'
                         onPress={this._onPressLocatePension}
+                        />
+                        <Button
+                        title='Agrega fotos!'
+                        onPress={this._onPressPictures}
                         /> 
                 </View>
                 <View style={styles.footer}>

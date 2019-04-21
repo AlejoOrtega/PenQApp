@@ -15,7 +15,7 @@ class resultPension extends Component {
 
     _onPressPension=(pension)=>{
         this.props.pensionTarget(pension);
-        this.props.navigation.navigate('PensionView');
+        this.props.navigation.navigate('PensionViewClient');
       }
     render(){
         return(

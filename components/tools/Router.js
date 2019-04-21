@@ -20,6 +20,7 @@ import AddCuarto from '../../screens/BossFolder/AddCuarto';
 import CuartosView from '../../screens/BossFolder/CuartosView';
 import ViewCuarto from '../../screens/BossFolder/ViewCuarto';
 import EditionCuarto from '../../screens/BossFolder/EditionCuarto';
+import CameraBoss from '../../screens/BossFolder/CameraBoss';
 
 //Client Module
 import PensionViewClient from '../../screens/ClientFolder/PensionViewClient'
@@ -233,6 +234,12 @@ const BossStack = createStackNavigator({
   },
   EditionCuarto:{
     screen: EditionCuarto,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
+  Camera:{
+    screen: CameraBoss,
     navigationOptions: () => ({
       header: null,
     }),

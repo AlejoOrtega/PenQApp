@@ -15,7 +15,7 @@ class resultCuarto extends Component {
 
     _onPressCuarto=(cuarto)=>{
       this.props.cuartoTarget(cuarto);
-      this.props.navigation.navigate('ViewCuarto')
+      this.props.navigation.navigate('ViewCuarto') // No deberia ir a esta vista, simple prueba
     }
     render(){
         return(
