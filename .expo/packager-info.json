@@ -1,10 +1,10 @@
 {
   "expoServerNgrokUrl": "https://sz-crb.anonymous.penqapp.exp.direct",
   "packagerNgrokUrl": "https://packager.sz-crb.anonymous.penqapp.exp.direct",
-  "ngrokPid": 12204,
+  "ngrokPid": 8600,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 5984,
+  "packagerPid": 2352,
   "webpackServerPort": null,
   "devToolsPort": 19002
 }

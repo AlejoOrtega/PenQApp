@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import Service from '../../components/Services';
+import StarRating from 'react-native-star-rating';
 
 import * as firebase from 'firebase';
 
@@ -16,6 +17,10 @@ class PensionViewClient extends React.Component {
         user:'',
         comida: this.props.target.Comida,
         render:false,
+        ComentariosyRating: [],
+        userComentario: '',
+        ratingTotal:0,
+        HaComentado: false
       }
       
   }
@@ -26,6 +31,8 @@ class PensionViewClient extends React.Component {
 
       var PenData = Object.values(dataSnapshot.val());
       var userID = Object.values(PenData[2])
+      var comentariosLista = Object.values(PenData[0])
+      this.setState({ComentariosyRating:comentariosLista})
       var owner = firebase.database().ref('Users/'+userID[12]+'/Account-Info');
       owner.once('value',(dataSnapshot)=>{
         this.setState({user: dataSnapshot.val()})
@@ -52,7 +59,53 @@ class PensionViewClient extends React.Component {
   _onPressCalificar=()=>{
     this.props.navigation.navigate('Rating')
   }
-  
+
+  showComentarios(){
+    code=[]
+    if(this.state.ComentariosyRating.length != 0){
+      var totalR = 0;
+      var comentado = false;
+      for (i = 0; i < this.state.ComentariosyRating.length; i++) {
+        var UserdelComentario = firebase.database().ref('Users/' + this.state.ComentariosyRating[i].comentadorPorUser + '/Account-Info');
+        totalR = totalR + this.state.ComentariosyRating[i].RatingTotal
+        if(firebase.auth().currentUser.uid ==  this.state.ComentariosyRating[i].comentadorPorUser){
+          comentado = true
+        }
+        UserdelComentario.once('value', (dataSnapshot) => {
+
+          var userData = Object.values(dataSnapshot.val());
+          var userName = Object.values(userData[0]);
+          var nombreU = ''
+          var apellidoU = ''
+          for(k=0;k<userName.length;k++){
+            apellidoU = apellidoU + userName[k]
+          }
+          var userLastname = Object.values(userData[3]);
+          for(j=0;j<userLastname.length;j++){
+            nombreU = nombreU + userLastname[j]
+          }
+          var fullname = nombreU + ' '+apellidoU
+          
+          this.setState({ 
+            userComentario: fullname,
+            ratingTotal: totalR,
+            HaComentado: comentado
+          })
+        })
+        code.push(
+          <View>
+            <Text>{this.state.userComentario}</Text>
+            <Text>{this.state.ComentariosyRating[i].comentario}</Text>
+          </View>
+        )
+      }
+    }else{
+      code.push(
+        <Text>No hay comentarios sobre esta pension</Text>
+      )
+    }
+    return code;
+  }
   _services(){
     code=[]
     if(this.state.comida){
@@ -72,30 +125,63 @@ class PensionViewClient extends React.Component {
     }
     return code;
   }
-    render() {
+  render() {
+    if (this.state.HaComentado == false) {
       return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text>{this.props.target.Alias}</Text>
-        </View>
-        <View style={styles.center}>
-          <View style={styles.penInfo}>
-            <Text>Boss: {this.state.user.Nombre} {this.state.user.Apellido}</Text>
-            <Text>{this.props.target.Direccion}</Text>
-            <Text>{this.props.target.Barrio}</Text>
-            <Text>Servicios</Text>
-            <Service data={this.props.target}/>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text>{this.props.target.Alias}</Text>
+          </View>
+          <View style={styles.center}>
+            <View style={styles.penInfo}>
+              <Text>Boss: {this.state.user.Nombre} {this.state.user.Apellido}</Text>
+              <StarRating
+                disabled={true}
+                maxStars={5}
+                rating={this.state.ratingTotal / this.state.ComentariosyRating.length}
+              />
+              <Text>{this.props.target.Direccion}</Text>
+              <Text>{this.props.target.Barrio}</Text>
+              <Text>Servicios</Text>
+              <Service data={this.props.target} />
+            </View>
+          </View>
+          <View style={styles.footer}>
+            <Text>Seccion de Comentarios</Text>
+            {this.showComentarios()}
+            <Button
+              title='Viviste aqui? Calificalo!'
+              onPress={this._onPressCalificar} />
           </View>
         </View>
-        <View style={styles.footer}>
-          <Text>Seccion de Comentarios</Text>
-          <Button
-          title='Viviste aqui? Calificalo!'
-          onPress={this._onPressCalificar}/>
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text>{this.props.target.Alias}</Text>
+          </View>
+          <View style={styles.center}>
+            <View style={styles.penInfo}>
+              <Text>Boss: {this.state.user.Nombre} {this.state.user.Apellido}</Text>
+              <StarRating
+                disabled={true}
+                maxStars={5}
+                rating={this.state.ratingTotal / this.state.ComentariosyRating.length}
+              />
+              <Text>{this.props.target.Direccion}</Text>
+              <Text>{this.props.target.Barrio}</Text>
+              <Text>Servicios</Text>
+              <Service data={this.props.target} />
+            </View>
+          </View>
+          <View style={styles.footer}>
+            <Text>Seccion de Comentarios</Text>
+            {this.showComentarios()}
+          </View>
         </View>
-      </View>
-
-);
+      );
+    }
   }
 }
 
