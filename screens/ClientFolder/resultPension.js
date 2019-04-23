@@ -16,13 +16,21 @@ class resultPension extends Component {
     _onPressPension=(pension)=>{
         this.props.pensionTarget(pension);
         this.props.navigation.navigate('PensionViewClient');
-      }
+    }
     render(){
+      if(this.props.list.length != 0){
         return(
             <View>
                 <Pension data={this.props.list} Press={this._onPressPension} />
             </View>
         );
+      }else{
+        return(
+          <View style={{marginTop:30}}>
+              <Text>No hay pensiones con los parametros indicados</Text>
+          </View>
+        );
+      }
     }
 }
 function mapStateToProps(state){

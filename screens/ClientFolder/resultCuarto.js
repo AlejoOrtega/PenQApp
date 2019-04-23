@@ -18,11 +18,19 @@ class resultCuarto extends Component {
       this.props.navigation.navigate('ViewCuarto') // No deberia ir a esta vista, simple prueba
     }
     render(){
+      if(this.props.list.length != 0){
         return(
             <View>
-                <Cuartos data={this.props.list} Press={this._onPressCuarto}/>
+                <Cuartos data={this.props.list} Press={this._onPressPension} />
             </View>
         );
+      }else{
+        return(
+          <View style={{marginTop:30}}>
+              <Text>No hay pensiones con los parametros indicados</Text>
+          </View>
+        );
+      }
     }
 }
 function mapStateToProps(state){
