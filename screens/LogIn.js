@@ -8,8 +8,10 @@ import Button from '../components/Button';
 //Fire Base
 import * as firebase from 'firebase';
 
-import {onSignIn, isSignedIn, onSignOut} from '../components/tools/Auth';
+//Async Storage
+import {onSignIn, isSignedIn} from '../components/tools/Auth';
 
+//Redux
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../components/tools/redux/Actions';
 import {bindActionCreators} from 'redux';
@@ -34,8 +36,6 @@ class LogIn extends React.Component {
     }
 
     componentDidMount(){
-      // onSignOut('Log');
-
       isSignedIn('Log').then((value)=>{
         this.props.updateData(value);
         if(value != 'empty'){
@@ -55,10 +55,7 @@ class LogIn extends React.Component {
                   });
                   for (var i = 0; i < find.length; i = i + 1) {
                     var Pension = Object.values(find[i]);
-                    //var PensionInfo = Object.values(Pension[2]);
-                    //if (PensionInfo[12] == currentUser.uid) {
-                      Pensiones = Pensiones.concat(Pension[2]);
-                    //}
+                    Pensiones = Pensiones.concat(Pension[2]);
                   }               
                   this.props.updateDataBoss(Pensiones);
                   this.props.navigation.navigate('ClientStart');
@@ -76,7 +73,7 @@ class LogIn extends React.Component {
                  for(var i=0; i<find.length;i=i+1){
                    var Pension=Object.values(find[i]);
                    var PensionInfo = Object.values(Pension[2]);
-                   if(PensionInfo[12]==currentUser.uid){
+                   if(PensionInfo[15]==currentUser.uid){
                        Pensiones=Pensiones.concat(Pension[2]);
                    }
                  }
@@ -106,7 +103,22 @@ class LogIn extends React.Component {
           onSignIn('Log',CredeStorage).then().catch((err)=>alert(err));
 
           if(credencials[4] == 0){
-            this.props.navigation.navigate('ClientStart');
+            var query = firebase.database().ref('Pensiones/');
+            query.once("value")
+              .then((snapshot) => {
+                currentUser = firebase.auth().currentUser;
+                var Pensiones = [];
+                var find = [];
+                snapshot.forEach((childSnapshot) => {
+                  find = find.concat(childSnapshot.val());
+                });
+                for (var i = 0; i < find.length; i = i + 1) {
+                  var Pension = Object.values(find[i]);
+                  Pensiones = Pensiones.concat(Pension[2]);
+                }               
+                this.props.updateDataBoss(Pensiones);
+                this.props.navigation.navigate('ClientStart');
+              });
           }else{
             var query = firebase.database().ref('Pensiones/');
               query.once("value")
@@ -120,7 +132,7 @@ class LogIn extends React.Component {
                   for(var i=0; i<find.length;i=i+1){
                     var Pension=Object.values(find[i]);
                     var PensionInfo = Object.values(Pension[2]);
-                    if(PensionInfo[12]==currentUser.uid){
+                    if(PensionInfo[15]==currentUser.uid){
                         Pensiones=Pensiones.concat(Pension[2]);
                     }
                   }

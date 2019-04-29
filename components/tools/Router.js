@@ -21,6 +21,7 @@ import CuartosView from '../../screens/BossFolder/CuartosView';
 import ViewCuarto from '../../screens/BossFolder/ViewCuarto';
 import EditionCuarto from '../../screens/BossFolder/EditionCuarto';
 import CameraBoss from '../../screens/BossFolder/CameraBoss';
+import CheckUsers from '../../screens/BossFolder/CheckUsers'
 
 //Client Module
 import PensionViewClient from '../../screens/ClientFolder/PensionViewClient'
@@ -32,6 +33,9 @@ import EngineSearch from '../../screens/ClientFolder/EngineSearch';
 import resultPension from '../../screens/ClientFolder/resultPension';
 import resultCuarto from '../../screens/ClientFolder/resultCuarto';
 import RatingPension from '../../screens/ClientFolder/RatingPension';
+import ListaCuartos from '../../screens/ClientFolder/ListaCuartos';
+import VerCuarto from '../../screens/ClientFolder/VerCuarto';
+import ViewRating from '../../screens/ClientFolder/ViewRating';
 
 
 //Loggin Stack - Usuarios que no han iniciado sesion o no se han registrado
@@ -85,6 +89,24 @@ const ClientMapStack = createStackNavigator({
   },
   Rating:{
     screen: RatingPension,
+    navigationOptions: () => ({
+      header: null
+    }),
+  },
+  ListaCuartos:{
+    screen: ListaCuartos,
+    navigationOptions: () => ({
+      header: null
+    }),
+  },
+  VerCuarto:{
+    screen: VerCuarto,
+    navigationOptions: () => ({
+      header: null
+    }),
+  },
+  ViewRating:{
+    screen: ViewRating,
     navigationOptions: () => ({
       header: null
     }),
@@ -240,6 +262,12 @@ const BossStack = createStackNavigator({
   },
   Camera:{
     screen: CameraBoss,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
+  CheckUsers:{
+    screen: CheckUsers,
     navigationOptions: () => ({
       header: null,
     }),

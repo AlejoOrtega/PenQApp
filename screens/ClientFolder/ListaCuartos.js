@@ -7,21 +7,21 @@ import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
 import {bindActionCreators} from 'redux';
 
 
-class CuartosView extends React.Component {
+class ListaCuartos extends React.Component {
 	constructor(props){
 			super(props);
 	}
 
 	_onPressCuarto=(cuarto)=>{
 		this.props.cuartoTarget(cuarto);
-		this.props.navigation.navigate('ViewCuarto')
+		this.props.navigation.navigate('VerCuarto')
 	}
 
 	render(){
 		return(
 			<View style={styles.container}>
 				<View style={styles.header}>
-				<Text>Estos son los cuarto disponible en tu pension</Text>
+				<Text>Estos son los cuarto disponible en esta pension</Text>
 				</View>
 				<View style={styles.center}>
 					<CuartosList data={this.props.cuartos} Press={this._onPressCuarto}/>
@@ -46,7 +46,7 @@ function mapStateToProps(state){
 	};
  }
  
- export default connect(mapStateToProps, mapDispatchToProps)(CuartosView);
+ export default connect(mapStateToProps, mapDispatchToProps)(ListaCuartos);
  const styles = StyleSheet.create({
 	container: {
 	  flex: 1,

@@ -1,4 +1,4 @@
-import {UPDATE_DATA, UPDATE_BOSS_DATA, PENSION_TARGET, COORDINATES, CUARTO_TARGET, LOAD_CUARTOS, ENGINE} from './Types';
+import {UPDATE_DATA, UPDATE_BOSS_DATA, PENSION_TARGET, COORDINATES, CUARTO_TARGET, LOAD_CUARTOS, ENGINE, LOAD_COMENTS} from './Types';
 
 
 const initialState ={};
@@ -46,6 +46,11 @@ export default Reducer= (state=initialState, action)=>{
             return{
                 ...state,
                 list: payload,
+            }
+        case LOAD_COMENTS:
+            return{
+                ...state,
+                coments:payload,
             }
     }
 }

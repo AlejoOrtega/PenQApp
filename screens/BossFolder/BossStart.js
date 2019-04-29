@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Alert } from 'react-native';
 import {Button, Icon, Fab } from 'native-base';
-import {onSignOut, isSignedIn} from '../../components/tools/Auth';
+import {onSignOut} from '../../components/tools/Auth';
 import firebase from 'firebase';
 
 import Cards from '../../components/CardList';
@@ -10,12 +10,7 @@ import Cards from '../../components/CardList';
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
 import {bindActionCreators} from 'redux';
-const users = [
-  {
-     name: 'brynn',
-     avatar: 'https://cdn.iconscout.com/icon/free/png-256/avatar-375-456327.png'
-  }
- ]
+
 
 
  class BossStart extends Component {

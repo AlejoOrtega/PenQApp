@@ -68,6 +68,9 @@ class AddPension extends Component {
             coordinates: this.props.coordinates,
             bossID: currentUser.uid,
             Rating: 0,
+            RatingAseo:0,
+            RatingAmbiente:0,
+            RatingServicios:0
         });
         newItem.child(pushID+'/Comentarios').set({
             Comentario:'Aqui van los comentarios'
@@ -87,7 +90,7 @@ class AddPension extends Component {
                   var Pension=Object.values(find[i]);
                   var PensionInfo = Object.values(Pension[2]);
 
-                  if(PensionInfo[12]==currentUser.uid){
+                  if(PensionInfo[15]==currentUser.uid){
                       Pensiones=Pensiones.concat(Pension[2]);
                   }
                 }

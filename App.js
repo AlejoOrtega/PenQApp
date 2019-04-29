@@ -24,7 +24,7 @@ export default class App extends React.Component {
     if(!firebase.apps.length){
       firebase.initializeApp(ApiKeys.FirebaseConfig);
     }
-    // onSignOut('Log');
+    //onSignOut('Log');
   }
 
   

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import firebase from 'firebase';
 
+
+//Redux
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
 import {bindActionCreators} from 'redux';
@@ -12,6 +14,7 @@ class AddCuarto extends Component {
 	constructor(props){
 		super(props)
 		this.state={
+			alias:"",
 			precio:0,
 			capacidad:0,
 			descripcion:'',
@@ -20,6 +23,9 @@ class AddCuarto extends Component {
 		}
 	}
 
+	_onChangeAlias=(text)=>{
+		this.setState({alias: text})
+	}
 	_onChangePrecio=(text)=>{
 		this.setState({precio: text})
 	}
@@ -36,11 +42,13 @@ class AddCuarto extends Component {
 		newCuarto = firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos');
 		pushID = newCuarto.push().key;
 		newCuarto.child(pushID).set({
+			Alias: this.state.alias,
 			Precio: this.state.precio,
 			Capacidad: this.state.capacidad,
 			Descrip: this.state.descripcion,
 			Obser: this.state.observaciones,
-			ID: pushID
+			ID: pushID,
+			PenID: this.props.target.ID
 		})
 		this.props.navigation.navigate('PensionView');
 	}
@@ -50,6 +58,9 @@ class AddCuarto extends Component {
 			<View style={styles.container}>
 				<View style={styles.header}></View>
 				<View style={styles.center}>
+					<Text>Ponle un nombre a este cuarto!</Text>
+					<TextInput
+					onChangeText={this._onChangeAlias}/>
 					<Text>Precio</Text>
 					<TextInput
 					onChangeText={this._onChangePrecio}/>

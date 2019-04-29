@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, Alert, TextInput,  Modal, TouchableHighlight} from 'react-native';
-import {Button, Icon, Fab } from 'native-base';
+import {StyleSheet, Text, View} from 'react-native';
+import {Button, Icon } from 'native-base';
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
 import {onSignOut} from '../../components/tools/Auth';

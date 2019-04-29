@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {Button as Btn, Rating} from 'react-native-elements';
+import {Button as Btn} from 'react-native-elements';
 import {Button, Icon, Fab } from 'native-base';
 import Service from '../../components/Services';
+import StarRating from 'react-native-star-rating';
+import ComentLoaderBoss from '../../components/ComentLoaderBoss';
 
 import * as firebase from 'firebase';
 
@@ -22,18 +24,35 @@ class PensionView extends React.Component {
       
   }
 
+
+
+
   componentDidMount(){
     var pension = firebase.database().ref('Pensiones/'+this.props.target.ID);
     pension.once('value', (dataSnapshot)=>{
 
       var PenData = Object.values(dataSnapshot.val());
       var userID = Object.values(PenData[2])
-      var owner = firebase.database().ref('Users/'+userID[12]+'/Account-Info');
+      var owner = firebase.database().ref('Users/'+userID[15]+'/Account-Info');
       owner.once('value',(dataSnapshot)=>{
         this.setState({user: dataSnapshot.val()})
       })
       
     })
+    pension = firebase.database().ref('Pensiones/'+this.props.target.ID+'/Comentarios');
+    pension.once('value', (dataSnapShot)=>{
+      var coments=[];
+      dataSnapShot.forEach(element => {
+        var coment = element.val();
+        if (typeof element.val()==='object') {
+          if(coment.ValidadoBoss==false){
+            coments = coments.concat(element.val());
+          }
+          
+        }
+      })
+      this.props.loadComents(coments)               
+      });
     
     
   }
@@ -52,7 +71,7 @@ class PensionView extends React.Component {
         for(var i=0; i<find.length;i=i+1){
           var Pension=Object.values(find[i]);
           var PensionInfo = Object.values(Pension[2]);
-          if(PensionInfo[12]==currentUser.uid){
+          if(PensionInfo[15]==currentUser.uid){
               Pensiones=Pensiones.concat(Pension[2]);
           }
         }
@@ -81,6 +100,10 @@ class PensionView extends React.Component {
   _onPressEditPension=()=>{
     this.props.navigation.navigate('EditPension')
   }
+  _onPressCheckUsers=()=>{
+    this.props.navigation.navigate('CheckUsers')
+  }
+  _doNothing=()=>{}
 
     render() {
       return (
@@ -90,6 +113,11 @@ class PensionView extends React.Component {
         </View>
         <View style={styles.center}>
           <View style={styles.penInfo}>
+          <StarRating
+                disabled={true}
+                maxStars={5}
+                rating={this.props.target.Rating}
+              />
             <Text>Boss: {this.state.user.Nombre} {this.state.user.Apellido}</Text>
             <Text>{this.props.target.Direccion}</Text>
             <Text>{this.props.target.Barrio}</Text>
@@ -118,6 +146,11 @@ class PensionView extends React.Component {
                 >
                 <Icon name="ios-remove-circle-outline" />
               </Button>
+              <Button style={styles.checkPersons}
+                onPress={this._onPressCheckUsers}
+                >
+                <Icon name="nuclear" />
+              </Button>
             </Fab>
             <Btn
               title='Editar'
@@ -129,6 +162,7 @@ class PensionView extends React.Component {
         </View>
         <View style={styles.footer}>
           <Text>Seccion de Comentarios</Text>
+          <ComentLoaderBoss comentarios={this.props.coments}/>
         </View>
       </View>
 
@@ -137,9 +171,10 @@ class PensionView extends React.Component {
 }
 
 function mapStateToProps(state){
-  const {target}=state;
+  const {target, coments}=state;
   return {
-    target
+    target,
+    coments
   };
 }
 
@@ -148,6 +183,7 @@ function mapDispatchToProps(dispatch){
     updateData: bindActionCreators(Actions.updateData,dispatch),
     updateDataBoss: bindActionCreators(Actions.updateDataBoss,dispatch),
     loadCuartos: bindActionCreators(Actions.loadCuartos,dispatch),
+    loadComents: bindActionCreators(Actions.loadComents,dispatch)
   };
 }
 

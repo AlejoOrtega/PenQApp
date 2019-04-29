@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Picker } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Map from '../../components/Map'
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';

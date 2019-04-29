@@ -1,4 +1,4 @@
-import {UPDATE_DATA, UPDATE_BOSS_DATA,PENSION_TARGET, COORDINATES, CUARTO_TARGET, LOAD_CUARTOS, ENGINE} from './Types';
+import {UPDATE_DATA, UPDATE_BOSS_DATA,PENSION_TARGET, COORDINATES, CUARTO_TARGET, LOAD_CUARTOS, ENGINE, LOAD_COMENTS} from './Types';
 
 function updateData(data){
     return {
@@ -42,6 +42,12 @@ function engineResults(list){
     }
 }
 
+function loadComents(list){
+    return{
+        type: LOAD_COMENTS, payload: list,
+    }
+}
+
 const actionsCreator = {
     updateData,
     updateDataBoss,
@@ -49,7 +55,8 @@ const actionsCreator = {
     coordinates,
     cuartoTarget,
     loadCuartos,
-    engineResults
+    engineResults,
+    loadComents
 };
 
 export {actionsCreator};

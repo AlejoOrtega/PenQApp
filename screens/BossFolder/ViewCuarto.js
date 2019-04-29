@@ -1,9 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import {Button, Rating} from 'react-native-elements';
-import { Icon, Fab } from 'native-base';
-import Service from '../../components/Services';
-import CuartosList from '../../components/CuartosList';
+import { View, StyleSheet } from 'react-native';
+import {Button} from 'react-native-elements';
 import DetallesCuartos from '../../components/DetallesCuarto';
 
 import * as firebase from 'firebase';

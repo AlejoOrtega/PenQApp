@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, Alert, TextInput, Button, Modal, TouchableHighlight} from 'react-native';
-import {isSignedIn,onSignIn} from '../../components/tools/Auth'
-import firebase from 'firebase';
+import {StyleSheet, Text, View, Button} from 'react-native';
 
+//Redux
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
 import {bindActionCreators} from 'redux';
-import { Row } from 'native-base';
+
 
 class AccountBoss extends Component {
     constructor(props) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, Alert, TextInput, Button} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import {isSignedIn,onSignIn} from '../../components/tools/Auth'
 import firebase from 'firebase';
 

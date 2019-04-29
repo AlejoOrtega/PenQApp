@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, Alert, TextInput, Button} from 'react-native';
+import {Text, View} from 'react-native';
 import Pension from '../../components/CardList'
 
 import {connect} from 'react-redux';
@@ -43,6 +43,7 @@ function mapStateToProps(state){
   
 function mapDispatchToProps(dispatch){
 return{
+    pensionTarget: bindActionCreators(Actions.pensionTarget, dispatch),
     engineResults: bindActionCreators(Actions.engineResults,dispatch),
     updateData: bindActionCreators(Actions.updateData,dispatch)
 };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button, Picker} from 'react-native';
+import { StyleSheet, Text, View, Button, Picker} from 'react-native';
 
 import firebase from 'firebase';
 
@@ -16,10 +16,6 @@ const barrios=["Cualquier Barrio","La Playa","Villa Santos","Urb La Playa", "Vil
 "Adela de Char", "Alameda del Rio", "Ciudad Jardin", "La Campiña", "El Tabor", "Miramar", "Granadillo", "Los Alpes", "Nuevo Horizonte", "El Porvenir",
 "El Country","Los Nogales", "La Concepción", "San Francisco", "Santa Ana", "América", "Colombia", "El Prado", "Bellavista", "Modelo",
 "Montecristo", "La Felicidad"]
-
-var cuartos=[];
-var cuartosExt=[];
-var cuartosFinal=[];
 
 class EngineSearch extends Component {
     constructor(props) {
@@ -140,7 +136,6 @@ class EngineSearch extends Component {
                 var cuartos= Object.values(pension[1]);
                 cuartos.forEach((room)=>{
                   roomD= room;
-                  console.log(roomD)
                   if(typeof roomD ==='object'){
                     if(parseInt(roomD.Precio)<=parseInt(this.state.Precio) || this.state.Precio == "Cualquier Precio"){
                       result = result.concat(roomD);
@@ -150,7 +145,6 @@ class EngineSearch extends Component {
                 final = final.concat(result)
               }
           })
-          console.log(final);
           this.props.engineResults(final);
           this.props.navigation.navigate('resultCua');
           

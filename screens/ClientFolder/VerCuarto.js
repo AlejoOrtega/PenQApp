@@ -1,30 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import CuartosList from '../../components/CuartosList';
+import { View, StyleSheet } from 'react-native';
+import DetallesCuartos from '../../components/DetallesCuarto';
 
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
 import {bindActionCreators} from 'redux';
 
 
-class CuartosView extends React.Component {
-	constructor(props){
-			super(props);
-	}
-
-	_onPressCuarto=(cuarto)=>{
-		this.props.cuartoTarget(cuarto);
-		this.props.navigation.navigate('ViewCuarto')
-	}
+class ViewCuarto extends React.Component {
+	
 
 	render(){
 		return(
 			<View style={styles.container}>
 				<View style={styles.header}>
-				<Text>Estos son los cuarto disponible en tu pension</Text>
+
 				</View>
 				<View style={styles.center}>
-					<CuartosList data={this.props.cuartos} Press={this._onPressCuarto}/>
+					<DetallesCuartos data={this.props.cuartoTarget}/>
 				</View>
 				<View style={styles.footer}>
 				</View>
@@ -34,19 +27,21 @@ class CuartosView extends React.Component {
 }
 
 function mapStateToProps(state){
-	const {cuartos}=state;
+	const {cuartoTarget,target}=state;
 	return {
-		cuartos
+		cuartoTarget,
+		target
 	};
  }
  
  function mapDispatchToProps(dispatch){
 	return{
-		cuartoTarget: bindActionCreators(Actions.cuartoTarget,dispatch),
+		loadCuartos: bindActionCreators(Actions.loadCuartos,dispatch),
 	};
  }
  
- export default connect(mapStateToProps, mapDispatchToProps)(CuartosView);
+ export default connect(mapStateToProps, mapDispatchToProps)(ViewCuarto);
+
  const styles = StyleSheet.create({
 	container: {
 	  flex: 1,

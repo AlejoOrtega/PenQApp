@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
-
+import {isSignedIn} from '../../components/tools/Auth'
 
 
 import StarRating from 'react-native-star-rating';
@@ -17,11 +17,13 @@ class RatingPension extends React.Component {
         super(props);
   
         this.state={
+          NombreUser:"",
           ratingaseo:1,
           ratingambiente: 1,
           ratingservicio: 1,
           totalRating: 0,
-          comentario: ''
+          comentario: '',
+          validado:false,
         }
         
     }
@@ -41,6 +43,7 @@ class RatingPension extends React.Component {
       var pensionComentariosref = firebase.database().ref('Pensiones/' + this.props.target.ID + '/Comentarios');
       pushID = pensionComentariosref.push().key;
       pensionComentariosref.child(pushID).set({
+        NombreUser: this.props.user.nombre + " "+ this.props.user.apellido,
         comentadorPorUser: firebase.auth().currentUser.uid,
         comentario: this.state.comentario,
         rating1: this.state.ratingaseo,
@@ -48,8 +51,36 @@ class RatingPension extends React.Component {
         rating3: this.state.ratingservicio,
         RatingTotal: (this.state.ratingaseo+this.state.ratingambiente+this.state.ratingservicio)/3,
         ID: pushID,
+        ValidadoBoss: this.state.validado,
       })
-      this.props.navigation.navigate('PensionViewClient')
+      var pension = firebase.database().ref('Pensiones/'+this.props.target.ID+'/Comentarios');
+      pension.once('value', (dataSnapShot)=>{
+        var coments=[];
+        var totalR=0;
+        var totalComentarios=0;
+        dataSnapShot.forEach(element => {
+          
+          if (typeof element.val()==='object') {
+            if(firebase.auth().currentUser.uid ==  element.comentadorPorUser){
+              this.setState({
+                HaComentado: true,
+              })
+            }
+            if(element.Validado==true){
+              totalR = totalR + element.RatingTotal;
+              totalComentarios=totalComentarios+1;
+            }
+            coments = coments.concat(element.val());
+          }
+        })
+        this.props.loadComents(coments)
+        this.setState({
+          ratingTotal: totalR,
+          comentarioValidado: totalComentarios
+        })                
+        });
+         
+      this.props.navigation.navigate('PensionViewClient',{render: true})
     }
     render(){
         return(
@@ -105,9 +136,10 @@ class RatingPension extends React.Component {
 }
 
 function mapStateToProps(state){
-    const {target}=state;
+    const {target, user}=state;
     return {
-      target
+      target,
+      user
     };
   }
   
@@ -116,6 +148,7 @@ function mapStateToProps(state){
       updateData: bindActionCreators(Actions.updateData,dispatch),
       updateDataBoss: bindActionCreators(Actions.updateDataBoss,dispatch),
       loadCuartos: bindActionCreators(Actions.loadCuartos,dispatch),
+      loadComents: bindActionCreators(Actions.loadComents, dispatch)
     };
   }
   

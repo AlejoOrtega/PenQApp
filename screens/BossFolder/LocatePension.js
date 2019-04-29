@@ -1,10 +1,8 @@
 import React, {Component} from 'react'
 import {
   View,
-  Text,
   StyleSheet,
   Button,
-  InteractionManager
 } from 'react-native'
 import MapView from 'react-native-maps';
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, Alert, TextInput, Button} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import CheckBox from 'react-native-check-box';
-import {isSignedIn,onSignIn} from '../../components/tools/Auth'
 import firebase from 'firebase';
 
 import {connect} from 'react-redux';

@@ -14,7 +14,7 @@ export default class DetallesCuarto extends React.Component {
     console.log(this.props.data)
 		code.push(
 			<View>
-			<Text>Aqui va el alias</Text>
+			<Text>{this.props.data.Alias}</Text>
 			<Text>{this.props.data.Descrip}</Text>
 			<Text>{this.props.data.Capacidad}</Text>
 			<Text>{this.props.data.Obser}</Text>
