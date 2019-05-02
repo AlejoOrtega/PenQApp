@@ -31,7 +31,7 @@ class LogIn extends React.Component {
     }
 
     componentWillMount(){
-      var user = {correo: '', contra: '', type: '', nombre: '', apellido: ''};
+      var user = {correo: '', contra: '', type: '', nombre: '', apellido: '', photoUri:''};
       this.props.updateData(user);
     }
 
@@ -39,11 +39,11 @@ class LogIn extends React.Component {
       isSignedIn('Log').then((value)=>{
         this.props.updateData(value);
         if(value != 'empty'){
-          firebase.auth().signInWithEmailAndPassword(value.correo, value.contra)
+          firebase.auth().signInWithEmailAndPassword(value.Correo, value.Contra)
           .then(()=>{
             currentUser=firebase.auth().currentUser.uid;
             
-            if (value.type == 0) {
+            if (value.Type == 0) {
               var query = firebase.database().ref('Pensiones/');
               query.once("value")
                 .then((snapshot) => {
@@ -60,7 +60,7 @@ class LogIn extends React.Component {
                   this.props.updateDataBoss(Pensiones);
                   this.props.navigation.navigate('ClientStart');
                 });
-            }else if(value.type ==1){
+            }else if(value.Type ==1){
               var query = firebase.database().ref('Pensiones/');
               query.once("value")
                .then((snapshot)=> {
@@ -72,8 +72,8 @@ class LogIn extends React.Component {
                  });
                  for(var i=0; i<find.length;i=i+1){
                    var Pension=Object.values(find[i]);
-                   var PensionInfo = Object.values(Pension[2]);
-                   if(PensionInfo[15]==currentUser.uid){
+                   var PensionInfo =Pension[2];
+                   if(PensionInfo.bossID==currentUser.uid){
                        Pensiones=Pensiones.concat(Pension[2]);
                    }
                  }
@@ -97,12 +97,12 @@ class LogIn extends React.Component {
       {
         currentUser = firebase.auth().currentUser;
         firebase.database().ref('Users/'+currentUser.uid+'/Account-Info').once('value', (dataSnapshot)=>{
-          const credencials = Object.values(dataSnapshot.val());
-          var CredeStorage ={correo: credencials[2], contra: credencials[1], type: credencials[4], nombre: credencials[3], apellido: credencials[0]}
-          this.props.updateData(CredeStorage);
-          onSignIn('Log',CredeStorage).then().catch((err)=>alert(err));
+          // const credencials = Object.values(dataSnapshot.val());
+          // var CredeStorage ={correo: credencials[2], contra: credencials[1], type: credencials[4], nombre: credencials[3], apellido: credencials[0], photoUri: credencials[5]}
+          this.props.updateData(dataSnapshot.val());
+          onSignIn('Log',dataSnapshot).then().catch((err)=>alert(err));
 
-          if(credencials[4] == 0){
+          if(dataSnapshot.Type == 0){
             var query = firebase.database().ref('Pensiones/');
             query.once("value")
               .then((snapshot) => {
@@ -131,8 +131,8 @@ class LogIn extends React.Component {
                     });
                   for(var i=0; i<find.length;i=i+1){
                     var Pension=Object.values(find[i]);
-                    var PensionInfo = Object.values(Pension[2]);
-                    if(PensionInfo[15]==currentUser.uid){
+                    var PensionInfo = Pension[2];
+                    if(PensionInfo.bossID==currentUser.uid){
                         Pensiones=Pensiones.concat(Pension[2]);
                     }
                   }

@@ -1,4 +1,4 @@
-import {UPDATE_DATA, UPDATE_BOSS_DATA,PENSION_TARGET, COORDINATES, CUARTO_TARGET, LOAD_CUARTOS, ENGINE, LOAD_COMENTS} from './Types';
+import {UPDATE_DATA, UPDATE_BOSS_DATA,PENSION_TARGET, COORDINATES, CUARTO_TARGET, LOAD_CUARTOS, ENGINE, LOAD_COMENTS, PICTURE1, PICTURE2, PICTURE3} from './Types';
 
 function updateData(data){
     return {
@@ -47,6 +47,21 @@ function loadComents(list){
         type: LOAD_COMENTS, payload: list,
     }
 }
+function picture1(pic){
+    return{
+        type: PICTURE1, payload: pic,
+    }
+}
+function picture2(pic){
+    return{
+        type: PICTURE2, payload: pic,
+    }
+}
+function picture3(pic){
+    return{
+        type: PICTURE3, payload: pic,
+    }
+}
 
 const actionsCreator = {
     updateData,
@@ -56,7 +71,10 @@ const actionsCreator = {
     cuartoTarget,
     loadCuartos,
     engineResults,
-    loadComents
+    loadComents,
+    picture1,
+    picture2,
+    picture3,
 };
 
 export {actionsCreator};

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text,StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text,StyleSheet, TextInput, Button, ScrollView } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import firebase from 'firebase';
+
+import {ImagePicker, Permissions} from 'expo';
 
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
@@ -24,8 +26,15 @@ class AddPension extends Component {
         isCheckedLlave: false,
         isCheckedAseo: false,
         isCheckedLavado: false,
-
+        foto1:false,
+        foto2:false,
+        foto3:false,
       }
+    }
+    componentDidMount(){
+        this.props.uploadPicture1("none")
+        this.props.uploadPicture2("none")
+        this.props.uploadPicture3("none")
     }
     _onPressLocatePension=()=>{
         this.props.navigation.navigate('Locate');
@@ -45,14 +54,74 @@ class AddPension extends Component {
     _onChangeBarrio=(text)=>{
         this.setState({barrio: text});
     }
-    _onPressPictures=()=>{
-        this.props.navigation.navigate('Camera')
+    _onPressPictures1= async()=>{
+        let result = await ImagePicker.launchImageLibraryAsync();
+        this.props.uploadPicture1(result)   
+        this.setState({
+            foto1: true
+        })
     }
+    _onPressPictures2= async()=>{
+        let result = await ImagePicker.launchImageLibraryAsync();
+        this.props.uploadPicture2(result)   
+        this.setState({
+            foto2: true
+        })
+    }
+    _onPressPictures3=async()=>{
+        let result = await ImagePicker.launchImageLibraryAsync();
+        this.props.uploadPicture3(result)   
+        this.setState({
+            foto3: true
+        })
+    }
+    uploadImage2fire=async(uri, ImageName, picNumber)=>{
+        const blob = await new Promise((resolve, reject)=>{
+          const xhr = new XMLHttpRequest();
+          xhr.onload = function(){
+            resolve(xhr.response);
+          };
+          xhr.onerror = function(){
+            reject(new TypeError('Network request failed'));
+          };
+          xhr.responseType = 'blob';
+          xhr.open('GET',uri,true);
+          xhr.send(null);
+        });
+        await firebase.storage().ref().child("Images/"+ImageName).put(blob);
+
+        firebase.storage().ref().child('Images/'+ImageName).getDownloadURL().then(url=>{
+            if(picNumber==1){
+                this.props.uploadPicture1(url)
+            }else if (picNumber==2){
+                this.props.uploadPicture2(url)
+            }else{
+                this.props.uploadPicture3(url)
+            }
+        })
+      }
 
     _onPressSendData=()=>{
         currentUser = firebase.auth().currentUser;
         newItem = firebase.database().ref('Pensiones/');
         pushID = newItem.push().key;
+        if(this.props.picture1!="none"){
+            if(!this.props.picture1.cancelled){
+                this.uploadImage2fire(this.props.picture1.uri, "Pen"+pushID+"1", 1)
+            }
+        }
+        if(this.props.picture2!="none"){
+            if(!this.props.picture2.cancelled){
+                this.uploadImage2fire(this.props.picture2.uri, "Pen"+pushID+"2", 2)
+            }
+        }
+        if(this.props.picture3!="none"){
+            if(!this.props.picture3.cancelled){
+                this.uploadImage2fire(this.props.picture3.uri, "Pen"+pushID+"3", 3)
+            }
+        }
+        
+
         newItem.child(pushID+'/Pension-Info').set({
             Alias: this.state.alias,
             Direccion: this.state.direction,
@@ -70,7 +139,10 @@ class AddPension extends Component {
             Rating: 0,
             RatingAseo:0,
             RatingAmbiente:0,
-            RatingServicios:0
+            RatingServicios:0,
+            Url1: this.props.picture1,
+            Url2: this.props.picture2,
+            Url3: this.props.picture3,
         });
         newItem.child(pushID+'/Comentarios').set({
             Comentario:'Aqui van los comentarios'
@@ -88,9 +160,9 @@ class AddPension extends Component {
                 });
                 for(var i=0; i<find.length;i=i+1){
                   var Pension=Object.values(find[i]);
-                  var PensionInfo = Object.values(Pension[2]);
+                  var PensionInfo =Pension[2];
 
-                  if(PensionInfo[15]==currentUser.uid){
+                  if(PensionInfo.bossID==currentUser.uid){
                       Pensiones=Pensiones.concat(Pension[2]);
                   }
                 }
@@ -104,7 +176,9 @@ class AddPension extends Component {
     render() {
         
         return (
-            <View style={styles.container}>
+            // <View style={styles.container}>
+            <ScrollView style={styles.neatScroll}>
+                
                 <View style={styles.header}>
                     <Text>Aqui puedes añadir una pension</Text>
                     <Text> Ingresa los datos que hay debajo!</Text>
@@ -171,13 +245,28 @@ class AddPension extends Component {
                     <Text>Listo!</Text>
 
                     <Button
-                        title='Localiza tu pension!'
-                        onPress={this._onPressLocatePension}
-                        />
-                        <Button
-                        title='Agrega fotos!'
-                        onPress={this._onPressPictures}
-                        /> 
+                    title='Localiza tu pension!'
+                    onPress={this._onPressLocatePension}
+                    color={typeof this.props.coordinates == "object"? '#01ad1b':'#7c0a00'}
+                    />
+                    <Text>Agrega 3 Fotos!</Text>
+
+                    <Text>Agregue aqui la primera imagen</Text>
+                    <Button
+                    title='Agrega fotos!'
+                    onPress={this._onPressPictures1}
+                    color={this.state.foto1 == true ? '#01ad1b':'#7c0a00'}
+                    />
+                    <Button
+                    title='Agrega fotos!'
+                    onPress={this._onPressPictures2}
+                    color={this.state.foto2 == true ? '#01ad1b':'#7c0a00'}
+                    />
+                    <Button
+                    title='Agrega fotos!'
+                    onPress={this._onPressPictures3}
+                    color={this.state.foto3 == true ? '#01ad1b':'#7c0a00'}
+                    />
                 </View>
                 <View style={styles.footer}>
                     <Button
@@ -185,8 +274,9 @@ class AddPension extends Component {
                         onPress={this._onPressSendData}
                         />   
                 </View>
-                    
-            </View>
+                
+                </ScrollView>
+            //</View>
             
 
         );
@@ -194,11 +284,14 @@ class AddPension extends Component {
 }
 
 function mapStateToProps(state){
-    const {user, pensiones, coordinates} = state;
+    const {user, pensiones, coordinates, picture1, picture2,picture3} = state;
     return{
       user,
       pensiones,
-      coordinates
+      coordinates, 
+      picture1, 
+      picture2,
+      picture3
     };
   }
   
@@ -206,6 +299,9 @@ function mapStateToProps(state){
     return{
       updateData: bindActionCreators(Actions.updateData,dispatch),
       updateDataBoss: bindActionCreators(Actions.updateDataBoss, dispatch),
+      uploadPicture1: bindActionCreators(Actions.picture1, dispatch),
+      uploadPicture2: bindActionCreators(Actions.picture2, dispatch),
+      uploadPicture3: bindActionCreators(Actions.picture3, dispatch),
     };
   }
   
@@ -216,10 +312,13 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff',
     },
+    neatScroll:{
+        padding:20,
+    },
     header:{
       justifyContent: 'center',
       alignItems: 'center',
-      flex: 0.5,
+      flex: 1,
       backgroundColor: 'lightblue',
     },
     center:{

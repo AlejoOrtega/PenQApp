@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
-
+import {StyleSheet, Text, View, Button, Image} from 'react-native';
+import ProfilePhoto from '../../components/ProfilePhoto';
 //Redux
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
@@ -23,18 +23,20 @@ class AccountBoss extends Component {
     render() {
         return (
             <View style={styles.container}>
+                
                 <View style={styles.header}>
                   <Text>Informacion de tu cuenta!</Text>
+                  <ProfilePhoto uri={this.props.user.photoUri}/>
                 </View>
                 <View style={styles.center}>
                   <View style={styles.editar}>
-                    <Text>Nombre: {this.props.user.nombre}</Text>
+                    <Text>Nombre: {this.props.user.Nombre}</Text>
                   </View>
                   <View style={styles.editar}>
-                    <Text>Apellido: {this.props.user.apellido}</Text>
+                    <Text>Apellido: {this.props.user.Apellido}</Text>
                   </View>
                   <View style={styles.editar}>
-                    <Text>Correo: {this.props.user.correo}</Text>
+                    <Text>Correo: {this.props.user.Correo}</Text>
                   </View>
                 </View>
                 <View style={styles.footer}>

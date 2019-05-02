@@ -56,6 +56,7 @@ class AddCuarto extends Component {
 	render(){
 		return(
 			<View style={styles.container}>
+			<ScrollView>
 				<View style={styles.header}></View>
 				<View style={styles.center}>
 					<Text>Ponle un nombre a este cuarto!</Text>
@@ -79,6 +80,7 @@ class AddCuarto extends Component {
 					title='Confirmar y enviar datos'
 					onPress={this._onPressSendData}/>
 				</View>
+				</ScrollView>
 			</View>
 		);
 	}

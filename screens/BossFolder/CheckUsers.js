@@ -41,8 +41,8 @@ class CheckUser extends React.Component{
         firebase.database().ref("Pensiones/"+this.props.target.ID+"/Pension-Info").update({
             Rating: result,
             RatingAseo: resultAseo,
-            // RatingAmbiente: resultAmbiente,
-            // RatingServicios: resultServicio
+            RatingAmbiente: resultAmbiente,
+            RatingServicios: resultServicio
         });
         firebase.database().ref("Pensiones/"+this.props.target.ID+"/Pension-Info").once('value', (data)=>{
             var newTarget = data.val();

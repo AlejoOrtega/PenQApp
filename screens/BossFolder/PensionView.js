@@ -5,7 +5,6 @@ import {Button, Icon, Fab } from 'native-base';
 import Service from '../../components/Services';
 import StarRating from 'react-native-star-rating';
 import ComentLoaderBoss from '../../components/ComentLoaderBoss';
-
 import * as firebase from 'firebase';
 
 import {connect} from 'react-redux';
@@ -32,8 +31,8 @@ class PensionView extends React.Component {
     pension.once('value', (dataSnapshot)=>{
 
       var PenData = Object.values(dataSnapshot.val());
-      var userID = Object.values(PenData[2])
-      var owner = firebase.database().ref('Users/'+userID[15]+'/Account-Info');
+      var userID = PenData[2]
+      var owner = firebase.database().ref('Users/'+userID.bossID+'/Account-Info');
       owner.once('value',(dataSnapshot)=>{
         this.setState({user: dataSnapshot.val()})
       })
@@ -70,8 +69,8 @@ class PensionView extends React.Component {
         });
         for(var i=0; i<find.length;i=i+1){
           var Pension=Object.values(find[i]);
-          var PensionInfo = Object.values(Pension[2]);
-          if(PensionInfo[15]==currentUser.uid){
+          var PensionInfo = Pension[2];
+          if(PensionInfo.bossID==currentUser.uid){
               Pensiones=Pensiones.concat(Pension[2]);
           }
         }
@@ -109,9 +108,11 @@ class PensionView extends React.Component {
       return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text>{this.props.target.Alias}</Text>
+        <Swiper/>
+          
         </View>
         <View style={styles.center}>
+        <Text>{this.props.target.Alias}</Text>
           <View style={styles.penInfo}>
           <StarRating
                 disabled={true}
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 0.5,
+    flex: 4,
     backgroundColor: 'lightblue',
   },
   center:{

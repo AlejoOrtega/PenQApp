@@ -46,7 +46,8 @@ export default class Register extends React.Component {
             Apellido: this.state.apellido,
             Correo: this.state.correo,
             Contra: this.state.contra,
-            Type: this.state.selectedIndex
+            Type: this.state.selectedIndex,
+            photoUri: "none"
           })
           
           this.props.navigation.navigate('Login')
