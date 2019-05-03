@@ -14,7 +14,7 @@ export default class Login extends React.Component {
         <Button
             onPress={this.props.onPress}
             title={this.props.title}
-            color="#841584"
+            color="#7b68ee"
         />
 
     );
@@ -23,8 +23,8 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   button:{
-    height: 40, 
+    height: 40,
     borderColor: 'black', 
-    borderWidth: 1
+    borderWidth: 1,
   }
 });

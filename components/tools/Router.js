@@ -48,11 +48,18 @@ const LogStack = createStackNavigator({
   Register: {
     screen: RegisterScreen,
     navigationOptions: () => ({
-      header: null,
+      title : 'Registro',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   }
 },{
     initialRouteName: 'Login',
+    headerLayoutPreset: 'center'
 }
 );
 
@@ -71,6 +78,7 @@ const ClientAccountStack = createStackNavigator({
   }
 },{
     initialRouteName: 'AccountClient',
+    headerLayoutPreset: 'center'
 });
 
 const ClientMapStack = createStackNavigator({

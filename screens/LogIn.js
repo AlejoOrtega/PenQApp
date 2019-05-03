@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
 
 //Componentes
 import Field from '../components/Field';
@@ -15,8 +15,6 @@ import {onSignIn, isSignedIn} from '../components/tools/Auth';
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../components/tools/redux/Actions';
 import {bindActionCreators} from 'redux';
-
-
 
 
 //Vista Login, Vista principal de la aplicacion
@@ -169,11 +167,12 @@ class LogIn extends React.Component {
 
     }
 
-
-
     render() {
       return (
-          <View style={styles.container}>
+          <ImageBackground 
+            style={styles.style_elAlo}
+            source={require('./images/LoginScreen_elAlo_199356.jpg')}
+          >
 
               <View style={styles.header}>
                 {/* Aqui deberia ir el logo */}
@@ -181,13 +180,14 @@ class LogIn extends React.Component {
                   style ={styles.logo}
                   source={require('./Image/NotLogo.png')}
                 /> 
+                <Text style={styles.style_elPenQApp}>PenQ</Text>
 
               </View>
 
               <View style={styles.center}>
 
                   <Field placeholder='Correo' onChange={this._onChangeCorreo}/>
-                  <Field placeholder='Contraseña' onChange={this._onChangePass}/>
+                  <Field placeholder='Contraseña' onChange={this._onChangePass} />
                   <Button 
                     title='Log In'
                     onPress={this._onPressLogIn}
@@ -198,13 +198,14 @@ class LogIn extends React.Component {
               <View style={styles.footer}>
 
                   <Text
+                    style = {styles.style_elRegisterLink}
                     onPress={this._onPressRegister}
                     >No tienes cuenta? Registrate!
                   </Text>
 
               </View>
 
-          </View>
+          </ImageBackground>
       );
     }
 }
@@ -223,28 +224,63 @@ function mapDispatchToProps(dispatch){
 export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   logo:{
-    width: 80,
-    height: 80,
+    width: 150,
+    height: 150,
   },
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 3,
+    flex: 8,
   },
   center:{
-    justifyContent: 'center',
-    flex: 3,
+    width: '90%'
   },
   footer:{
     justifyContent: 'center',
-    alignItems: 'baseline',
+    alignItems: 'center',
     flex: 3,
+  },
+  style_elAlo: {
+    width: '100%',
+    height: '100%',
+    alignItems:'center', 
+    display: 'flex' 
+  },
+  style_elIniciaSesionClient: {
+    fontSize: 16.9,
+    color: 'white',
+    textAlign: 'left',
+  },
+  style_elRectangle2: {
+    backgroundColor: '#f6f6f6'
+  },
+  style_elIniciaSesionDueno: {
+    fontSize: 16.9,
+    color: 'white',
+    textAlign: 'left',
+  },
+  style_elRectangle3: {
+    marginBottom:  '20px',
+  },
+  style_elNotLogo: {
+    width: '100%',
+    height: '100%'
+  },
+  style_elPenQApp: {
+    fontSize: 42.2,
+    color: 'white',
+    textAlign: 'left',
+    fontWeight: 'bold'
+  },
+  style_elRegisterLink: {
+    fontSize: 14,
+    color: 'white',
+    textAlign: 'center',
+  },
+  LogInButton:{
+    marginTop: '10px',
+    backgroundColor: '#7b68ee'
   }
 });

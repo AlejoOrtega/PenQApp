@@ -23,7 +23,8 @@ export default class Field extends React.Component {
 const styles = StyleSheet.create({
   textInput:{
     height: 40, 
-    borderColor: 'black', 
-    borderWidth: 1
+    borderColor: 'black',
+    backgroundColor: '#f6f6f6', 
+    borderWidth: 1,
   }
 });

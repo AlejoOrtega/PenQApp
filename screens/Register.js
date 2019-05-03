@@ -92,7 +92,7 @@ export default class Register extends React.Component {
       return (
           <View style={styles.container}>
               <View style={styles.header}>
-                <Text>Registro!</Text>
+                <Text>Registrate como un nuevo usuario!</Text>
               </View>
               <View style={styles.center}>
                 <Field placeholder='Nombre' onChange={this._onChangeNombre}/>
@@ -104,7 +104,7 @@ export default class Register extends React.Component {
                       onPress={this.updateIndex}
                       selectedIndex={selectedIndex}
                       buttons={buttons}
-                      containerStyle={{height:50, width:200}}
+                      containerStyle={{height:50, width:200, alignSelf: 'center', marginTop: 10}}
                     />
                 
               </View>
@@ -128,12 +128,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
       },
       header:{
+        fontSize: 14,
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 3,
+        flex: 1.5,
       },
       center:{
         justifyContent: 'center',
+        width: '90%',
         flex: 3,
       },
       footer:{
