@@ -99,8 +99,8 @@ class LogIn extends React.Component {
           // var CredeStorage ={correo: credencials[2], contra: credencials[1], type: credencials[4], nombre: credencials[3], apellido: credencials[0], photoUri: credencials[5]}
           this.props.updateData(dataSnapshot.val());
           onSignIn('Log',dataSnapshot).then().catch((err)=>alert(err));
-
-          if(dataSnapshot.Type == 0){
+          let type = dataSnapshot.val();
+          if(type.Type == 0){
             var query = firebase.database().ref('Pensiones/');
             query.once("value")
               .then((snapshot) => {
@@ -145,7 +145,6 @@ class LogIn extends React.Component {
 
 
     }
-
     //Redirige a la vista de registro
     _onPressRegister=()=>{
 

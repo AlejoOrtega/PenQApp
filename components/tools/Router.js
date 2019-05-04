@@ -49,6 +49,7 @@ const LogStack = createStackNavigator({
     screen: RegisterScreen,
     navigationOptions: () => ({
       title : 'Registro',
+      headerTintColor:'white',
       headerTitleStyle:{
         color: 'white'
       },
@@ -67,13 +68,27 @@ const ClientAccountStack = createStackNavigator({
   AccountClient: {
     screen: AccountClient,
     navigationOptions: () => ({
-      header: null
+      title : 'Mi Perfil',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   EditClient: {
     screen: EditClient,
     navigationOptions: () => ({
-      header: null
+      title : 'Editar Datos',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   }
 },{
@@ -85,25 +100,53 @@ const ClientMapStack = createStackNavigator({
   ClientMapaView:{
     screen: ClientMap,
     navigationOptions: () => ({
-      header: null
+      title : 'Mapa',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   PensionViewClient:{
     screen: PensionViewClient,
     navigationOptions: () => ({
-      header: null
+      title : 'Perfil Pension',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   Rating:{
     screen: RatingPension,
     navigationOptions: () => ({
-      header: null
+      title : 'Calificar',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   ListaCuartos:{
     screen: ListaCuartos,
     navigationOptions: () => ({
-      header: null
+      title : 'Cuartos',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   VerCuarto:{
@@ -115,42 +158,90 @@ const ClientMapStack = createStackNavigator({
   ViewRating:{
     screen: ViewRating,
     navigationOptions: () => ({
-      header: null
+      title : 'Calificacion por criterios',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   }
 },{
     initialRouteName: 'ClientMapaView',
+    headerLayoutPreset: 'center'
 });
 
 const EngineStack = createStackNavigator({
   Engine:{
     screen: EngineSearch,
     navigationOptions:()=>({
-      header:null
+      title : 'Busqueda',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     })
   },
   resultPen:{
     screen: resultPension,
     navigationOptions:()=>({
-      header:null
+      title : 'Pensiones',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     })
   },
   resultCua:{
     screen: resultCuarto,
     navigationOptions:()=>({
-      header:null
+      title : 'Cuartos',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     })
   }
 },{
   initialRouteName: 'Engine',
+  headerLayoutPreset: 'center'
 })
-
+const ClientStartStack = createStackNavigator({
+  ClientStart: {
+    screen: ClientScreen,
+    navigationOptions: () => ({
+      title : 'Inicio',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
+    }),
+  }
+},{
+    initialRouteName: 'ClientStart',
+    headerLayoutPreset: 'center'
+}
+);
 // Client Stack - Usuarios que han iniciado sesion y son tipo clientes
 const ClientStack = createBottomTabNavigator({
   Engine:{
     screen: EngineStack,
     navigationOptions: () => ({
-      title: 'Busqueda'
+      title: 'Busqueda',
     }),
   },ClientMapa:{
     screen: ClientMapStack,
@@ -158,9 +249,9 @@ const ClientStack = createBottomTabNavigator({
       title: 'Map'
     }),
   },ClientStart:{
-    screen: ClientScreen,
+    screen: ClientStartStack,
     navigationOptions: () => ({
-      title: 'Inicio'
+      title: 'Inicio',
     }),
   },
   Account:{
@@ -193,10 +284,11 @@ const ClientStack = createBottomTabNavigator({
   }),
   tabBarOptions: {
     activeTintColor: 'blue',
-    inactiveTintColor: 'gray',
+    inactiveTintColor: '#7b68ee',
   },
 },{
   initialRouteName: 'ClientStart',
+  headerLayoutPreset: 'center'
 });
 
 // Boss Stack - Usuarios que han iniciado sesion y son tipo dueños
@@ -204,78 +296,163 @@ const BossStack = createStackNavigator({
   BossStart:{
     screen: BossScreen,
     navigationOptions: () => ({
-      header: null
+      title : 'Inicio',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   AddPension:{
     screen: AddPension,
     navigationOptions: () => ({
-      header: null,
+      title : 'Agregar Pension',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   Locate:{
     screen: LocatePension,
     navigationOptions: () => ({
-      header: null,
+      title : 'Localiza tu pension!',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   PensionView:{
     screen: PensionView,
     navigationOptions: () => ({
-      header: null,
+      title : 'Pension',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   EditPension:{
     screen: EditPension,
     navigationOptions: () => ({
-      header: null,
+      title : 'Editar Datos',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   AccountBoss:{
     screen: AccountBoss,
     navigationOptions: () => ({
-      header: null,
+      title : 'Mi Perfil',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   Edit:{
     screen: Edit,
     navigationOptions: () => ({
-      header: null,
+      title : 'Editar Datos',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   AddCuarto:{
     screen: AddCuarto,
     navigationOptions: () => ({
-      header: null,
+      title : 'Agregar Cuarto',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      },
     }),
   },
   CuartosView:{
     screen: CuartosView,
     navigationOptions: () => ({
-      header: null,
+      title : ' Mis Cuartos',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   ViewCuarto:{
     screen: ViewCuarto,
     navigationOptions: () => ({
-      header: null,
+      title : 'Cuarto',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   EditionCuarto:{
     screen: EditionCuarto,
     navigationOptions: () => ({
-      header: null,
+      title : 'Editar Datos',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   CheckUsers:{
     screen: CheckUsers,
     navigationOptions: () => ({
-      header: null,
+      title : 'Verificar Usuarios',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   }
   
 },{
   initialRouteName: 'BossStart',
+  headerLayoutPreset: 'center'
 });
 
 // Root Stack - Stack principal para navegar entre stacks

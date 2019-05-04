@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {Button, Icon } from 'native-base';
+import {StyleSheet, Text, View, Button} from 'react-native';
+import { Icon } from 'native-base';
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
 import {onSignOut} from '../../components/tools/Auth';
@@ -29,34 +29,36 @@ class AccountClient extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text>Informacion de tu cuenta!</Text>
+                <View style={styles.containerNF}>
+                    <View style={styles.CircleShapeView}>
+                        {/* //<Image
+                     //style ={styles.logo}
+                    //source={{uri:}}
+                    ///> */}
+                    </View>
+                    <View style={styles.NombreYFoto}> 
+                        <Text style={{ color: 'white', fontSize: 20 }}>{this.props.user.Nombre} {this.props.user.Apellido + '\n'} Cliente</Text>
+                    </View>     
                 </View>
                 <View style={styles.center}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold'}}>Informacion de tu cuenta</Text>
                     <View style={styles.editar}>
-                        <Text>Nombre: {this.props.user.nombre}</Text>
-                    </View>
-                    <View style={styles.editar}>
-                        <Text>Apellido: {this.props.user.apellido}</Text>
-                    </View>
-                    <View style={styles.editar}>
-                        <Text>Correo: {this.props.user.correo}</Text>
+                        <Text style={{ fontSize: 14}}>Correo: {this.props.user.Correo}</Text>
+                        <Button
+                            title='Editar'
+                            style={styles.EditButton}
+                            color = '#7b68ee'
+                            onPress={this._onPressEditAccount}
+                        ></Button>
                     </View>
                 </View>
+                
                 <View style={styles.footer}>
                     <Button
-                        onPress={this._goBack}
-                        title='Go Back'
-                    />
-                    <Text
-                        style={styles.edit}
-                        onPress={this._onPressEditAccount}
-                    >editar</Text>
-                </View>
-                <View style={styles.footer}>
-                    <Button style={styles.logOutButton}
+                        title='Cerrar Sesion' 
+                        style={styles.logOutButton}
+                        color = '#7b68ee'
                         onPress={this._onPressLogOut}>
-                        <Icon name="log-out" />
                     </Button>
                 </View>
             </View>
@@ -82,6 +84,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(AccountClient);
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      margin: 10,
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
@@ -101,19 +104,47 @@ const styles = StyleSheet.create({
     },
     center:{
       justifyContent: 'center',
+      marginTop: 10
+    },
+    containerNF:{
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      borderColor:'black',
       flex: 3,
     },
     editar:{
-      flexDirection: 'row',
-      justifyContent: 'space-evenly',
-      flex: 3,
+      width: 300,
+      height: 200,
+      borderColor:'black',
+      borderWidth: 0.5,
     },
+    NombreYFoto:{
+        flexDirection: 'row',
+        height:100,
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        backgroundColor: '#7b68ee',
+        flex: 3,
+      },
     footer:{
       flexDirection: 'row',
       alignItems: 'baseline',
-      flex: 3,
     },
     logOutButton:{
-        backgroundColor: '#DD5144',
+        width: 200,
+        height: 50,
+        color: '#7b68ee',
     },
+    EditButton:{
+        width: 200,
+        height: 50,
+    },
+
+    CircleShapeView: {
+        width: 100,
+        height: 100,
+        borderRadius: 100/2,
+        backgroundColor: 'grey'
+    }    
   });
