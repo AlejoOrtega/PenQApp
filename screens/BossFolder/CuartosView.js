@@ -14,6 +14,7 @@ class CuartosView extends React.Component {
 
 	_onPressCuarto=(cuarto)=>{
 		this.props.cuartoTarget(cuarto);
+		
 		this.props.navigation.navigate('ViewCuarto')
 	}
 

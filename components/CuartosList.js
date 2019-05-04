@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Alert, Text, StyleSheet } from 'react-native';
+import { View, Alert, Text, StyleSheet, Image } from 'react-native';
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
 
@@ -23,13 +23,15 @@ export default class CuartosList extends React.Component {
               break;
             }
           }
-          
+          console.log(cuartos[i].Url1)
           code.push(
             <Card>
               <View style={styles.cardInfo}>
+              
+              
                 <Text>{cuartos[i].Alias}</Text>
                 <Text>{cuartos[i].Precio}</Text>
-              </View>
+              </View> 
               
               <Button
               title='Press me!'
@@ -50,6 +52,9 @@ export default class CuartosList extends React.Component {
           code.push(
             <Card>
               <View style={styles.cardInfo}>
+              <Image
+              style={{width:200 , height:200}}
+              source={{uri: cuartos[i].Url1}}/>
                 <Text>{cuartos[i].Alias}</Text>
                 <Text>{cuartos[i].Precio}</Text>
               </View>

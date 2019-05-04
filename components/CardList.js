@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Alert, Text } from 'react-native';
+import { View, Alert, Text, Image } from 'react-native';
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
 
@@ -17,6 +17,9 @@ export default class CardList extends React.Component {
       for(var i=0; i< this.props.data.length;i=i+1){
         code.push(
           <Card>
+            <Image
+              style={{width:200 , height:200}}
+              source={{uri: pensiones[i].Url1}}/>
             <Text>{pensiones[i].Alias}</Text>
             <Button
             title='Press me!'

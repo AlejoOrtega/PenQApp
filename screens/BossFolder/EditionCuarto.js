@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, ScrollView } from 'react-native';
 import firebase from 'firebase';
+import ProfilePhoto from '../../components/ProfilePhoto';
+import {ImagePicker} from 'expo';
+
 
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
@@ -16,6 +19,65 @@ class EditionCuarto extends Component {
 			precio:this.props.cuartoTarget.Precio,
 		};
 	}
+	
+	onPressChangePicture= async()=>{
+		let result = await ImagePicker.launchImageLibraryAsync();
+		if(!result.cancelled){
+			this.uploadImage2fire(result.uri, "Cuarto"+this.props.cuartoTarget.ID+"1",1)
+			.then(()=>{
+				alert("Great!");
+			}).catch((error)=>{
+				alert(error);
+			})
+		}
+	}
+	onPressChangePicture2= async()=>{
+		let result = await ImagePicker.launchImageLibraryAsync();
+		if(!result.cancelled){
+			this.uploadImage2fire(result.uri, "Cuarto"+this.props.cuartoTarget.ID+"2",2)
+			.then(()=>{
+				alert("Great!");
+			}).catch((error)=>{
+				alert(error);
+			})
+		}
+	}
+	onPressChangePicture3= async()=>{
+		let result = await ImagePicker.launchImageLibraryAsync();
+		if(!result.cancelled){
+			this.uploadImage2fire(result.uri, "Cuarto"+this.props.cuartoTarget.ID+"3",3)
+			.then(()=>{
+				alert("Great!");
+			}).catch((error)=>{
+				alert(error);
+			})
+		}
+	}
+	uploadImage2fire=async(uri, ImageName, picNumber)=>{
+		const blob = await new Promise((resolve, reject)=>{
+			const xhr = new XMLHttpRequest();
+			xhr.onload = function(){
+				resolve(xhr.response);
+			};
+			xhr.onerror = function(){
+				reject(new TypeError('Network request failed'));
+			};
+			xhr.responseType = 'blob';
+			xhr.open('GET',uri,true);
+			xhr.send(null);
+		});
+		await firebase.storage().ref().child("Images/"+ImageName).put(blob);
+
+		firebase.storage().ref().child('Images/'+ImageName).getDownloadURL().then(url=>{
+				if(picNumber==1){
+						this.props.uploadPicture1(url)
+				}else if (picNumber==2){
+						this.props.uploadPicture2(url)
+				}else{
+						this.props.uploadPicture3(url)
+				}
+		})
+	}
 
 	_onPressSendData=()=>{
 		this.props.cuartoTarget.Descrip= this.state.descrip;
@@ -27,8 +89,12 @@ class EditionCuarto extends Component {
 			Descrip: this.state.descrip,
 			Obser: this.state.obser,
 			Precio: this.state.precio,
+			Url1 : this.props.picture1,
+      Url2 : this.props.picture2,
+      Url3 : this.props.picture3,
 		})
-		
+		pics=[this.props.picture1, this.props.picture2, this.props.picture3]
+		this.props.uploadPics(pics)
 		this.props.navigation.navigate('ViewCuarto',{render: true})
 	}
 	_onChangeDescrip=(text)=>{
@@ -46,7 +112,7 @@ class EditionCuarto extends Component {
 
 	render(){
 		return(
-			<View style={styles.container}>
+			<ScrollView>
 				<View style={styles.header}>
 
 				<Text>Modifique los datos de este cuarto!</Text>
@@ -74,29 +140,53 @@ class EditionCuarto extends Component {
 					style={styles.textInput}
 					placeholder={this.props.cuartoTarget.Precio}
 					onChangeText={this._onChangePrecio}/>
-
+					<View style={styles.PhotoAndButton}>
+					<ProfilePhoto uri={this.props.picture1}/>
+					<Button
+					title="Cambiar"
+					onPress={this.onPressChangePicture}/>
+				</View>
+				<View style={styles.PhotoAndButton}>
+					<ProfilePhoto uri={this.props.picture2}/>
+					<Button
+					title="Cambiar"
+					onPress={this.onPressChangePicture2}/>
+				</View>
+				<View style={styles.PhotoAndButton}>
+					<ProfilePhoto uri={this.props.picture3}/>
+					<Button
+					title="Cambiar"
+					onPress={this.onPressChangePicture3}/>
+				</View>
 				</View>
 				<View style={styles.footer}>
 				<Button
 					title='Confirmar y enviar datos!'
 					onPress={this._onPressSendData}/>
 				</View>
-			</View>
+			</ScrollView>
 		);
 	}
 }
 
 function mapStateToProps(state){
-	const {cuartoTarget, target} = state;
+	const {cuartoTarget, target,picture1,picture2,picture3} = state;
 	return{
 		cuartoTarget,
-		target
+		target,
+		picture1,
+		picture2,
+		picture3
 	};
  }
  
  function mapDispatchToProps(dispatch){
 	return{
-	  updateData: bindActionCreators(Actions.updateData,dispatch)
+		updateData: bindActionCreators(Actions.updateData,dispatch),
+		uploadPicture1: bindActionCreators(Actions.picture1, dispatch),
+    uploadPicture2: bindActionCreators(Actions.picture2, dispatch),
+    uploadPicture3: bindActionCreators(Actions.picture3, dispatch),
+		uploadPics: bindActionCreators(Actions.pics,dispatch),
 	};
  }
  

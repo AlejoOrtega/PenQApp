@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import {Button as Btn} from 'react-native-elements';
 import {Button, Icon, Fab } from 'native-base';
 import Service from '../../components/Services';
@@ -113,7 +113,7 @@ class PensionView extends React.Component {
 
     render() {
       return (
-      <View style={styles.container}>
+        <ScrollView style={styles.neatScroll}>
         <View style={styles.header}>
         <SwiperC 
         pictures={this.props.pics}/>
@@ -173,7 +173,7 @@ class PensionView extends React.Component {
           <Text>Seccion de Comentarios</Text>
           <ComentLoaderBoss comentarios={this.props.coments}/>
         </View>
-      </View>
+      </ScrollView>
 
 );
   }

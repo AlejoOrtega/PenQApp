@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import {Button} from 'react-native-elements';
 import DetallesCuartos from '../../components/DetallesCuarto';
+import SwiperC from '../../components/SwiperC';
 
 import * as firebase from 'firebase';
 
@@ -12,6 +13,14 @@ import {bindActionCreators} from 'redux';
 
 class ViewCuarto extends React.Component {
 	
+
+	componentDidMount(){
+		pics=[this.props.cuartoTarget.Url1,this.props.cuartoTarget.Url2,this.props.cuartoTarget.Url3]
+		this.props.uploadPicture1(this.props.cuartoTarget.Url1)
+		this.props.uploadPicture2(this.props.cuartoTarget.Url2)
+		this.props.uploadPicture3(this.props.cuartoTarget.Url3)
+		this.props.uploadPics(pics);
+	}
 	_onPressEditCuarto=()=>{
 		this.props.navigation.navigate('EditionCuarto')
 	}
@@ -35,7 +44,8 @@ class ViewCuarto extends React.Component {
 		return(
 			<View style={styles.container}>
 				<View style={styles.header}>
-
+				<SwiperC 
+        pictures={this.props.pics}/>
 				</View>
 				<View style={styles.center}>
 					<DetallesCuartos data={this.props.cuartoTarget}/>
@@ -54,16 +64,21 @@ class ViewCuarto extends React.Component {
 }
 
 function mapStateToProps(state){
-	const {cuartoTarget,target}=state;
+	const {cuartoTarget,target,pics}=state;
 	return {
 		cuartoTarget,
-		target
+		target,
+		pics
 	};
  }
  
  function mapDispatchToProps(dispatch){
 	return{
 		loadCuartos: bindActionCreators(Actions.loadCuartos,dispatch),
+		uploadPicture1: bindActionCreators(Actions.picture1, dispatch),
+    uploadPicture2: bindActionCreators(Actions.picture2, dispatch),
+    uploadPicture3: bindActionCreators(Actions.picture3, dispatch),
+		uploadPics: bindActionCreators(Actions.pics,dispatch),
 	};
  }
  

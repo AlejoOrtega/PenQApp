@@ -26,6 +26,7 @@ class EditPension extends Component {
         reglas: this.props.target.Reglas,
       };
     }
+    
     onPressChangePicture= async()=>{
       let result = await ImagePicker.launchImageLibraryAsync();
       if(!result.cancelled){

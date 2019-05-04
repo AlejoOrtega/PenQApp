@@ -75,7 +75,7 @@ class AddPension extends Component {
             foto3: true
         })
     }
-    uploadImage2fire=async(uri, ImageName, picNumber)=>{
+    uploadImage2fire=async(uri, ImageName, picNumber,id)=>{
         const blob = await new Promise((resolve, reject)=>{
           const xhr = new XMLHttpRequest();
           xhr.onload = function(){
@@ -93,13 +93,19 @@ class AddPension extends Component {
         await firebase.storage().ref().child('Images/'+ImageName).getDownloadURL().then(url=>{
             if(picNumber==1){
                 this.props.uploadPicture1(url)
-                this.setState({picture1:false});
+                firebase.database().ref("Pensiones/"+id+"/Pension-Info/").update({
+					Url1: url,
+				})
             }else if (picNumber==2){
                 this.props.uploadPicture2(url)
-                this.setState({picture2:false});
+                firebase.database().ref("Pensiones/"+id+"/Pension-Info/").update({
+					Url2: url,
+				})
             }else{
                 this.props.uploadPicture3(url)
-                this.setState({picture3:false});
+                firebase.database().ref("Pensiones/"+id+"/Pension-Info/").update({
+					Url3: url,
+				})
             }
         })
       }
@@ -108,23 +114,6 @@ class AddPension extends Component {
         currentUser = firebase.auth().currentUser;
         newItem = firebase.database().ref('Pensiones/');
         pushID = newItem.push().key;
-        if(this.props.picture1!="none"){
-            if(!this.props.picture1.cancelled){
-                this.uploadImage2fire(this.props.picture1.uri, "Pen"+pushID+"1", 1)
-            }
-        }
-        if(this.props.picture2!="none"){
-            if(!this.props.picture2.cancelled){
-                this.uploadImage2fire(this.props.picture2.uri, "Pen"+pushID+"2", 2)
-            }
-        }
-        if(this.props.picture3!="none"){
-            if(!this.props.picture3.cancelled){
-                this.uploadImage2fire(this.props.picture3.uri, "Pen"+pushID+"3", 3)
-            }
-        }
-        
-        while(this.state.picture1 || this.state.picture2 || this.state.picture3){}
         newItem.child(pushID+'/Pension-Info').set({
             Alias: this.state.alias,
             Direccion: this.state.direction,
@@ -153,6 +142,21 @@ class AddPension extends Component {
         newItem.child(pushID+'/Cuartos').set({
             Cuartos:'Aqui van cuartos'
         });
+        if(this.props.picture1!="none"){
+            if(!this.props.picture1.cancelled){
+                this.uploadImage2fire(this.props.picture1.uri, "Pen"+pushID+"1", 1, pushID)
+            }
+        }
+        if(this.props.picture2!="none"){
+            if(!this.props.picture2.cancelled){
+                this.uploadImage2fire(this.props.picture2.uri, "Pen"+pushID+"2", 2, pushID)
+            }
+        }
+        if(this.props.picture3!="none"){
+            if(!this.props.picture3.cancelled){
+                this.uploadImage2fire(this.props.picture3.uri, "Pen"+pushID+"3", 3, pushID)
+            }
+        }
         var query = firebase.database().ref('Pensiones/');
              query.once("value")
               .then((snapshot)=> {
