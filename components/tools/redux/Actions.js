@@ -1,4 +1,4 @@
-import {UPDATE_DATA, UPDATE_BOSS_DATA,PENSION_TARGET, COORDINATES, CUARTO_TARGET, LOAD_CUARTOS, ENGINE, LOAD_COMENTS, PICTURE1, PICTURE2, PICTURE3} from './Types';
+import {UPDATE_DATA, UPDATE_BOSS_DATA,PENSION_TARGET, COORDINATES, CUARTO_TARGET, LOAD_CUARTOS, ENGINE, LOAD_COMENTS, PICTURE1, PICTURE2, PICTURE3, PICS} from './Types';
 
 function updateData(data){
     return {
@@ -62,6 +62,11 @@ function picture3(pic){
         type: PICTURE3, payload: pic,
     }
 }
+function pics(pic){
+    return{
+        type: PICS, payload: pic,
+    }
+}
 
 const actionsCreator = {
     updateData,
@@ -75,6 +80,7 @@ const actionsCreator = {
     picture1,
     picture2,
     picture3,
+    pics
 };
 
 export {actionsCreator};

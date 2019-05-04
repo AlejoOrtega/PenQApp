@@ -90,13 +90,16 @@ class AddPension extends Component {
         });
         await firebase.storage().ref().child("Images/"+ImageName).put(blob);
 
-        firebase.storage().ref().child('Images/'+ImageName).getDownloadURL().then(url=>{
+        await firebase.storage().ref().child('Images/'+ImageName).getDownloadURL().then(url=>{
             if(picNumber==1){
                 this.props.uploadPicture1(url)
+                this.setState({picture1:false});
             }else if (picNumber==2){
                 this.props.uploadPicture2(url)
+                this.setState({picture2:false});
             }else{
                 this.props.uploadPicture3(url)
+                this.setState({picture3:false});
             }
         })
       }
@@ -121,7 +124,7 @@ class AddPension extends Component {
             }
         }
         
-
+        while(this.state.picture1 || this.state.picture2 || this.state.picture3){}
         newItem.child(pushID+'/Pension-Info').set({
             Alias: this.state.alias,
             Direccion: this.state.direction,

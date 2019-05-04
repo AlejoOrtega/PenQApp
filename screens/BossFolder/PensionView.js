@@ -6,11 +6,15 @@ import Service from '../../components/Services';
 import StarRating from 'react-native-star-rating';
 import ComentLoaderBoss from '../../components/ComentLoaderBoss';
 import * as firebase from 'firebase';
+import ImagesSwiper from "react-native-image-swiper";
+
+import SwiperC from '../../components/SwiperC';
+
 
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
 import {bindActionCreators} from 'redux';
-
+const customImg = [];
 class PensionView extends React.Component {
   constructor(props){
       super(props);
@@ -19,11 +23,10 @@ class PensionView extends React.Component {
         user:'',
         comida: this.props.target.Comida,
         render:false,
+        pictures:[],
       }
       
   }
-
-
 
 
   componentDidMount(){
@@ -53,7 +56,11 @@ class PensionView extends React.Component {
       this.props.loadComents(coments)               
       });
     
-    
+    this.props.uploadPicture1(this.props.target.Url1);
+    this.props.uploadPicture2(this.props.target.Url2);
+    this.props.uploadPicture3(this.props.target.Url3);
+    pics=[this.props.target.Url1,this.props.target.Url2,this.props.target.Url3];
+    this.props.uploadPics(pics)
   }
 
   _onPressRemovePension=()=>{
@@ -108,12 +115,16 @@ class PensionView extends React.Component {
       return (
       <View style={styles.container}>
         <View style={styles.header}>
-        <Swiper/>
+        <SwiperC 
+        pictures={this.props.pics}/>
           
         </View>
         <View style={styles.center}>
-        <Text>{this.props.target.Alias}</Text>
+        
+        
+
           <View style={styles.penInfo}>
+          <Text>{this.props.target.Alias}</Text>
           <StarRating
                 disabled={true}
                 maxStars={5}
@@ -124,6 +135,10 @@ class PensionView extends React.Component {
             <Text>{this.props.target.Barrio}</Text>
             <Text>Servicios</Text>
             <Service data={this.props.target}/>
+            <Btn
+              title='Editar'
+              onPress={this._onPressEditPension}
+              ></Btn>
           </View>
           <Fab
               active={this.state.active}
@@ -153,13 +168,6 @@ class PensionView extends React.Component {
                 <Icon name="nuclear" />
               </Button>
             </Fab>
-            <Btn
-              title='Editar'
-              onPress={this._onPressEditPension}
-              ></Btn>
-
-          
-          
         </View>
         <View style={styles.footer}>
           <Text>Seccion de Comentarios</Text>
@@ -172,10 +180,14 @@ class PensionView extends React.Component {
 }
 
 function mapStateToProps(state){
-  const {target, coments}=state;
+  const {target, coments, picture1, picture2, picture3, pics}=state;
   return {
     target,
-    coments
+    coments,
+    picture1, 
+    picture2,
+    picture3,
+    pics
   };
 }
 
@@ -184,7 +196,11 @@ function mapDispatchToProps(dispatch){
     updateData: bindActionCreators(Actions.updateData,dispatch),
     updateDataBoss: bindActionCreators(Actions.updateDataBoss,dispatch),
     loadCuartos: bindActionCreators(Actions.loadCuartos,dispatch),
-    loadComents: bindActionCreators(Actions.loadComents,dispatch)
+    loadComents: bindActionCreators(Actions.loadComents,dispatch),
+    uploadPicture1: bindActionCreators(Actions.picture1, dispatch),
+    uploadPicture2: bindActionCreators(Actions.picture2, dispatch),
+    uploadPicture3: bindActionCreators(Actions.picture3, dispatch),
+    uploadPics: bindActionCreators(Actions.pics,dispatch)
   };
 }
 
@@ -228,5 +244,29 @@ const styles = StyleSheet.create({
   },
   accountButton:{
     backgroundColor: '#3B5998'
+  },wrapper: {
+  },
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB',
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#97CAE5',
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#92BBD9',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
   }
 });

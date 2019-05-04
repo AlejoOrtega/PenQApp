@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button,ScrollView} from 'react-native';
 import CheckBox from 'react-native-check-box';
 import firebase from 'firebase';
+import ProfilePhoto from '../../components/ProfilePhoto'
+import {ImagePicker} from 'expo';
 
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
@@ -24,7 +26,64 @@ class EditPension extends Component {
         reglas: this.props.target.Reglas,
       };
     }
+    onPressChangePicture= async()=>{
+      let result = await ImagePicker.launchImageLibraryAsync();
+      if(!result.cancelled){
+        this.uploadImage2fire(result.uri, "Pen"+this.props.target.ID+"1",1)
+        .then(()=>{
+          alert("Great!");
+        }).catch((error)=>{
+          alert(error);
+        })
+      }
+    }
+    onPressChangePicture2= async()=>{
+      let result = await ImagePicker.launchImageLibraryAsync();
+      if(!result.cancelled){
+        this.uploadImage2fire(result.uri, "Pen"+this.props.target.ID+"2",2)
+        .then(()=>{
+          alert("Great!");
+        }).catch((error)=>{
+          alert(error);
+        })
+      }
+    }
+    onPressChangePicture3= async()=>{
+      let result = await ImagePicker.launchImageLibraryAsync();
+      if(!result.cancelled){
+        this.uploadImage2fire(result.uri, "Pen"+this.props.target.ID+"3",3)
+        .then(()=>{
+          alert("Great!");
+        }).catch((error)=>{
+          alert(error);
+        })
+      }
+    }
+    uploadImage2fire=async(uri, ImageName, picNumber)=>{
+      const blob = await new Promise((resolve, reject)=>{
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function(){
+          resolve(xhr.response);
+        };
+        xhr.onerror = function(){
+          reject(new TypeError('Network request failed'));
+        };
+        xhr.responseType = 'blob';
+        xhr.open('GET',uri,true);
+        xhr.send(null);
+      });
+      await firebase.storage().ref().child("Images/"+ImageName).put(blob);
 
+      firebase.storage().ref().child('Images/'+ImageName).getDownloadURL().then(url=>{
+          if(picNumber==1){
+              this.props.uploadPicture1(url)
+          }else if (picNumber==2){
+              this.props.uploadPicture2(url)
+          }else{
+              this.props.uploadPicture3(url)
+          }
+      })
+    }
     _changeAlias=(text)=>{
       this.setState({alias: text});
     }
@@ -65,15 +124,19 @@ class EditPension extends Component {
         Llaves : this.state.llave,
         Rating : this.state.rating,
         Reglas : this.state.reglas,
+        Url1 : this.props.picture1,
+        Url2 : this.props.picture2,
+        Url3 : this.props.picture3,
       });
-      
+      pics=[this.props.picture1,this.props.picture2, this.props.picture3]
+      this.props.uploadPics(pics);
 
       this.props.navigation.navigate('PensionView',{render: true});
 
     }
     render(){
       return(
-        <View style={styles.container}>
+        <ScrollView style={styles.neatScroll}>
                 <View style={styles.header}>
                   <Text>Modifica los datos de tu pension</Text>
                 </View>
@@ -143,6 +206,24 @@ class EditPension extends Component {
                     placeholder={this.props.target.Reglas}
                     onChangeText={this._changeReglas}
                   ></TextInput>
+                  <View style={styles.PhotoAndButton}>
+                    <ProfilePhoto uri={this.props.picture1}/>
+                    <Button
+                    title="Cambiar"
+                    onPress={this.onPressChangePicture}/>
+                  </View>
+                  <View style={styles.PhotoAndButton}>
+                    <ProfilePhoto uri={this.props.picture2}/>
+                    <Button
+                    title="Cambiar"
+                    onPress={this.onPressChangePicture2}/>
+                  </View>
+                  <View style={styles.PhotoAndButton}>
+                    <ProfilePhoto uri={this.props.picture3}/>
+                    <Button
+                    title="Cambiar"
+                    onPress={this.onPressChangePicture3}/>
+                  </View>
                 </View>
                 <View style={styles.footer}>
                   <Button
@@ -150,22 +231,29 @@ class EditPension extends Component {
                   onPress={this._onPressSendChanges}
                   />
                 </View>
-        </View>
+        </ScrollView>
       );        
     }
 }
 
 function mapStateToProps(state){
-  const {user,target} = state;
+  const {user,target, picture1, picture2, picture3} = state;
   return{
     user,
-    target
+    target,
+    picture1, 
+    picture2,
+    picture3
   };
 }
 
 function mapDispatchToProps(dispatch){
   return{
-    updateData: bindActionCreators(Actions.updateData,dispatch)
+    updateData: bindActionCreators(Actions.updateData,dispatch),
+    uploadPicture1: bindActionCreators(Actions.picture1, dispatch),
+    uploadPicture2: bindActionCreators(Actions.picture2, dispatch),
+    uploadPicture3: bindActionCreators(Actions.picture3, dispatch),
+    uploadPics: bindActionCreators(Actions.pics,dispatch),
   };
 }
 
@@ -199,5 +287,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'baseline',
     flex: 0.5,
+  },
+  neatScroll:{
+    // padding:0,
+  },
+  PhotoAndButton:{
+    flexDirection:'row'
   }
 });
