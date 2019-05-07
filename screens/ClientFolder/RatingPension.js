@@ -43,7 +43,7 @@ class RatingPension extends React.Component {
       var pensionComentariosref = firebase.database().ref('Pensiones/' + this.props.target.ID + '/Comentarios');
       pushID = pensionComentariosref.push().key;
       pensionComentariosref.child(pushID).set({
-        NombreUser: this.props.user.nombre + " "+ this.props.user.apellido,
+        NombreUser: this.props.user.Nombre + " "+ this.props.user.Apellido,
         comentadorPorUser: firebase.auth().currentUser.uid,
         comentario: this.state.comentario,
         rating1: this.state.ratingaseo,
@@ -52,6 +52,7 @@ class RatingPension extends React.Component {
         RatingTotal: (this.state.ratingaseo+this.state.ratingambiente+this.state.ratingservicio)/3,
         ID: pushID,
         ValidadoBoss: this.state.validado,
+        photoUri: this.props.user.photoUri,
       })
       var pension = firebase.database().ref('Pensiones/'+this.props.target.ID+'/Comentarios');
       pension.once('value', (dataSnapShot)=>{

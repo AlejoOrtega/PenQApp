@@ -7,6 +7,8 @@ import {onSignOut} from '../../components/tools/Auth';
 import {bindActionCreators} from 'redux';
 import firebase from 'firebase';
 
+import ProfilePhoto from '../../components/ProfilePhoto';
+
 class AccountClient extends Component {
     constructor(props) {
         super(props)
@@ -31,16 +33,17 @@ class AccountClient extends Component {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Text>Informacion de tu cuenta!</Text>
+                    <ProfilePhoto uri={this.props.user.photoUri}/>
                 </View>
                 <View style={styles.center}>
                     <View style={styles.editar}>
-                        <Text>Nombre: {this.props.user.nombre}</Text>
+                        <Text>Nombre: {this.props.user.Nombre}</Text>
                     </View>
                     <View style={styles.editar}>
-                        <Text>Apellido: {this.props.user.apellido}</Text>
+                        <Text>Apellido: {this.props.user.Apellido}</Text>
                     </View>
                     <View style={styles.editar}>
-                        <Text>Correo: {this.props.user.correo}</Text>
+                        <Text>Correo: {this.props.user.Correo}</Text>
                     </View>
                 </View>
                 <View style={styles.footer}>

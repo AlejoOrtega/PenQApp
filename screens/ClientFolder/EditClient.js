@@ -3,6 +3,9 @@ import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import {isSignedIn,onSignIn} from '../../components/tools/Auth'
 import firebase from 'firebase';
 
+import {ImagePicker} from 'expo';
+
+import ProfilePhoto from '../../components/ProfilePhoto';
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
 import {bindActionCreators} from 'redux';
@@ -16,6 +19,52 @@ class EditClient extends Component {
       };
     }
 
+
+    _onChangePicture= async ()=>{
+
+        let result = await ImagePicker.launchImageLibraryAsync();
+        if(!result.cancelled){
+          let uid = firebase.auth().currentUser.uid;
+          this.uploadImage2fire(result.uri, "ProfileImage"+uid)
+          .then(()=>{
+            alert("Great!");
+          }).catch((error)=>{
+            alert(error);
+          })
+        }
+    }
+    uploadImage2fire=async(uri, ImageName)=>{
+      const blob = await new Promise((resolve, reject)=>{
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function(){
+          resolve(xhr.response);
+        };
+        xhr.onerror = function(){
+          reject(new TypeError('Network request failed'));
+        };
+        xhr.responseType = 'blob';
+        xhr.open('GET',uri,true);
+        xhr.send(null);
+      });
+      let uid = firebase.auth().currentUser.uid;
+      await firebase.storage().ref().child("Images/"+ImageName).put(blob);
+      this.updateInfoUser(ImageName, uid);
+
+      this.props.navigation.navigate("EditClient",{render: true})
+    }
+
+    updateInfoUser = (name, uid)=>{
+      firebase.storage().ref().child('Images/'+name).getDownloadURL().then(url=>{
+        firebase.database().ref('Users/'+uid+'/Account-Info').update({
+          photoUri: url,
+        })
+        firebase.database().ref('Users/'+uid+"/Account-Info").once('value',(data)=>{
+          onSignIn('Log',data).then().catch((err)=>alert(err));
+          this.props.updateData(data.val())
+          console.log(data)
+        })
+      })
+    }
     _changeNombre=(text)=>{
       this.setState({nombre: text});
     }
@@ -44,16 +93,20 @@ class EditClient extends Component {
                   <Text>Modifica los datos de tu cuenta!</Text>
                 </View>
                 <View style={styles.center}>
+                <ProfilePhoto uri={this.props.user.photoUri}/>
+                <Button
+                  title="Cambiar Foto!"
+                  onPress={this._onChangePicture}/>
                   <Text>Nombre</Text>
                   <TextInput
                     style={styles.textInput}
-                    placeholder={this.props.user.nombre}
+                    placeholder={this.props.user.Nombre}
                     onChangeText={this._changeNombre}
                   ></TextInput>
                   <Text>Apellido</Text>
                   <TextInput
                     style={styles.textInput}
-                    placeholder={this.props.user.apellido}
+                    placeholder={this.props.user.Apellido}
                     onChangeText={this._changeApellido}
                   ></TextInput>
                 </View>

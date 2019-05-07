@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import DetallesCuartos from '../../components/DetallesCuarto';
-
+import SwiperC from '../../components/SwiperC';
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
 import {bindActionCreators} from 'redux';
@@ -9,12 +9,17 @@ import {bindActionCreators} from 'redux';
 
 class ViewCuarto extends React.Component {
 	
+	componentDidMount(){
+		pics=[this.props.cuartoTarget.Url1, this.props.cuartoTarget.Url2, this.props.cuartoTarget.Url3];
+		this.props.loadPic(pics)
+	}
 
 	render(){
 		return(
 			<View style={styles.container}>
 				<View style={styles.header}>
-
+				<SwiperC 
+          pictures={this.props.picsroom}/>
 				</View>
 				<View style={styles.center}>
 					<DetallesCuartos data={this.props.cuartoTarget}/>
@@ -27,16 +32,18 @@ class ViewCuarto extends React.Component {
 }
 
 function mapStateToProps(state){
-	const {cuartoTarget,target}=state;
+	const {cuartoTarget,target,picsroom}=state;
 	return {
 		cuartoTarget,
-		target
+		target,
+		picsroom
 	};
  }
  
  function mapDispatchToProps(dispatch){
 	return{
 		loadCuartos: bindActionCreators(Actions.loadCuartos,dispatch),
+		loadPic: bindActionCreators(Actions.picsroom,dispatch)
 	};
  }
  

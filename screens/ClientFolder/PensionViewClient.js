@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, Image, TouchableHighlight } from 'react
 import Service from '../../components/Services';
 import StarRating from 'react-native-star-rating';
 import ComentsLoader from '../../components/ComentsLoader';
+import SwiperC from '../../components/SwiperC';
 
 import * as firebase from 'firebase';
 
@@ -23,7 +24,8 @@ class PensionViewClient extends React.Component {
   }
 
   componentWillMount(){
-    
+    pics=[this.props.target.Url1,this.props.target.Url2,this.props.target.Url3]
+    this.props.loadPics(pics)
     var owner = firebase.database().ref('Users/'+this.props.target.bossID+'/Account-Info');
     owner.once('value',(dataSnapshot)=>{
       this.setState({user: dataSnapshot.val()})
@@ -68,6 +70,8 @@ class PensionViewClient extends React.Component {
       return (
         <View style={styles.container}>
           <View style={styles.header}>
+            <SwiperC 
+          pictures={this.props.pics}/>
             <Text>{this.props.target.Alias}</Text>
           </View>
           <View style={styles.center}>
@@ -108,10 +112,11 @@ class PensionViewClient extends React.Component {
 }
 
 function mapStateToProps(state){
-  const {target, coments}=state;
+  const {target, coments, pics}=state;
   return {
     target,
-    coments
+    coments,
+    pics
   };
 }
 
@@ -120,7 +125,8 @@ function mapDispatchToProps(dispatch){
     updateData: bindActionCreators(Actions.updateData,dispatch),
     updateDataBoss: bindActionCreators(Actions.updateDataBoss,dispatch),
     loadCuartos: bindActionCreators(Actions.loadCuartos,dispatch),
-    loadComents: bindActionCreators(Actions.loadComents,dispatch)
+    loadComents: bindActionCreators(Actions.loadComents,dispatch),
+    loadPics: bindActionCreators(Actions.pics,dispatch)
   };
 }
 
