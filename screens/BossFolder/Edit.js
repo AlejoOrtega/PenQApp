@@ -116,6 +116,7 @@ class Edit extends Component {
                   <ProfilePhoto uri={this.props.user.photoUri}/>
                   <Button
                   title="Cambiar Foto!"
+                  color = '#7b68ee'
                   onPress={this._onChangePicture}/>
                   <Text>Nombre</Text>
                   <TextInput
@@ -133,6 +134,7 @@ class Edit extends Component {
                 <View style={styles.footer}>
                   <Button
                   title='Registrar cambios'
+                  color = '#7b68ee'
                   onPress={this._onPressSendChanges}
                   />
                 </View>
@@ -166,6 +168,7 @@ const styles = StyleSheet.create({
   textInput:{
     borderColor: 'black',
     backgroundColor: 'grey',
+    width: 300
   },
   edit:{
     color: 'blue',
@@ -174,13 +177,15 @@ const styles = StyleSheet.create({
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 3,
+    flex: 2,
   },
   center:{
     justifyContent: 'center',
-    flex: 3,
+    alignItems: 'center',
+    flex: 4,
   },
   footer:{
+    margin: 20,
     flexDirection: 'row',
     alignItems: 'baseline',
     flex: 3,

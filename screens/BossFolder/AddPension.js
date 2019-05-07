@@ -180,29 +180,30 @@ class AddPension extends Component {
             <ScrollView style={styles.neatScroll}>
                 
                 <View style={styles.header}>
-                    <Text>Aqui puedes añadir una pension</Text>
-                    <Text> Ingresa los datos que hay debajo!</Text>
+                    <Text style = {{ fontSize: 14}}>Aqui puedes añadir una pension</Text>
+                    <Text style = {{ fontSize: 14}}> Ingresa los datos que hay debajo!</Text>
                 </View>
                 <View style={styles.center}>
-                    <Text>Ponle un nombre a tu casa!</Text>
+                    <Text style = {{ fontSize: 18}}>Ponle un nombre a tu casa!</Text>
                         <TextInput
                         style={styles.textInput}
                         onChangeText={this._onChangeAlias}/>
-                    <Text>Direccion</Text>
+                    <Text style = {{ fontSize: 18}}>Direccion</Text>
                     <TextInput
                         style={styles.textInput}
                         onChangeText={this._onChangeDirection}/>
-                    <Text>Barrio</Text>
+                    <Text style = {{ fontSize: 18}}>Barrio</Text>
                     <TextInput
                         style={styles.textInput}
                         onChangeText={this._onChangeBarrio}/>
-                    <Text>Seleccione los servicios que ofrece</Text>
+                    <Text style = {{ fontSize: 18}}>Seleccione los servicios que ofrece</Text>
                     <CheckBox
                         onClick={()=>{
                             this.setState({isCheckedComida: !this.state.isCheckedComida})
                         }}
                         isChecked={this.state.isCheckedComida}
                         leftText={"Comida"}
+                        textStyle ={{fontSize: 18}}
                     />
                     <CheckBox
                         onClick={()=>{
@@ -210,6 +211,7 @@ class AddPension extends Component {
                         }}
                         isChecked={this.state.isCheckedInternet}
                         leftText={"Internet"}
+                        textStyle ={{fontSize: 18}}
                     />
                     <CheckBox
                         onClick={()=>{
@@ -217,6 +219,7 @@ class AddPension extends Component {
                         }}
                         isChecked={this.state.isCheckedLavado}
                         leftText={"Lavado"}
+                        textStyle ={{fontSize: 18}}
                     />
                     <CheckBox
                         onClick={()=>{
@@ -224,6 +227,7 @@ class AddPension extends Component {
                         }}
                         isChecked={this.state.isCheckedAseo}
                         leftText={"Aseo en los cuartos"}
+                        textStyle ={{fontSize: 18}}
                     />
                     <CheckBox
                         onClick={()=>{
@@ -231,27 +235,29 @@ class AddPension extends Component {
                         }}
                         isChecked={this.state.isCheckedLlave}
                         leftText={"al cliente se le da llaves de la casa"}
+                        textStyle ={{fontSize: 18}}
+                        
                     />
-                    <Text>Agregue Observaciones importantes a los servicios que ofrece</Text>
+                    <Text style = {{ fontSize: 18}}>Agregue Observaciones importantes a los servicios que ofrece</Text>
                     <TextInput
                         style={styles.textInput}
                         placeholder='Por ejemplo, En el servicio de la comida, no se ofrece comida los domingos ni festivos'
                         onChangeText={this._onChangeSpecifications}/>
-                    <Text>Ahora, agregue reglas generales de la casa que deberia saber el cliente</Text>
+                    <Text style = {{ fontSize: 18}}>Ahora, agregue reglas generales de la casa que deberia saber el cliente</Text>
                     <TextInput
                         style={styles.textInput}
                         placeholder='Por ejemplo, no se pueden recibir visitas sin autorizacion'
                         onChangeText={this._onChangeRules}/>
-                    <Text>Listo!</Text>
+                    <Text style = {{ fontSize: 18}}>Listo!</Text>
 
                     <Button
                     title='Localiza tu pension!'
                     onPress={this._onPressLocatePension}
                     color={typeof this.props.coordinates == "object"? '#01ad1b':'#7c0a00'}
                     />
-                    <Text>Agrega 3 Fotos!</Text>
+                    <Text style = {{ fontSize: 18}}>Agrega 3 Fotos!</Text>
 
-                    <Text>Agregue aqui la primera imagen</Text>
+                    <Text style = {{ fontSize: 18}}>Agregue aqui la primera imagen</Text>
                     <Button
                     title='Agrega fotos!'
                     onPress={this._onPressPictures1}
@@ -275,7 +281,7 @@ class AddPension extends Component {
                         />   
                 </View>
                 
-                </ScrollView>
+            </ScrollView>
             //</View>
             
 
@@ -313,29 +319,33 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
     },
     neatScroll:{
-        padding:20,
+        
     },
     header:{
       justifyContent: 'center',
       alignItems: 'center',
       flex: 1,
       backgroundColor: 'lightblue',
+     
     },
     center:{
       justifyContent: 'center',
       flex: 3,
       padding: 10,
+      fontSize: 18
     },
     footer:{
       justifyContent: 'flex-end',
       flex: 0.5,
+      fontSize: 18
     },
     textInput:{
         borderColor: 'black',
         backgroundColor: 'grey',
-        height: '5%'
+        height: '5%',
       },
     contentContainer: {
         flex:1,
+        fontSize: 18
       }
   });

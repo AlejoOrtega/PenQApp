@@ -17,26 +17,29 @@ class ViewRating extends React.Component{
         rating2=this.props.target.RatingAmbiente;
         rating3=this.props.target.RatingServicios;
         code.push(
-            <View>
+            <View style = {{flexDirection: 'column', alignItems: 'center', margin: 10}}>
             <Text>Rating de Aseo</Text>
             <StarRating
                 disabled={true}
                 maxStars={5}
+                fullStarColor ={'yellow'}
                 rating={rating1}
               />
               <Text>Rating de Ambiente</Text>
             <StarRating
                 disabled={true}
                 maxStars={5}
+                fullStarColor ={'yellow'}
                 rating={rating2}
               />
               <Text>Rating de Servicio</Text>
             <StarRating
                 disabled={true}
                 maxStars={5}
+                fullStarColor ={'yellow'}
                 rating={rating3}
               />
-              </View>
+            </View>
         )
 
         return code;
@@ -49,8 +52,8 @@ class ViewRating extends React.Component{
     
     render(){
         return(
-            <View>
-                <Text>Mira los rating aqui!</Text>
+            <View style = {{alignItems: 'center'}}>
+                <Text style={{fontSize: 20, margin: 10}}>Mira los rating por diferentes categorias!!</Text>
                 {this._loadRatings()}
             </View>
         );

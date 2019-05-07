@@ -79,6 +79,7 @@ class EditionCuarto extends Component {
 				<View style={styles.footer}>
 				<Button
 					title='Confirmar y enviar datos!'
+					color = '#7b68ee'
 					onPress={this._onPressSendData}/>
 				</View>
 			</View>
@@ -122,6 +123,7 @@ function mapStateToProps(state){
 	  flex: 0.5,
 	},textInput:{
     borderColor: 'black',
-    backgroundColor: 'grey',
+		backgroundColor: 'grey',
+		marginBottom: 10
   },
  });

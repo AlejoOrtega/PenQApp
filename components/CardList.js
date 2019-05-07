@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Alert, Text, StyleSheet, Image } from 'react-native';
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { View, Alert, Text, StyleSheet, Image, Button } from 'react-native';
+import { Card, ListItem, Icon } from 'react-native-elements'
 
 
 
@@ -17,16 +17,24 @@ export default class CardList extends React.Component {
       for(var i=0; i< this.props.data.length;i=i+1){
         code.push(
           <Card>
-            <View style={styles.CircleShapeView}>
-               {/* //<Image
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.CircleShapeView}>
+                {/* //<Image
                   //style ={styles.logo}
                   //source={{uri:}}
                 ///> */}
+              </View>
+              <View style={{ flexDirection: 'column', alignItems:'center', margin: 10 }}>
+                <Text style={{ alignSelf: 'center', fontSize: 20}}>{pensiones[i].Alias}</Text>
+                <Button
+                  title='Ver pension'
+                  onPress={this.props.Press.bind(this, pensiones[i])}
+                  color='#7b68ee'
+                  style = {{width: 100, height: 50}}
+                />
+              </View>
             </View>
-            <Text>{pensiones[i].Alias}</Text>
-            <Button
-            title='Ver Pension'
-            onPress={this.props.Press.bind(this, pensiones[i])}/>
+            
           </Card>
         )
         }
@@ -47,9 +55,10 @@ export default class CardList extends React.Component {
 const styles = StyleSheet.create({
  
   CircleShapeView: {
-    width: 30,
-    height: 30,
-    borderRadius: 30/2,
+    width: 80,
+    height: 80,
+    borderRadius: 80/2,
+    backgroundColor: 'grey'
   }
  
 });

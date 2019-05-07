@@ -75,7 +75,7 @@ class EditPension extends Component {
       return(
         <View style={styles.container}>
                 <View style={styles.header}>
-                  <Text>Modifica los datos de tu pension</Text>
+                  <Text style = {{fontSize: 20}}>Modifica los datos de tu pension</Text>
                 </View>
                 <View style={styles.center}>
                   <Text>Alias</Text>
@@ -147,6 +147,7 @@ class EditPension extends Component {
                 <View style={styles.footer}>
                   <Button
                   title='Registrar cambios'
+                  color = '#7b68ee'
                   onPress={this._onPressSendChanges}
                   />
                 </View>
@@ -181,6 +182,7 @@ const styles = StyleSheet.create({
   textInput:{
     borderColor: 'black',
     backgroundColor: 'grey',
+    width: 300
   },
   edit:{
     color: 'blue',
@@ -194,6 +196,7 @@ const styles = StyleSheet.create({
   center:{
     justifyContent: 'center',
     flex: 4,
+    margin: 10
   },
   footer:{
     flexDirection: 'row',

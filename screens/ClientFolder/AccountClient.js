@@ -44,12 +44,14 @@ class AccountClient extends Component {
                     <Text style={{ fontSize: 18, fontWeight: 'bold'}}>Informacion de tu cuenta</Text>
                     <View style={styles.editar}>
                         <Text style={{ fontSize: 14}}>Correo: {this.props.user.Correo}</Text>
-                        <Button
-                            title='Editar'
-                            style={styles.EditButton}
-                            color = '#7b68ee'
-                            onPress={this._onPressEditAccount}
-                        ></Button>
+                        <View style={styles.EditButton}>
+                            <Button
+                                title='Editar'
+                                color='#7b68ee'
+                                onPress={this._onPressEditAccount}
+                            ></Button>
+                        </View>
+                        
                     </View>
                 </View>
                 
@@ -97,11 +99,6 @@ const styles = StyleSheet.create({
       color: 'blue',
       fontSize: 20,
     },
-    header:{
-      justifyContent: 'center',
-      alignItems: 'center',
-      flex: 3,
-    },
     center:{
       justifyContent: 'center',
       marginTop: 10
@@ -111,13 +108,11 @@ const styles = StyleSheet.create({
       justifyContent: 'space-evenly',
       alignItems: 'center',
       borderColor:'black',
-      flex: 3,
     },
     editar:{
       width: 300,
       height: 200,
       borderColor:'black',
-      borderWidth: 0.5,
     },
     NombreYFoto:{
         flexDirection: 'row',
@@ -125,7 +120,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-evenly',
         backgroundColor: '#7b68ee',
-        flex: 3,
+        flex: 2,
       },
     footer:{
       flexDirection: 'row',
@@ -134,17 +129,18 @@ const styles = StyleSheet.create({
     logOutButton:{
         width: 200,
         height: 50,
-        color: '#7b68ee',
     },
     EditButton:{
-        width: 200,
+        marginTop: 10,
+        width: 100,
         height: 50,
+        alignItems: 'baseline'
     },
 
     CircleShapeView: {
         width: 100,
         height: 100,
-        borderRadius: 100/2,
+        borderRadius: 50,
         backgroundColor: 'grey'
     }    
   });

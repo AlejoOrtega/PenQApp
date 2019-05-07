@@ -85,16 +85,16 @@ class RatingPension extends React.Component {
     render(){
         return(
           <View style={styles.container}>
-            <Text>{this.props.target.ID}</Text>
             <View styles={styles.header}>
               <Text>Califica esta pension!</Text>
             </View>
-            <View>
+            <View style = {{margin: 10}}>
               <Text>Aseo</Text>
               <StarRating
                 disabled={false}
                 maxStars={5}
                 rating={this.state.ratingaseo}
+                fullStarColor={'yellow'}
                 selectedStar={(rating) => this.onStarRatingPressAseo(rating)}                
               />
               <Text>Ambiente</Text>
@@ -102,6 +102,7 @@ class RatingPension extends React.Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.state.ratingambiente}
+                fullStarColor={'yellow'}
                 selectedStar={(rating) => this.onStarRatingPressAmbiente(rating)}                
               />
               <Text>Servicio</Text>
@@ -109,15 +110,15 @@ class RatingPension extends React.Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.state.ratingservicio}
+                fullStarColor={'yellow'}
                 selectedStar={(rating) => this.onStarRatingPressServicio(rating)}                
               />
             </View>
             <View style = {styles.textAreaContainer}>
-              <Text>Escribe un comentario relatandonos tu historia con esta pension</Text>
               <TextInput
                 style={styles.textArea}
                 underlineColorAndroid="transparent"
-                placeholder="Escribe algo"
+                placeholder="Escribe tu comentario sobre esta pension!"
                 placeholderTextColor="grey"
                 numberOfLines={10}
                 multiline={true}
@@ -128,6 +129,7 @@ class RatingPension extends React.Component {
             <View style={styles.footer}>
                 <Button 
                   title='Registrar calificacion y comentario'
+                  color = '#7b68ee'
                   onPress={this.onClickCalificar}/>
             </View>
           </View>

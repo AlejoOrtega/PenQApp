@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Alert, Text, StyleSheet } from 'react-native';
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { View, Alert, Text, StyleSheet, Button } from 'react-native';
+import { Card, ListItem, Icon } from 'react-native-elements'
 
 
 
@@ -26,17 +26,29 @@ export default class CuartosList extends React.Component {
           
           code.push(
             <Card>
-              <View style={styles.cardInfo}>
-                <Text>{cuartos[i].Alias}</Text>
-                <Text>{cuartos[i].Precio}</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={styles.CircleShapeView}>
+                  {/* //<Image
+                  //style ={styles.logo}
+                  //source={{uri:}}
+                ///> */}
+                </View>
+                <View style={{ flexDirection: 'column', alignItems: 'center', margin: 10 }}>
+                  <View style={styles.cardInfo}>
+                    <Text style={{ fontSize: 18 }}>{cuartos[i].Alias}</Text>
+                    <Text style={{ fontSize: 18 }}>${cuartos[i].Precio}</Text>
+                  </View>
+                  <Button
+                    title='Ver Cuarto'
+                    color='#7b68ee'
+                    onPress={this.props.Press.bind(this, cuartos[i])} />
+                  <Button
+                    title='Ver pension de este cuarto'
+                    color='#7b68ee'
+                    onPress={this.props.ViewPension.bind(this, pension)} />
+                </View>
               </View>
-              
-              <Button
-              title='Press me!'
-              onPress={this.props.Press.bind(this, cuartos[i])}/>
-              <Button
-              title='Ver pension de este cuarto'
-              onPress={this.props.ViewPension.bind(this, pension)}/>
+
             </Card>
           )
           }
@@ -49,14 +61,25 @@ export default class CuartosList extends React.Component {
         for(var i=0; i< cuartos.length;i=i+1){
           code.push(
             <Card>
-              <View style={styles.cardInfo}>
-                <Text>{cuartos[i].Alias}</Text>
-                <Text>{cuartos[i].Precio}</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={styles.CircleShapeView}>
+                  {/* //<Image
+                  //style ={styles.logo}
+                  //source={{uri:}}
+                ///> */}
+                </View>
+                <View style={{ flexDirection: 'column', margin: 10 }}>
+                  <View style={styles.cardInfo}>
+                    <Text style={{ fontSize: 14 }}>{cuartos[i].Alias}    </Text>
+                    <Text style={{ fontSize: 14 }}>${cuartos[i].Precio}</Text>
+                  </View>
+                  <Button
+                    title='Ver cuarto'
+                    color='#7b68ee'
+                    onPress={this.props.Press.bind(this, cuartos[i])} />
+                </View>
               </View>
-              
-              <Button
-              title='Press me!'
-              onPress={this.props.Press.bind(this, cuartos[i])}/>
+
             </Card>
           )
           }
@@ -80,5 +103,11 @@ const styles = StyleSheet.create({
 	cardInfo: {
     flexDirection: 'row',
 	  justifyContent: 'space-between',
-	},
+  },
+  CircleShapeView: {
+    width: 80,
+    height: 80,
+    borderRadius: 80/2,
+    backgroundColor: 'grey'
+  }
  });

@@ -152,7 +152,14 @@ const ClientMapStack = createStackNavigator({
   VerCuarto:{
     screen: VerCuarto,
     navigationOptions: () => ({
-      header: null
+      title : 'Cuarto',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
     }),
   },
   ViewRating:{

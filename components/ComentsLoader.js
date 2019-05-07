@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Alert, Text } from 'react-native';
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { View, Alert, Text, Button } from 'react-native';
+import { Card, ListItem, Icon } from 'react-native-elements'
 import firebase from "firebase"
 
 import {connect} from 'react-redux';
@@ -43,8 +43,10 @@ class ComentsLoader extends React.Component {
             if(ver == false){
               code.push(
                   <Button
-                      title='Viviste aqui? Calificalo!'
-                      onPress={this.props.onPressCalificar.bind(this) }/>
+                    title='Viviste aqui? Calificalo!'
+                    style = {{width: 100, height: 50, borderRadius: 50, alignSelf: 'center'}}
+                    color = '#afeeee'  
+                    onPress={this.props.onPressCalificar.bind(this) }/>
               )
           }
         }

@@ -47,19 +47,20 @@ class EditClient extends Component {
                   <Text>Nombre</Text>
                   <TextInput
                     style={styles.textInput}
-                    placeholder={this.props.user.nombre}
+                    placeholder={this.props.user.Nombre}
                     onChangeText={this._changeNombre}
                   ></TextInput>
                   <Text>Apellido</Text>
                   <TextInput
                     style={styles.textInput}
-                    placeholder={this.props.user.apellido}
+                    placeholder={this.props.user.Apellido}
                     onChangeText={this._changeApellido}
                   ></TextInput>
                 </View>
                 <View style={styles.footer}>
                   <Button
                   title='Registrar cambios'
+                  color = '#7b68ee'
                   onPress={this._onPressSendChanges}
                   />
                 </View>
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
   textInput:{
     borderColor: 'black',
     backgroundColor: 'grey',
+    width: 300
   },
   edit:{
     color: 'blue',
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 3,
+    flex: 1,
   },
   center:{
     justifyContent: 'center',

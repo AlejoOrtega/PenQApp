@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import {Button} from 'react-native-elements';
+import { View, StyleSheet, Button } from 'react-native';
 import DetallesCuartos from '../../components/DetallesCuarto';
 
 import * as firebase from 'firebase';
@@ -43,9 +42,11 @@ class ViewCuarto extends React.Component {
 				<View style={styles.footer}>
 					<Button
 					title='Editar'
+					color = '#7b68ee'
 					onPress={this._onPressEditCuarto}/>
 					<Button
 					title='Eliminar Cuarto'
+					color = '#b22222'
 					onPress={this._onPressEliminarCuarto}/>
 				</View>
 			</View>

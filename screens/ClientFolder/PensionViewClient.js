@@ -68,36 +68,53 @@ class PensionViewClient extends React.Component {
       return (
         <View style={styles.container}>
           <View style={styles.header}>
-            <Text>{this.props.target.Alias}</Text>
+            <Image
+              style={styles.logo}
+              source={require('../images/PensionProfileScreen_elN700x450FrontYardIdeasBedheadGarden_345528.jpg')}
+            />
+          </View>
+          <View style={styles.CalificacionSty}>
+                <StarRating
+                  disabled={true}
+                  fullStarColor={'yellow'}
+                  maxStars={5}
+                  rating={this.props.target.Rating}
+                />
+                <TouchableHighlight
+                  onPress={this._onPressRating}>
+                  <Image
+                    style={{ width: 50, height: 50 }}
+                    source={require('../Image/NotLogo.png')}
+                  />
+                </TouchableHighlight>
+
           </View>
           <View style={styles.center}>
             <View style={styles.penInfo}>
-              <Text>Boss: {this.state.user.Nombre} {this.state.user.Apellido}</Text>
-              <StarRating
-                disabled={true}
-                maxStars={5}
-                rating={this.props.target.Rating}
-              />
-              <TouchableHighlight
-              onPress={this._onPressRating}>
-                <Image
-                style={{width:50, height:50}}
-                source={require('../Image/NotLogo.png')}
-                />
-              </TouchableHighlight>
+              <Text style = {{fontSize: 20, fontWeight: 'bold', alignSelf: 'center'}}>{this.props.target.Alias}</Text>
+              <View style = {styles.InfoPen}>
+                
+                <Text>Administrador: {this.state.user.Nombre} {this.state.user.Apellido}</Text>
+
+                <Text>Direccion: {this.props.target.Direccion}</Text>
+                <Text>Barrio: {this.props.target.Barrio}</Text>
+                <Text>Servicios: </Text>
+                <Service data={this.props.target} />
+                <View style={styles.EditButton}>
+                  <Button
+                    style = {{width: 200, height: 50}}
+                    title="Ver Cuartos!"
+                    color = '#7b68ee' 
+                    onPress={this._onPressVerCuartos} />
+              </View>
+              </View>
               
-              <Text>{this.props.target.Direccion}</Text>
-              <Text>{this.props.target.Barrio}</Text>
-              <Text>Servicios</Text>
-              <Service data={this.props.target} />
-              <Button
-            title="Ver Cuartos!"
-            onPress={this._onPressVerCuartos}/>
+              
             </View>
             
           </View>
           <View style={styles.footer}>
-            <Text>Seccion de Comentarios</Text>
+            <Text style = {{fontSize: 18, fontWeight: 'bold'}}>Seccion de Comentarios</Text>
             <ComentsLoader onPressCalificar={this._onPressCalificar} tipo="cliente"/>
           </View>
         </View>
@@ -133,22 +150,36 @@ const styles = StyleSheet.create({
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 0.5,
-    backgroundColor: 'lightblue',
+    flex: 1,
+  },
+  InfoPen:{
+    justifyContent:'center',
+    borderWidth: 1,
+    borderColor: '#7b68ee',
+    paddingHorizontal: 5,
+    fontSize: 14,
+    margin: 5
+  },
+  CalificacionSty:{
+    justifyContent: 'center',
+    alignItems:'center',
+    flexDirection:'row', 
+    marginTop: 10
+  },
+  logo:{
+    height: 150
   },
   center:{
     flex: 2,
-    padding: 10,
-    flexDirection:'row',
-    alignItems:'stretch',
-    justifyContent:'space-between'
+    marginTop:5,
+    justifyContent:'center'
   },
   penOpt:{
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   footer:{
     justifyContent: 'flex-end',
-    flex: 0.5,
+    alignItems:'center'
   },
   fab:{
     backgroundColor: '#5067FF',

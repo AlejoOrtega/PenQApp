@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import {Button as Btn} from 'react-native-elements';
+import { View, Text, StyleSheet, TouchableHighlight, Image, Button as Btn } from 'react-native';
 import {Button, Icon, Fab } from 'native-base';
 import Service from '../../components/Services';
 import StarRating from 'react-native-star-rating';
@@ -108,21 +107,31 @@ class PensionView extends React.Component {
       return (
       <View style={styles.container}>
         <View style={styles.header}>
-        <Swiper/>
           
         </View>
         <View style={styles.center}>
-        <Text>{this.props.target.Alias}</Text>
+        <View style={styles.CalificacionSty}>
+                <StarRating
+                  disabled={true}
+                  fullStarColor={'yellow'}
+                  maxStars={5}
+                  rating={this.props.target.Rating}
+                />
+                <TouchableHighlight
+                  onPress={this._onPressRating}>
+                  <Image
+                    style={{ width: 50, height: 50 }}
+                    source={require('../Image/NotLogo.png')}
+                  />
+                </TouchableHighlight>
+
+          </View>
           <View style={styles.penInfo}>
-          <StarRating
-                disabled={true}
-                maxStars={5}
-                rating={this.props.target.Rating}
-              />
+            <Text style = {{fontSize: 20, fontWeight: 'bold', alignSelf: 'center'}}>{this.props.target.Alias}</Text>
             <Text>Boss: {this.state.user.Nombre} {this.state.user.Apellido}</Text>
-            <Text>{this.props.target.Direccion}</Text>
-            <Text>{this.props.target.Barrio}</Text>
-            <Text>Servicios</Text>
+            <Text>Direccion: {this.props.target.Direccion}</Text>
+            <Text>Barrio: {this.props.target.Barrio}</Text>
+            <Text>Servicios: </Text>
             <Service data={this.props.target}/>
           </View>
           <Fab
@@ -155,6 +164,7 @@ class PensionView extends React.Component {
             </Fab>
             <Btn
               title='Editar'
+              color = '#7b68ee'
               onPress={this._onPressEditPension}
               ></Btn>
 
@@ -162,7 +172,7 @@ class PensionView extends React.Component {
           
         </View>
         <View style={styles.footer}>
-          <Text>Seccion de Comentarios</Text>
+          <Text style = {{fontSize: 18, fontWeight: 'bold'}}>Seccion de Comentarios</Text>
           <ComentLoaderBoss comentarios={this.props.coments}/>
         </View>
       </View>
@@ -197,15 +207,29 @@ const styles = StyleSheet.create({
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 4,
+    flex: 1,
     backgroundColor: 'lightblue',
+  },
+  CalificacionSty:{
+    justifyContent: 'center',
+    alignItems:'center',
+    flexDirection:'row', 
+    marginTop: 10
+  },
+  penInfo:{
+    justifyContent:'center',
+    borderWidth: 1,
+    borderColor: '#7b68ee',
+    paddingHorizontal: 5,
+    fontSize: 14,
+    margin: 5
   },
   center:{
     flex: 2,
     padding: 10,
-    flexDirection:'row',
     alignItems:'stretch',
-    justifyContent:'space-between'
+    justifyContent:'space-between',
+    paddingHorizontal: 5
   },
   penOpt:{
     justifyContent: 'flex-end',

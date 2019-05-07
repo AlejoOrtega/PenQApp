@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import DetallesCuartos from '../../components/DetallesCuarto';
 
 import {connect} from 'react-redux';
@@ -13,11 +13,17 @@ class ViewCuarto extends React.Component {
 	render(){
 		return(
 			<View style={styles.container}>
-				<View style={styles.header}>
-
-				</View>
 				<View style={styles.center}>
-					<DetallesCuartos data={this.props.cuartoTarget}/>
+					<View style = {{width: '90%', alignItems: 'center'}}>
+						<Image
+							style={styles.logo}
+							source={require('../images/PensionProfileScreen_elN700x450FrontYardIdeasBedheadGarden_345528.jpg')}
+						/>
+						<View style = {{width: '90%',alignItems: 'flex-start', paddingHorizontal: '5%'}}>
+							<DetallesCuartos data={this.props.cuartoTarget} />
+						</View>
+						
+					</View>
 				</View>
 				<View style={styles.footer}>
 				</View>
@@ -47,16 +53,18 @@ function mapStateToProps(state){
 	  flex: 1,
 	  backgroundColor: '#fff',
 	},
-	header:{
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	  flex: 0.5,
-	  backgroundColor: 'lightblue',
-	},
 	center:{
 	  flex: 2,
-	  padding: 10
+		padding: 10,
+		alignItems: 'center'
 	},
+	logo:{
+		width: '90%',
+		height: '70%', 
+		alignSelf:'center',
+		marginBottom: 20, borderWidth: 1,
+		borderColor:'black'
+  },
 	penOpt:{
 	  justifyContent: 'flex-end',
 	},

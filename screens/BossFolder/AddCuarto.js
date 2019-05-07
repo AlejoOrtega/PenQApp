@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
 import firebase from 'firebase';
 
 
@@ -55,33 +55,37 @@ class AddCuarto extends Component {
 
 	render(){
 		return(
-			<View style={styles.container}>
 			<ScrollView>
 				<View style={styles.header}></View>
 				<View style={styles.center}>
 					<Text>Ponle un nombre a este cuarto!</Text>
 					<TextInput
+					style = {styles.inputText}
 					onChangeText={this._onChangeAlias}/>
 					<Text>Precio</Text>
 					<TextInput
+					style = {styles.inputText}
 					onChangeText={this._onChangePrecio}/>
 					<Text>Capacidad del cuarto</Text>
 					<TextInput
+					style = {styles.inputText}
 					onChangeText={this._onChangeCapacidad}/>
 					<Text>Descripcion</Text>
 					<TextInput
+					style = {styles.inputText}
 					onChangeText={this._onChangeDescripcion}/>
 					<Text>Observaciones</Text>
 					<TextInput
+					style = {styles.inputText}
 					onChangeText={this._onChangeObservaciones}/>
 				</View>
 				<View style={styles.footer}>
 					<Button
 					title='Confirmar y enviar datos'
+					color = '#7b68ee'
 					onPress={this._onPressSendData}/>
 				</View>
-				</ScrollView>
-			</View>
+			</ScrollView>
 		);
 	}
 }
@@ -118,6 +122,12 @@ function mapStateToProps(state){
 	center:{
 	  flex: 2,
 	  padding: 10,
+	},
+	
+	inputText:{
+		borderWidth: 1,
+		borderColor: '#7b68ee',
+		backgroundColor: 'grey'
 	},
 
 	footer:{
