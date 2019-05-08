@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {Button, Icon } from 'native-base';
+import {StyleSheet, Text, View, Button} from 'react-native';
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
 import {onSignOut} from '../../components/tools/Auth';
@@ -30,39 +29,40 @@ class AccountClient extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text>Informacion de tu cuenta!</Text>
-                    <ProfilePhoto uri={this.props.user.photoUri}/>
-                </View>
-                <View style={styles.center}>
-                    <View style={styles.editar}>
-                        <Text>Nombre: {this.props.user.Nombre}</Text>
+        <View style={styles.container}>
+                <View style={styles.containerNF}>
+                    <View style={styles.CircleShapeView}>
+                        <ProfilePhoto uri = {this.props.user.photoUri}/>
                     </View>
-                    <View style={styles.editar}>
-                        <Text>Apellido: {this.props.user.Apellido}</Text>
-                    </View>
-                    <View style={styles.editar}>
-                        <Text>Correo: {this.props.user.Correo}</Text>
-                    </View>
+                    <View style={styles.NombreYFoto}> 
+                        <Text style={{ color: 'white', fontSize: 20 }}>{this.props.user.Nombre} {this.props.user.Apellido + '\n'}</Text>
+                    </View>     
                 </View>
-                <View style={styles.footer}>
-                    <Button
-                        onPress={this._goBack}
-                        title='Go Back'
-                    />
-                    <Text
-                        style={styles.edit}
-                        onPress={this._onPressEditAccount}
-                    >editar</Text>
-                </View>
-                <View style={styles.footer}>
-                    <Button style={styles.logOutButton}
-                        onPress={this._onPressLogOut}>
-                        <Icon name="log-out" />
-                    </Button>
+            
+            <View style={styles.center}>
+                <Text style={{ fontSize: 18, fontWeight: 'bold'}}>Informacion de tu cuenta</Text>
+                <View style={styles.editar}>
+                    <Text style={{ fontSize: 14}}>Correo: {this.props.user.Correo}</Text>
+                    <View style={styles.EditButton}>
+                        <Button
+                            title='Editar'
+                            color='#7b68ee'
+                            onPress={this._onPressEditAccount}
+                        ></Button>
+                    </View>
+                    
                 </View>
             </View>
+            
+            <View style={styles.footer}>
+                <Button
+                    title='Cerrar Sesion' 
+                    style={styles.logOutButton}
+                    color = '#7b68ee'
+                    onPress={this._onPressLogOut}>
+                </Button>
+            </View>
+        </View>
         );
     }
 }
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      alignItems: 'center',
+        alignItems: 'center',
       justifyContent: 'center',
     },
     textInput:{
@@ -97,26 +97,49 @@ const styles = StyleSheet.create({
       color: 'blue',
       fontSize: 20,
     },
-    header:{
-      justifyContent: 'center',
-      alignItems: 'center',
-      flex: 3,
-    },
     center:{
-      justifyContent: 'center',
-      flex: 3,
+    //   justifyContent: 'center',
+        flex:0.7,
+    },
+    containerNF:{
+        flex: 0.5,
+      flexDirection: 'row',
+      marginTop: '10%',
+      marginHorizontal: 10,
+      //alignItems: 'center',
+      borderColor:'black',
     },
     editar:{
-      flexDirection: 'row',
-      justifyContent: 'space-evenly',
-      flex: 3,
+      width: 300,
+      height: 200,
+      borderColor:'black',
     },
+    NombreYFoto:{
+        flexDirection: 'row',
+        height:100,
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        backgroundColor: '#7b68ee',
+        flex: 2,
+      },
     footer:{
-      flexDirection: 'row',
-      alignItems: 'baseline',
-      flex: 3,
+        flex:0.3,
     },
     logOutButton:{
-        backgroundColor: '#DD5144',
+        width: 200,
+        height: 50,
     },
+    EditButton:{
+        marginTop: 10,
+        width: 100,
+        height: 50,
+        alignItems: 'baseline'
+    },
+
+    CircleShapeView: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: 'grey'
+    }    
   });

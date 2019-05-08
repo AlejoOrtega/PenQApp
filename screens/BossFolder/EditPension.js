@@ -137,101 +137,102 @@ class EditPension extends Component {
     }
     render(){
       return(
-        <ScrollView style={styles.neatScroll}>
-                <View style={styles.header}>
-                  <Text>Modifica los datos de tu pension</Text>
-                </View>
-                <View style={styles.center}>
-                  <Text>Alias</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder={this.props.target.Alias}
-                    onChangeText={this._changeAlias}
-                  ></TextInput>
-                  <Text>Barrio</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder={this.props.target.Barrio}
-                    onChangeText={this._changeApellido}
-                  ></TextInput>
-                  <Text>Direccion</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder={this.props.target.Direccion}
-                    onChangeText={this._changeApellido}
-                  ></TextInput>
-                  <CheckBox
-                        onClick={()=>{
-                            this.setState({comida: !this.state.comida})
-                        }}
-                        isChecked={this.state.comida}
-                        leftText={"Comida"}
-                    />
-                    <CheckBox
-                        onClick={()=>{
-                            this.setState({internet: !this.state.internet})
-                        }}
-                        isChecked={this.state.internet}
-                        leftText={"Internet"}
-                    />
-                    <CheckBox
-                        onClick={()=>{
-                            this.setState({lavado: !this.state.lavado})
-                        }}
-                        isChecked={this.state.lavado}
-                        leftText={"Lavado"}
-                    />
-                    <CheckBox
-                        onClick={()=>{
-                            this.setState({aseo: !this.state.aseo})
-                        }}
-                        isChecked={this.state.aseo}
-                        leftText={"Aseo en los cuartos"}
-                    />
-                    <CheckBox
-                        onClick={()=>{
-                            this.setState({llave: !this.state.llave})
-                        }}
-                        isChecked={this.state.llave}
-                        leftText={"al cliente se le da llaves de la casa"}
-                    />
-                  <Text>Especificaciones de los servicios</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder={this.props.target.Especific}
-                    onChangeText={this._changeEspe}
-                  ></TextInput>
-                  <Text>Reglas</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder={this.props.target.Reglas}
-                    onChangeText={this._changeReglas}
-                  ></TextInput>
-                  <View style={styles.PhotoAndButton}>
-                    <ProfilePhoto uri={this.props.picture1}/>
-                    <Button
-                    title="Cambiar"
-                    onPress={this.onPressChangePicture}/>
-                  </View>
-                  <View style={styles.PhotoAndButton}>
-                    <ProfilePhoto uri={this.props.picture2}/>
-                    <Button
-                    title="Cambiar"
-                    onPress={this.onPressChangePicture2}/>
-                  </View>
-                  <View style={styles.PhotoAndButton}>
-                    <ProfilePhoto uri={this.props.picture3}/>
-                    <Button
-                    title="Cambiar"
-                    onPress={this.onPressChangePicture3}/>
-                  </View>
-                </View>
-                <View style={styles.footer}>
-                  <Button
-                  title='Registrar cambios'
-                  onPress={this._onPressSendChanges}
-                  />
-                </View>
+        <ScrollView contentContainerStyle={styles.container}>
+          <View style={styles.header}>
+            <Text style={{ fontSize: 20 }}>Modifica los datos de tu pension</Text>
+          </View>
+          <View style={styles.center}>
+            <Text>Alias</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder={this.props.target.Alias}
+              onChangeText={this._changeAlias}
+            ></TextInput>
+            <Text>Barrio</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder={this.props.target.Barrio}
+              onChangeText={this._changeApellido}
+            ></TextInput>
+            <Text>Direccion</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder={this.props.target.Direccion}
+              onChangeText={this._changeApellido}
+            ></TextInput>
+            <CheckBox
+              onClick={() => {
+                this.setState({ comida: !this.state.comida })
+              }}
+              isChecked={this.state.comida}
+              leftText={"Comida"}
+            />
+            <CheckBox
+              onClick={() => {
+                this.setState({ internet: !this.state.internet })
+              }}
+              isChecked={this.state.internet}
+              leftText={"Internet"}
+            />
+            <CheckBox
+              onClick={() => {
+                this.setState({ lavado: !this.state.lavado })
+              }}
+              isChecked={this.state.lavado}
+              leftText={"Lavado"}
+            />
+            <CheckBox
+              onClick={() => {
+                this.setState({ aseo: !this.state.aseo })
+              }}
+              isChecked={this.state.aseo}
+              leftText={"Aseo en los cuartos"}
+            />
+            <CheckBox
+              onClick={() => {
+                this.setState({ llave: !this.state.llave })
+              }}
+              isChecked={this.state.llave}
+              leftText={"al cliente se le da llaves de la casa"}
+            />
+            <Text>Especificaciones de los servicios</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder={this.props.target.Especific}
+              onChangeText={this._changeEspe}
+            ></TextInput>
+            <Text>Reglas</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder={this.props.target.Reglas}
+              onChangeText={this._changeReglas}
+            ></TextInput>
+            <View style={styles.PhotoAndButton}>
+              <ProfilePhoto uri={this.props.picture1} />
+              <Button
+                title="Cambiar"
+                onPress={this.onPressChangePicture} />
+            </View>
+            <View style={styles.PhotoAndButton}>
+              <ProfilePhoto uri={this.props.picture2} />
+              <Button
+                title="Cambiar"
+                onPress={this.onPressChangePicture2} />
+            </View>
+            <View style={styles.PhotoAndButton}>
+              <ProfilePhoto uri={this.props.picture3} />
+              <Button
+                title="Cambiar"
+                onPress={this.onPressChangePicture3} />
+            </View>
+          </View>
+          <View style={styles.footer}>
+            <Button
+              title='Registrar cambios'
+              color='#7b68ee'
+              onPress={this._onPressSendChanges}
+            />
+          </View>
         </ScrollView>
       );        
     }
@@ -262,7 +263,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(EditPension);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
@@ -270,6 +270,7 @@ const styles = StyleSheet.create({
   textInput:{
     borderColor: 'black',
     backgroundColor: 'grey',
+    width: 300
   },
   edit:{
     color: 'blue',
@@ -278,21 +279,15 @@ const styles = StyleSheet.create({
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 0.5,
+
   },
   center:{
     justifyContent: 'center',
-    flex: 4,
+    height: 800,
+    margin: 10
   },
   footer:{
     flexDirection: 'row',
     alignItems: 'baseline',
-    flex: 0.5,
-  },
-  neatScroll:{
-    // padding:0,
-  },
-  PhotoAndButton:{
-    flexDirection:'row'
   }
 });

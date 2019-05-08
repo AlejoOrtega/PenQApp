@@ -184,105 +184,116 @@ class AddPension extends Component {
         
         return (
             // <View style={styles.container}>
-            <ScrollView style={styles.neatScroll}>
-                
-                <View style={styles.header}>
-                    <Text>Aqui puedes añadir una pension</Text>
-                    <Text> Ingresa los datos que hay debajo!</Text>
-                </View>
+            <ScrollView contentContainerStyle={styles.neatScroll}>
+
                 <View style={styles.center}>
-                    <Text>Ponle un nombre a tu casa!</Text>
+                    <View>
+                        <Text style={styles.textos}>Ponle un nombre a tu casa!</Text>
                         <TextInput
-                        style={styles.textInput}
-                        onChangeText={this._onChangeAlias}/>
-                    <Text>Direccion</Text>
-                    <TextInput
-                        style={styles.textInput}
-                        onChangeText={this._onChangeDirection}/>
-                    <Text>Barrio</Text>
-                    <TextInput
-                        style={styles.textInput}
-                        onChangeText={this._onChangeBarrio}/>
-                    <Text>Seleccione los servicios que ofrece</Text>
+                            style={styles.textInput}
+                            onChangeText={this._onChangeAlias} />
+                    </View>
+
+                    <View>
+                        <Text style={styles.textos}>Direccion</Text>
+                        <TextInput
+                            style={styles.textInput}
+                            onChangeText={this._onChangeDirection} />
+                    </View>
+
+                    <View>
+                        <Text style={styles.textos}>Barrio</Text>
+                        <TextInput
+                            style={styles.textInput}
+                            onChangeText={this._onChangeBarrio} />
+                    </View>
+
+                    <Text style={styles.textos}>Seleccione los servicios que ofrece</Text>
                     <CheckBox
-                        onClick={()=>{
-                            this.setState({isCheckedComida: !this.state.isCheckedComida})
+                        onClick={() => {
+                            this.setState({ isCheckedComida: !this.state.isCheckedComida })
                         }}
                         isChecked={this.state.isCheckedComida}
                         leftText={"Comida"}
                     />
                     <CheckBox
-                        onClick={()=>{
-                            this.setState({isCheckedInternet: !this.state.isCheckedInternet})
+                        style={styles.textos}
+                        onClick={() => {
+                            this.setState({ isCheckedInternet: !this.state.isCheckedInternet })
                         }}
                         isChecked={this.state.isCheckedInternet}
                         leftText={"Internet"}
                     />
                     <CheckBox
-                        onClick={()=>{
-                            this.setState({isCheckedLavado: !this.state.isCheckedLavado})
+                        onClick={() => {
+                            this.setState({ isCheckedLavado: !this.state.isCheckedLavado })
                         }}
                         isChecked={this.state.isCheckedLavado}
                         leftText={"Lavado"}
                     />
                     <CheckBox
-                        onClick={()=>{
-                            this.setState({isCheckedAseo: !this.state.isCheckedAseo})
+                        onClick={() => {
+                            this.setState({ isCheckedAseo: !this.state.isCheckedAseo })
                         }}
                         isChecked={this.state.isCheckedAseo}
                         leftText={"Aseo en los cuartos"}
                     />
                     <CheckBox
-                        onClick={()=>{
-                            this.setState({isCheckedLlave: !this.state.isCheckedLlave})
+                        onClick={() => {
+                            this.setState({ isCheckedLlave: !this.state.isCheckedLlave })
                         }}
                         isChecked={this.state.isCheckedLlave}
-                        leftText={"al cliente se le da llaves de la casa"}
+                        leftText={"Al cliente se le da llaves de la casa"}
                     />
-                    <Text>Agregue Observaciones importantes a los servicios que ofrece</Text>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder='Por ejemplo, En el servicio de la comida, no se ofrece comida los domingos ni festivos'
-                        onChangeText={this._onChangeSpecifications}/>
-                    <Text>Ahora, agregue reglas generales de la casa que deberia saber el cliente</Text>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder='Por ejemplo, no se pueden recibir visitas sin autorizacion'
-                        onChangeText={this._onChangeRules}/>
-                    <Text>Listo!</Text>
+                    <View>
+                        <Text style={styles.textos}>Agregue Observaciones importantes a los servicios que ofrece</Text>
+                        <TextInput
+                            style={styles.textInput}
+                            numberOfLines={5}
+                            multiline={true}
+                            placeholder='Por ejemplo, En el servicio de la comida, no se ofrece comida los domingos ni festivos'
+                            onChangeText={this._onChangeSpecifications} />
+                    </View>
+                    <View>
+                        <Text style={styles.textos}>Ahora, agregue reglas generales de la casa que deberia saber el cliente</Text>
+                        <TextInput
+                            numberOfLines={5}
+                            multiline={true}
+                            style={styles.textInput}
+                            placeholder='Por ejemplo, no se pueden recibir visitas sin autorizacion'
+                            onChangeText={this._onChangeRules} />
+                    </View>
 
                     <Button
-                    title='Localiza tu pension!'
-                    onPress={this._onPressLocatePension}
-                    color={typeof this.props.coordinates == "object"? '#01ad1b':'#7c0a00'}
+                        title='Localiza tu pension!'
+                        onPress={this._onPressLocatePension}
+                        color={typeof this.props.coordinates == "object" ? '#01ad1b' : '#7c0a00'}
                     />
-                    <Text>Agrega 3 Fotos!</Text>
-
-                    <Text>Agregue aqui la primera imagen</Text>
+                    <Text style={styles.textos}>Agrega 3 Fotos!</Text>
                     <Button
-                    title='Agrega fotos!'
-                    onPress={this._onPressPictures1}
-                    color={this.state.foto1 == true ? '#01ad1b':'#7c0a00'}
+                        title='Agrega fotos!'
+                        onPress={this._onPressPictures1}
+                        color={this.state.foto1 == true ? '#01ad1b' : '#7c0a00'}
                     />
                     <Button
-                    title='Agrega fotos!'
-                    onPress={this._onPressPictures2}
-                    color={this.state.foto2 == true ? '#01ad1b':'#7c0a00'}
+                        title='Agrega fotos!'
+                        onPress={this._onPressPictures2}
+                        color={this.state.foto2 == true ? '#01ad1b' : '#7c0a00'}
                     />
                     <Button
-                    title='Agrega fotos!'
-                    onPress={this._onPressPictures3}
-                    color={this.state.foto3 == true ? '#01ad1b':'#7c0a00'}
+                        title='Agrega fotos!'
+                        onPress={this._onPressPictures3}
+                        color={this.state.foto3 == true ? '#01ad1b' : '#7c0a00'}
                     />
                 </View>
                 <View style={styles.footer}>
                     <Button
                         title='Confirmar y enviar datos'
                         onPress={this._onPressSendData}
-                        />   
+                    />
                 </View>
-                
-                </ScrollView>
+
+            </ScrollView>
             //</View>
             
 
@@ -316,7 +327,6 @@ function mapStateToProps(state){
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
       backgroundColor: '#fff',
     },
     neatScroll:{
@@ -325,24 +335,23 @@ const styles = StyleSheet.create({
     header:{
       justifyContent: 'center',
       alignItems: 'center',
-      flex: 1,
       backgroundColor: 'lightblue',
     },
     center:{
-      justifyContent: 'center',
-      flex: 3,
+      justifyContent: 'space-evenly',
       padding: 10,
+      height: 900
     },
     footer:{
       justifyContent: 'flex-end',
-      flex: 0.5,
     },
     textInput:{
         borderColor: 'black',
         backgroundColor: 'grey',
-        height: '5%'
       },
     contentContainer: {
-        flex:1,
-      }
+      },
+    textos:{
+        fontSize: 18,
+      },
   });

@@ -14,6 +14,7 @@ export default class Field extends React.Component {
             style={styles.textInput}
             placeholder={this.props.placeholder}
             onChangeText={this.props.onChange}
+            secureTextEntry={this.props.pass}
         />
 
     );
@@ -24,6 +25,10 @@ const styles = StyleSheet.create({
   textInput:{
     height: 40, 
     borderColor: 'black', 
-    borderWidth: 1
+    borderWidth: 1,
+    backgroundColor: '#f6f6f6', 
+    borderRadius:10,
+    fontFamily:'sans-serif-medium',
+    textAlign: 'center'
   }
 });

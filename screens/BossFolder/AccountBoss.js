@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View, Button, Image} from 'react-native';
 import ProfilePhoto from '../../components/ProfilePhoto';
+import {onSignOut} from '../../components/tools/Auth';
+import firebase from 'firebase';
 //Redux
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
@@ -19,37 +21,48 @@ class AccountBoss extends Component {
       this.props.navigation.navigate('Edit');
     }
 
+    _onPressLogOut=()=>{
+      onSignOut('Log').then(()=>{
+        firebase.auth().signOut();
+        this.props.navigation.navigate('Login');
+      }).catch((err)=>alert(err));
+    }
     
     render() {
         return (
-            <View style={styles.container}>
-                
-                <View style={styles.header}>
-                  <Text>Informacion de tu cuenta!</Text>
-                  <ProfilePhoto uri={this.props.user.photoUri}/>
-                </View>
-                <View style={styles.center}>
-                  <View style={styles.editar}>
-                    <Text>Nombre: {this.props.user.Nombre}</Text>
-                  </View>
-                  <View style={styles.editar}>
-                    <Text>Apellido: {this.props.user.Apellido}</Text>
-                  </View>
-                  <View style={styles.editar}>
-                    <Text>Correo: {this.props.user.Correo}</Text>
-                  </View>
-                </View>
-                <View style={styles.footer}>
-                  <Button
-                    onPress={this._goBack}
-                    title='Go Back'
-                  />
-                  <Text 
-                    style={styles.edit}
-                    onPress={this._onPressEditAccount}
-                  >editar</Text>
-                </View>
+          <View style={styles.container}>
+          <View style={styles.containerNF}>
+            <View style={styles.CircleShapeView}>
+              <ProfilePhoto uri = {this.props.user.photoUri}/>
             </View>
+            <View style={styles.NombreYFoto}>
+              <Text style={{ color: 'white', fontSize: 20 }}>{this.props.user.Nombre} {this.props.user.Apellido + '\n'}</Text>
+            </View>
+          </View>
+          <View style={styles.center}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Informacion de tu cuenta</Text>
+            <View style={styles.editar}>
+              <Text style={{ fontSize: 14 }}>Correo: {this.props.user.Correo}</Text>
+              <View style={styles.EditButton}>
+                <Button
+                  title='Editar'
+                  color='#7b68ee'
+                  onPress={this._onPressEditAccount}
+                ></Button>
+              </View>
+
+            </View>
+          </View>
+
+          <View style={styles.footer}>
+            <Button
+              title='Cerrar Sesion'
+              style={styles.logOutButton}
+              color='#7b68ee'
+              onPress={this._onPressLogOut}>
+            </Button>
+          </View>
+        </View>
             
         );
     }
@@ -71,37 +84,63 @@ function mapDispatchToProps(dispatch){
 export default connect(mapStateToProps, mapDispatchToProps)(AccountBoss);
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    textInput:{
-      borderColor: 'black',
-      backgroundColor: 'grey',
-    },
-    edit:{
-      color: 'blue',
-      fontSize: 20,
-    },
-    header:{
-      justifyContent: 'center',
-      alignItems: 'center',
-      flex: 3,
-    },
-    center:{
-      justifyContent: 'center',
-      flex: 3,
-    },
-    editar:{
+  container: {
+    flex: 1,
+    margin: 10,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textInput:{
+    borderColor: 'black',
+    backgroundColor: 'grey',
+  },
+  edit:{
+    color: 'blue',
+    fontSize: 20,
+  },
+  center:{
+    justifyContent: 'center',
+    marginTop: 10
+  },
+  containerNF:{
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    borderColor:'black',
+  },
+  editar:{
+    width: 300,
+    height: 200,
+    borderColor:'black',
+  },
+  NombreYFoto:{
       flexDirection: 'row',
+      height:100,
+      alignItems: 'center',
       justifyContent: 'space-evenly',
-      flex: 3,
+      backgroundColor: '#7b68ee',
+      flex: 2,
     },
-    footer:{
-      flexDirection: 'row',
-      alignItems: 'baseline',
-      flex: 3,
-    }
-  });
+  footer:{
+    flexDirection: 'row',
+    alignItems: 'baseline',
+  },
+  logOutButton:{
+      width: 200,
+      height: 50,
+  },
+  EditButton:{
+      marginTop: 10,
+      width: 100,
+      height: 50,
+      alignItems: 'baseline'
+  },
+
+  CircleShapeView: {
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+      backgroundColor: 'grey'
+  }    
+});

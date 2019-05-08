@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import {Button as Btn} from 'react-native-elements';
+import { View, Text, StyleSheet, ScrollView, TouchableHighlight, Button as Btn } from 'react-native';
+import {} from 'react-native-elements';
 import {Button, Icon, Fab } from 'native-base';
 import Service from '../../components/Services';
 import StarRating from 'react-native-star-rating';
@@ -111,39 +111,62 @@ class PensionView extends React.Component {
   }
   _doNothing=()=>{}
 
+  _onPressRating=()=>{
+    this.props.navigation.navigate('ViewRating')
+  }
+
     render() {
       return (
-        <ScrollView style={styles.neatScroll}>
-        <View style={styles.header}>
-        <SwiperC 
-        pictures={this.props.pics}/>
-          
-        </View>
-        <View style={styles.center}>
-        
-        
+        <ScrollView contentContainerStyle={styles.container}>
+          <View style={styles.header}>
+            <SwiperC
+              pictures={this.props.pics} />
 
-          <View style={styles.penInfo}>
-          <Text>{this.props.target.Alias}</Text>
-          <StarRating
+          </View>
+          <View style={styles.CalificacionSty}>
+            <TouchableHighlight
+              onPress={this._onPressRating}>
+              <StarRating
                 disabled={true}
+                fullStarColor={'#fccb00'}
                 maxStars={5}
                 rating={this.props.target.Rating}
               />
-            <Text>Boss: {this.state.user.Nombre} {this.state.user.Apellido}</Text>
-            <Text>{this.props.target.Direccion}</Text>
-            <Text>{this.props.target.Barrio}</Text>
-            <Text>Servicios</Text>
-            <Service data={this.props.target}/>
-            <Btn
-              title='Editar'
-              onPress={this._onPressEditPension}
-              ></Btn>
+            </TouchableHighlight>
           </View>
-          <Fab
+          <View style={styles.center}>
+            <View style={styles.penInfo}>
+              <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'center' }}>{this.props.target.Alias}</Text>
+              <View style={styles.InfoPen}>
+
+                <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Administrador:</Text> {this.state.user.Nombre} {this.state.user.Apellido}</Text>
+
+                <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Direccion:</Text> {this.props.target.Direccion}</Text>
+                <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Barrio:</Text> {this.props.target.Barrio}</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Servicios:</Text>
+                <Service data={this.props.target} />
+                <View>
+                  <Btn
+                    style={{ width: 200, height: 50, marginBottom: '5%' }}
+                    title='Editar'
+                    color='#7b68ee'
+                    onPress={this._onPressEditPension}
+                  ></Btn>
+                </View>
+                <View style={styles.EditButton}>
+                  <Btn
+                    style={{ width: 200, height: 50 }}
+                    title="Ver Cuartos!"
+                    color='#8A2BE2'
+                    onPress={this._onPressVerCuartos} />
+                </View>
+              </View>
+
+            </View>
+            <Fab
               active={this.state.active}
               direction="up"
-              containerStyle={{ }}
+              containerStyle={{}}
               style={styles.fab}
               position="bottomRight"
               onPress={this._onPressFab}>
@@ -154,26 +177,29 @@ class PensionView extends React.Component {
               </Button>
               <Button style={styles.addButton}
                 onPress={this._onPressAddCuarto}
-                >
+              >
                 <Icon name="ios-add-circle" />
               </Button>
               <Button style={styles.removeButton}
                 onPress={this._onPressRemovePension}
-                >
+              >
                 <Icon name="ios-remove-circle-outline" />
               </Button>
               <Button style={styles.checkPersons}
                 onPress={this._onPressCheckUsers}
-                >
+              >
                 <Icon name="nuclear" />
               </Button>
             </Fab>
-        </View>
-        <View style={styles.footer}>
-          <Text>Seccion de Comentarios</Text>
-          <ComentLoaderBoss comentarios={this.props.coments}/>
-        </View>
-      </ScrollView>
+
+
+
+          </View>
+          <View style={styles.footer}>
+            <Text style = {{fontSize: 30, fontWeight: 'bold'}}>Comentarios</Text>
+            <ComentLoaderBoss comentarios={this.props.coments} />
+          </View>
+        </ScrollView>
 
 );
   }
@@ -207,28 +233,43 @@ function mapDispatchToProps(dispatch){
 export default connect(mapStateToProps, mapDispatchToProps)(PensionView);
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 4,
-    backgroundColor: 'lightblue',
+    height: 300,
+  },
+  InfoPen:{
+    justifyContent:'center',
+    paddingHorizontal: 5,
+    fontSize: 14,
+    margin: 5,
+    
+  },
+  CalificacionSty:{
+    justifyContent: 'center',
+    //alignItems:'center',
+    flexDirection:'row', 
+    marginTop: 10
+  },
+  EditButton:{
+    margin: 10
+  },
+  logo:{
+    height: 300
   },
   center:{
-    flex: 2,
-    padding: 10,
-    flexDirection:'row',
-    alignItems:'stretch',
-    justifyContent:'space-between'
+    marginTop:5,
+    justifyContent:'center'
   },
   penOpt:{
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   footer:{
     justifyContent: 'flex-end',
-    flex: 0.5,
+    alignItems:'center',
+    width: '100%'
   },
   fab:{
     backgroundColor: '#5067FF',
@@ -239,34 +280,7 @@ const styles = StyleSheet.create({
   addButton:{
     backgroundColor: '#34A34F' 
   },
-  removeButton:{
-    backgroundColor: '#ff0000' 
-  },
   accountButton:{
     backgroundColor: '#3B5998'
-  },wrapper: {
-  },
-  slide1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB',
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9',
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
   }
 });

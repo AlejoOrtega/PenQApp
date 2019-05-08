@@ -89,33 +89,40 @@ class EditClient extends Component {
     render(){
       return(
         <View style={styles.container}>
-                <View style={styles.header}>
-                  <Text>Modifica los datos de tu cuenta!</Text>
-                </View>
-                <View style={styles.center}>
-                <ProfilePhoto uri={this.props.user.photoUri}/>
-                <Button
-                  title="Cambiar Foto!"
-                  onPress={this._onChangePicture}/>
-                  <Text>Nombre</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder={this.props.user.Nombre}
-                    onChangeText={this._changeNombre}
-                  ></TextInput>
-                  <Text>Apellido</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder={this.props.user.Apellido}
-                    onChangeText={this._changeApellido}
-                  ></TextInput>
-                </View>
-                <View style={styles.footer}>
-                  <Button
-                  title='Registrar cambios'
-                  onPress={this._onPressSendChanges}
-                  />
-                </View>
+          <View style={styles.ChangePhoto}>
+            <ProfilePhoto uri={this.props.user.photoUri} />
+            <Button
+              title="Cambiar Foto!"
+              color='#7b68ee'
+              onPress={this._onChangePicture} />
+          </View>
+          <View style={styles.center}>
+          
+            <View>
+            <Text style = {{fontSize: 16}}>Nombre</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder={this.props.user.Nombre}
+                onChangeText={this._changeNombre}
+              ></TextInput>
+            </View>
+            
+            <View>
+            <Text style = {{fontSize: 16}}>Apellido</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder={this.props.user.Apellido}
+                onChangeText={this._changeApellido}
+              ></TextInput>
+            </View>
+          </View>
+          <View style={styles.footer}>
+            <Button
+              title='Registrar cambios'
+              color='#7b68ee'
+              onPress={this._onPressSendChanges}
+            />
+          </View>
         </View>
       );        
     }
@@ -143,9 +150,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  ChangePhoto:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    width:'100%',
+    justifyContent: 'space-evenly',
+    flex:2
+  },
   textInput:{
     borderColor: 'black',
+    height: '40%',
     backgroundColor: 'grey',
+    borderRadius: 10,
+    width: '100%',
+    fontFamily:'sans-serif-medium',
   },
   edit:{
     color: 'blue',
@@ -154,15 +172,16 @@ const styles = StyleSheet.create({
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 3,
+    flex: 1,
   },
   center:{
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
+    width: '90%',
     flex: 3,
   },
   footer:{
-    flexDirection: 'row',
-    alignItems: 'baseline',
+    justifyContent:'center',
+    alignItems: 'center',
     flex: 3,
   }
 });

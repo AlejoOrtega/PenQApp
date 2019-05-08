@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text} from 'react-native'
+import {View, Text, StyleSheet} from 'react-native'
 import {connect} from 'react-redux';
 import firebase from 'firebase'
 
@@ -17,26 +17,36 @@ class ViewRating extends React.Component{
         rating2=this.props.target.RatingAmbiente;
         rating3=this.props.target.RatingServicios;
         code.push(
-            <View>
-            <Text>Rating de Aseo</Text>
-            <StarRating
+          <View style = {{flexDirection: 'column', alignItems: 'center'}}>
+            <View style = {styles.Rating}>
+              <Text style={{ fontSize: 20 }}>Rating de Aseo</Text>
+              <StarRating
                 disabled={true}
                 maxStars={5}
+                fullStarColor={'#fccb00'}
                 rating={rating1}
               />
-              <Text>Rating de Ambiente</Text>
-            <StarRating
+            </View>
+            <View style = {styles.Rating}>
+              <Text style={{ fontSize: 20 }}>Rating de Ambiente</Text>
+              <StarRating
                 disabled={true}
                 maxStars={5}
+                fullStarColor={'#fccb00'}
                 rating={rating2}
               />
-              <Text>Rating de Servicio</Text>
-            <StarRating
+            </View>
+            <View style = {styles.Rating}>
+              <Text style={{ fontSize: 20 }}>Rating de Servicio</Text>
+              <StarRating
                 disabled={true}
                 maxStars={5}
+                fullStarColor={'#fccb00'}
                 rating={rating3}
               />
-              </View>
+            </View>
+            
+          </View>
         )
 
         return code;
@@ -49,10 +59,10 @@ class ViewRating extends React.Component{
     
     render(){
         return(
-            <View>
-                <Text>Mira los rating aqui!</Text>
-                {this._loadRatings()}
-            </View>
+          <View style={{ alignItems: 'center' }}>
+            <Text style={{ fontSize: 20, margin: 10 }}>Mira los rating por diferentes categorias!!</Text>
+            {this._loadRatings()}
+          </View>
         );
     }
 }
@@ -75,3 +85,9 @@ function mapStateToProps(state){
   }
   
   export default connect(mapStateToProps, mapDispatchToProps)(ViewRating);
+
+  const styles = StyleSheet.create({
+    Rating:{
+      margin: 20,
+    }
+  });

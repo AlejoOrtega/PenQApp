@@ -38,8 +38,8 @@ class ClientStart extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-       <Text>Bienvenido!!</Text>
-       <Pensiones data={this.props.list} Press={this._onPressPension}/>
+          <Text style = {{fontSize: 20, alignSelf:'center', marginTop: '10%'}}>Pensiones que te recomendamos!</Text>
+          <Pensiones data={this.props.list} Press={this._onPressPension} />
       </View>
     );
     
@@ -69,6 +69,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    width:'100%'
   },
 });

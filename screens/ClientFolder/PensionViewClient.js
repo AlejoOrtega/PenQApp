@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, TouchableHighlight, ScrollView } from 'react-native';
 import Service from '../../components/Services';
 import StarRating from 'react-native-star-rating';
 import ComentsLoader from '../../components/ComentsLoader';
@@ -68,43 +68,52 @@ class PensionViewClient extends React.Component {
 
   render() {
       return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.header}>
-            <SwiperC 
-          pictures={this.props.pics}/>
-            <Text>{this.props.target.Alias}</Text>
+            <SwiperC  pictures = {this.props.pics}/>
+          </View>
+          <View style={styles.CalificacionSty}>
+          <TouchableHighlight
+                onPress={this._onPressRating}>
+                <StarRating
+              disabled={true}
+              fullStarColor={'#fccb00'}
+              maxStars={5}
+              rating={this.props.target.Rating}
+            />
+          </TouchableHighlight>
+          
+
           </View>
           <View style={styles.center}>
             <View style={styles.penInfo}>
-              <Text>Boss: {this.state.user.Nombre} {this.state.user.Apellido}</Text>
-              <StarRating
-                disabled={true}
-                maxStars={5}
-                rating={this.props.target.Rating}
-              />
-              <TouchableHighlight
-              onPress={this._onPressRating}>
-                <Image
-                style={{width:50, height:50}}
-                source={require('../Image/NotLogo.png')}
-                />
-              </TouchableHighlight>
+              <Text style = {{fontSize: 30, fontWeight: 'bold', alignSelf: 'center'}}>{this.props.target.Alias}</Text>
+              <View style = {styles.InfoPen}>
+                
+                <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Administrador:</Text> {this.state.user.Nombre} {this.state.user.Apellido}</Text>
+
+                <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Direccion:</Text> {this.props.target.Direccion}</Text>
+                <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Barrio:</Text> {this.props.target.Barrio}</Text>
+                <Text style = {{fontWeight:'bold', fontSize: 20}}>Servicios:</Text>
+                <Service data={this.props.target} />
+                <View style={styles.EditButton}>
+                  <Button
+                    style = {{width: 200, height: 50}}
+                    title="Ver Cuartos!"
+                    color = '#8A2BE2' 
+                    onPress={this._onPressVerCuartos} />
+              </View>
+              </View>
               
-              <Text>{this.props.target.Direccion}</Text>
-              <Text>{this.props.target.Barrio}</Text>
-              <Text>Servicios</Text>
-              <Service data={this.props.target} />
-              <Button
-            title="Ver Cuartos!"
-            onPress={this._onPressVerCuartos}/>
+              
             </View>
             
           </View>
           <View style={styles.footer}>
-            <Text>Seccion de Comentarios</Text>
+            <Text style = {{fontSize: 30, fontWeight: 'bold'}}>Comentarios</Text>
             <ComentsLoader onPressCalificar={this._onPressCalificar} tipo="cliente"/>
           </View>
-        </View>
+        </ScrollView>
       );
 
     }
@@ -133,28 +142,43 @@ function mapDispatchToProps(dispatch){
 export default connect(mapStateToProps, mapDispatchToProps)(PensionViewClient);
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 0.5,
-    backgroundColor: 'lightblue',
+    height: 300,
+  },
+  InfoPen:{
+    justifyContent:'center',
+    paddingHorizontal: 5,
+    fontSize: 14,
+    margin: 5,
+    
+  },
+  CalificacionSty:{
+    justifyContent: 'center',
+    //alignItems:'center',
+    flexDirection:'row', 
+    marginTop: 10
+  },
+  EditButton:{
+    margin: 10
+  },
+  logo:{
+    height: 300
   },
   center:{
-    flex: 2,
-    padding: 10,
-    flexDirection:'row',
-    alignItems:'stretch',
-    justifyContent:'space-between'
+    marginTop:5,
+    justifyContent:'center'
   },
   penOpt:{
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   footer:{
     justifyContent: 'flex-end',
-    flex: 0.5,
+    alignItems:'center',
+    width: '100%'
   },
   fab:{
     backgroundColor: '#5067FF',

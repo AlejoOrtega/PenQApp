@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
 
 //Componentes
 import Field from '../components/Field';
@@ -91,14 +91,11 @@ class LogIn extends React.Component {
 
     //Inicia sesion y determina el tipo de usuario.
     _onPressLogIn=()=>{
-
       firebase.auth().signInWithEmailAndPassword(this.state.correo, this.state.contra)
       .then(()=>
       {
         currentUser = firebase.auth().currentUser;
         firebase.database().ref('Users/'+currentUser.uid+'/Account-Info').once('value', (dataSnapshot)=>{
-          // const credencials = Object.values(dataSnapshot.val());
-          // var CredeStorage ={correo: credencials[2], contra: credencials[1], type: credencials[4], nombre: credencials[3], apellido: credencials[0], photoUri: credencials[5]}
           this.props.updateData(dataSnapshot.val());
           onSignIn('Log',dataSnapshot).then().catch((err)=>alert(err));
           let type = dataSnapshot.val();
@@ -144,73 +141,68 @@ class LogIn extends React.Component {
         })
       })
       .catch((err)=>alert(err));
-
-
     }
 
     //Redirige a la vista de registro
     _onPressRegister=()=>{
-
       this.props.navigation.navigate('Register')
-
     };
 
     //Actualiza el estado de correo
     _onChangeCorreo=(text)=>{
-
       this.setState({correo: text});
-
     }
 
     //Actualiza el estado de contra
     _onChangePass=(text)=>{
-
       this.setState({contra: text});
-
     }
-
-
 
     render() {
       return (
-          <View style={styles.container}>
+        <ImageBackground 
+        style={styles.style_elAlo}
+        source={require('./images/LoginScreen_elAlo_199356.jpg')}
+      >
+          <View style={styles.header}>
+            {/* Aqui deberia ir el logo */}
+            <Image
+              style ={styles.logo}
+              source={require('./Image/logo.png')}
+            /> 
+          </View>
 
-              <View style={styles.header}>
-                {/* Aqui deberia ir el logo */}
-                <Image
-                  style ={styles.logo}
-                  source={require('./Image/NotLogo.png')}
-                /> 
-
+          <View style={styles.center}>
+              <View style={styles.fields}>
+                <Field placeholder='Correo' onChange={this._onChangeCorreo} pass={false}/>
               </View>
-
-              <View style={styles.center}>
-
-                  <Field placeholder='Correo' onChange={this._onChangeCorreo}/>
-                  <Field placeholder='Contraseña' onChange={this._onChangePass}/>
-                  <Button 
-                    title='Log In'
-                    onPress={this._onPressLogIn}
-                  />
-
+              <View style={styles.fields}>
+                <Field placeholder='Contraseña' onChange={this._onChangePass} pass={true} />
               </View>
+              
+          </View>
+          <View style={styles.buttonEntry}>
+            <Button
+              title='Iniciar Sesión'
+              onPress={this._onPressLogIn}
+            />
+          </View>
+          <View style={styles.footer}>
 
-              <View style={styles.footer}>
-
-                  <Text
-                    onPress={this._onPressRegister}
-                    >No tienes cuenta? Registrate!
-                  </Text>
-
-              </View>
+              <Text
+                style = {styles.style_elRegisterLink}
+                onPress={this._onPressRegister}
+                >¿No tienes cuenta? Registrate!
+              </Text>
 
           </View>
+
+      </ImageBackground>
       );
     }
 }
 
 function mapStateToProps(state){
-
   return {};
 }
 
@@ -224,15 +216,17 @@ function mapDispatchToProps(dispatch){
 export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   logo:{
-    width: 80,
-    height: 80,
+    width: 240,
+    height: 200,
+  },
+  fields:{
+    flex:1
+  },
+  buttonEntry:{
+    flex:1,
+    width: '90%',
   },
   header:{
     justifyContent: 'center',
@@ -240,12 +234,55 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   center:{
-    justifyContent: 'center',
-    flex: 3,
+    marginTop:'20%',
+    width: '90%',
+    flex:2.5
   },
   footer:{
     justifyContent: 'center',
-    alignItems: 'baseline',
+    alignItems: 'center',
     flex: 3,
+  },
+  style_elAlo: {
+    width: '100%',
+    height: '100%',
+    alignItems:'center', 
+    display: 'flex' 
+  },
+  style_elIniciaSesionClient: {
+    fontSize: 16.9,
+    color: 'white',
+    textAlign: 'left',
+  },
+  style_elRectangle2: {
+    backgroundColor: '#f6f6f6'
+  },
+  style_elIniciaSesionDueno: {
+    fontSize: 16.9,
+    color: 'white',
+    textAlign: 'left',
+  },
+  style_elRectangle3: {
+    marginBottom:  '20px',
+  },
+  style_elNotLogo: {
+    width: '100%',
+    height: '100%'
+  },
+  style_elPenQApp: {
+    fontSize: 42.2,
+    color: 'white',
+    textAlign: 'left',
+    fontWeight: 'bold'
+  },
+  style_elRegisterLink: {
+    fontSize: 16,
+    color: 'white',
+    textAlign: 'center',
+    fontWeight:'bold'
+  },
+  LogInButton:{
+    marginTop: '10px',
+    backgroundColor: '#7b68ee'
   }
 });

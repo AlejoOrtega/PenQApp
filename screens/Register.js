@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Button } from 'react-native';
 
 //Componentes
 import {ButtonGroup} from 'react-native-elements';
 import Field from '../components/Field'
-import Button from '../components/Button'
 
 //FireBase
 import * as firebase from 'firebase';
@@ -90,55 +89,64 @@ export default class Register extends React.Component {
       const buttons = ['Cliente', 'Dueño']
       const {selectedIndex} = this.state
       return (
-          <View style={styles.container}>
-              <View style={styles.header}>
-                <Text>Registro!</Text>
-              </View>
-              <View style={styles.center}>
-                <Field placeholder='Nombre' onChange={this._onChangeNombre}/>
-                <Field placeholder='Apellido' onChange={this._onChangeApellido}/>
-                <Field placeholder='Ingresa tu correo' onChange={this._onChangeCorreo}/>
-                <Field placeholder='Ingresa tu contraseña' onChange={this._onChangePass}/>
-                <Field placeholder='Contraseña Nuevamente' onChange={this._onChangeRpass}/>
-                <ButtonGroup
-                      onPress={this.updateIndex}
-                      selectedIndex={selectedIndex}
-                      buttons={buttons}
-                      containerStyle={{height:50, width:200}}
-                    />
-                
-              </View>
-              <View style={styles.footer}>
-                <Button 
-                    title='Registrate!'
-                    onPress={this._Registration}/>
-              </View>
+        <View style={styles.container}>
+        <View style={styles.header}>
+          <Text>Registrate como un nuevo usuario!</Text>
+        </View>
+        <View style={styles.center}>
 
-              
-          </View>
+            <Field placeholder='Nombre' onChange={this._onChangeNombre}/>
+            <Field placeholder='Apellido' onChange={this._onChangeApellido}/>
+            <Field placeholder='Ingresa tu correo' onChange={this._onChangeCorreo}/>
+            <Field placeholder='Ingresa tu contraseña' onChange={this._onChangePass}/>
+            <Field placeholder='Contraseña Nuevamente' onChange={this._onChangeRpass}/>
+
+          <ButtonGroup
+                onPress={this.updateIndex}
+                selectedIndex={selectedIndex}
+                buttons={buttons}
+                containerStyle={{height:'20%', width:'70%', alignSelf: 'center', marginTop: 10}}
+              />
+          
+        </View>
+        <View style={styles.footer}>
+          <Button 
+              title='Registrate!'
+              style={styles.pressButton}
+              onPress={this._Registration}
+              color='#7b68ee'/>
+        </View>
+
+        
+    </View>
       );
   }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      header:{
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 3,
-      },
-      center:{
-        justifyContent: 'center',
-        flex: 3,
-      },
-      footer:{
-        justifyContent: 'center',
-        alignItems: 'baseline',
-        flex: 3,
-      }
+  container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    pressButton:{
+      width: '90%'
+    }, 
+    header:{
+      fontSize: 14,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flex: 1,
+    },
+    center:{
+      justifyContent:'space-evenly',
+      width: '90%',
+      flex: 6,
+    },
+    footer:{
+      justifyContent: 'center',
+      flex: 3,
+      width:'60%',
+    }
 });

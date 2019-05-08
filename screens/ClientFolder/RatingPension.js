@@ -86,39 +86,47 @@ class RatingPension extends React.Component {
     render(){
         return(
           <View style={styles.container}>
-            <Text>{this.props.target.ID}</Text>
             <View styles={styles.header}>
-              <Text>Califica esta pension!</Text>
+
             </View>
-            <View>
-              <Text>Aseo</Text>
-              <StarRating
-                disabled={false}
-                maxStars={5}
-                rating={this.state.ratingaseo}
-                selectedStar={(rating) => this.onStarRatingPressAseo(rating)}                
-              />
-              <Text>Ambiente</Text>
-              <StarRating
-                disabled={false}
-                maxStars={5}
-                rating={this.state.ratingambiente}
-                selectedStar={(rating) => this.onStarRatingPressAmbiente(rating)}                
-              />
-              <Text>Servicio</Text>
-              <StarRating
-                disabled={false}
-                maxStars={5}
-                rating={this.state.ratingservicio}
-                selectedStar={(rating) => this.onStarRatingPressServicio(rating)}                
-              />
+            <View style={{ margin: 10 }}>
+              <View style = {{margin: 10}}>
+                <Text style={{ fontSize: 18 }}>Aseo</Text>
+                <StarRating
+                  disabled={false}
+                  maxStars={5}
+                  rating={this.state.ratingaseo}
+                  fullStarColor={'#fccb00'}
+                  selectedStar={(rating) => this.onStarRatingPressAseo(rating)}
+                />
+              </View>
+              <View style = {{margin: 10}}>
+                <Text style={{ fontSize: 18 }}>Ambiente</Text>
+                <StarRating
+                  disabled={false}
+                  maxStars={5}
+                  rating={this.state.ratingambiente}
+                  fullStarColor={'#fccb00'}
+                  selectedStar={(rating) => this.onStarRatingPressAmbiente(rating)}
+                />
+              </View>
+              <View style = {{margin: 10}}>
+                <Text style={{ fontSize: 18 }}>Servicio</Text>
+                <StarRating
+                  disabled={false}
+                  maxStars={5}
+                  rating={this.state.ratingservicio}
+                  fullStarColor={'#fccb00'}
+                  selectedStar={(rating) => this.onStarRatingPressServicio(rating)}
+                />
+              </View>
+
             </View>
             <View style = {styles.textAreaContainer}>
-              <Text>Escribe un comentario relatandonos tu historia con esta pension</Text>
               <TextInput
                 style={styles.textArea}
                 underlineColorAndroid="transparent"
-                placeholder="Escribe algo"
+                placeholder="Escribe tu comentario sobre esta pension!"
                 placeholderTextColor="grey"
                 numberOfLines={10}
                 multiline={true}
@@ -129,6 +137,7 @@ class RatingPension extends React.Component {
             <View style={styles.footer}>
                 <Button 
                   title='Registrar calificacion y comentario'
+                  color = '#7b68ee'
                   onPress={this.onClickCalificar}/>
             </View>
           </View>
@@ -180,9 +189,10 @@ function mapStateToProps(state){
       flex: 3,
     },
     footer:{
+      marginTop: '5%',
       flexDirection: 'row',
       alignItems: 'baseline',
-      flex: 3,
+      flex: 2,
     },
     textAreaContainer: {
       borderColor: 'grey',

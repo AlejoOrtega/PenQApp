@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Alert, Text, StyleSheet, Image } from 'react-native';
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { View, Alert, Text, StyleSheet, Image, Button } from 'react-native';
+import { Card, ListItem, Icon } from 'react-native-elements'
 
 
 
@@ -26,19 +26,32 @@ export default class CuartosList extends React.Component {
           console.log(cuartos[i].Url1)
           code.push(
             <Card>
-              <View style={styles.cardInfo}>
-              
-              
-                <Text>{cuartos[i].Alias}</Text>
-                <Text>{cuartos[i].Precio}</Text>
-              </View> 
-              
-              <Button
-              title='Press me!'
-              onPress={this.props.Press.bind(this, cuartos[i])}/>
-              <Button
-              title='Ver pension de este cuarto'
-              onPress={this.props.ViewPension.bind(this, pension)}/>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={styles.CircleShapeView}>
+                  <Image
+                    style={styles.CircleShapeView}
+                    source={{ uri: cuartos[i].Url1 }} />
+                </View>
+                <View style={{ flexDirection: 'column', alignItems: 'center', margin: 10, justifyContent:'center' }}>
+                  <View style={styles.cardInfo}>
+                    <Text style={{ fontSize: 18 }}>{cuartos[i].Alias}    </Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>${cuartos[i].Precio}</Text>
+                  </View>
+                  
+                </View>
+              </View>
+              <View style={{ flexDirection: 'row', height: 50, width:'80%', alignItems:'center', justifyContent:'space-evenly', marginLeft:'20%' }}>
+                    <Button
+                      title='Ver Cuarto'
+                      color='#47449a'
+                      onPress={this.props.Press.bind(this, cuartos[i])} />
+                    <Button
+                      title='Ver pension'
+                      color='#7b68ee'
+                      onPress={this.props.ViewPension.bind(this, pension)} />
+
+                </View>
+
             </Card>
           )
           }
@@ -50,18 +63,28 @@ export default class CuartosList extends React.Component {
   
         for(var i=0; i< cuartos.length;i=i+1){
           code.push(
-            <Card>
-              <View style={styles.cardInfo}>
-              <Image
-              style={{width:200 , height:200}}
-              source={{uri: cuartos[i].Url1}}/>
-                <Text>{cuartos[i].Alias}</Text>
-                <Text>{cuartos[i].Precio}</Text>
+             <Card>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={styles.CircleShapeView}>
+                  <Image
+                    style={styles.CircleShapeView}
+                    source={{ uri: cuartos[i].Url1 }} />
+                </View>
+                <View style={{ flexDirection: 'column', margin: 10 }}>
+                  <View style={styles.cardInfo}>
+                    <Text style={{ fontSize: 18 }}>{cuartos[i].Alias}    </Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>${cuartos[i].Precio}</Text>
+                  </View>
+                  <View style={{ height: 50, width: '80%' }}>
+                    <Button
+                      title='Ver cuarto'
+                      color='#7b68ee'
+                      onPress={this.props.Press.bind(this, cuartos[i])} />
+                  </View>
+                  
+                </View>
               </View>
-              
-              <Button
-              title='Press me!'
-              onPress={this.props.Press.bind(this, cuartos[i])}/>
+
             </Card>
           )
           }
@@ -74,7 +97,7 @@ export default class CuartosList extends React.Component {
   
     render() {
     return (
-      <View>
+      <View style = {{width: '100%'}}>
         {this.cuartosListCreator()}
       </View>
 
@@ -84,6 +107,13 @@ export default class CuartosList extends React.Component {
 const styles = StyleSheet.create({
 	cardInfo: {
     flexDirection: 'row',
-	  justifyContent: 'space-between',
-	},
+    justifyContent: 'space-between',
+    margin: 5,
+  },
+  CircleShapeView: {
+    width: 90,
+    height: 90,
+    borderRadius: 90/2,
+    backgroundColor: 'grey'
+  }
  });

@@ -50,36 +50,12 @@ import {bindActionCreators} from 'redux';
     return (  
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text>{'Hola! '+ this.props.user.Apellido}</Text>
-          <Text>Tus Pensiones</Text>
+          <Text style={{ fontSize: 20}}>{'Hola! '+ this.props.user.Nombre + ' ' +  this.props.user.Apellido}</Text>
+          <Text style={{ fontSize: 20}}> Estas son tus Pensiones</Text>
         </View>
         <View style={styles.center}>
           <Cards data={this.props.pensiones} Press={this._onPressPension}
           />
-        </View>
-        <View style={styles.footer}>
-        <Fab
-              active={this.state.active}
-              direction="up"
-              containerStyle={{ }}
-              style={styles.fab}
-              position="bottomRight"
-              onPress={this._onPressFab}>
-              <Icon name="settings" />
-              <Button style={styles.logOutButton}
-                onPress={this._onPressLogOut}>
-                <Icon name="log-out" />
-              </Button>
-              <Button style={styles.addButton}
-                onPress={this._onPressAddPension}
-                >
-                <Icon name="add" />
-              </Button>
-              <Button style={styles.accountButton}
-                onPress={this._onPressAccount}>
-                <Icon name="person" />
-              </Button>
-            </Fab>
         </View>
       </View>
         
@@ -118,12 +94,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightblue',
   },
   center:{
-    justifyContent: 'center',
-    flex: 3,
-  },
-  footer:{
-    alignItems: 'baseline',
-    flex: 3,
+    alignItems: 'center',
+    flex: 5,
   },
   fab:{
     backgroundColor: '#5067FF',

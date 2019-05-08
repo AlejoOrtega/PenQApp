@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Alert, Text } from 'react-native';
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { View, Alert, Text , Button, StyleSheet, Image } from 'react-native';
+import { Card, ListItem, Icon } from 'react-native-elements'
 import firebase from "firebase"
 
 import {connect} from 'react-redux';
@@ -30,12 +30,24 @@ class ComentsLoader extends React.Component {
         {
           var ver=false;
             for (let index = 0; index < this.props.coments.length; index++) {
-                code.push(
-                    <View>
-                    <Text>{this.props.coments[index].NombreUser}</Text>
-                    <Text>{this.props.coments[index].comentario}</Text>
+              code.push(
+
+                <Card>
+                  <View style={{ flexDirection: 'row' }}>
+                    <View style={styles.CircleShapeView}>
+                      <Image
+                        style={styles.CircleShapeView}
+                        source={{ uri: this.props.coments[index].photoUri}}
+                      />
                     </View>
-                )
+                    <View style={{ flexDirection: 'column', alignItems: 'center', margin: 10 }}>
+                      <Text style = {{fontWeight: 'bold', fontSize: 20}}>{this.props.coments[index].NombreUser}</Text>
+                      <Text style = {{ fontSize: 16}}>{this.props.coments[index].comentario}</Text>
+                    </View>
+                  </View>
+
+                </Card>
+              )
                 if(firebase.auth().currentUser.uid == this.props.coments[index].comentadorPorUser){
                   ver= true;
                 }
@@ -44,6 +56,7 @@ class ComentsLoader extends React.Component {
               code.push(
                   <Button
                       title='Viviste aqui? Calificalo!'
+                      color = '#7b68ee'
                       onPress={this.props.onPressCalificar.bind(this) }/>
               )
           }
@@ -53,7 +66,7 @@ class ComentsLoader extends React.Component {
 }
     render() {
     return (
-      <View>
+      <View style = {{width: '100%'}}>
         {this.stackServices()}
       </View>
 
@@ -79,3 +92,14 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComentsLoader);
+
+const styles = StyleSheet.create({
+ 
+  CircleShapeView: {
+    width: 80,
+    height: 80,
+    borderRadius: 80/2,
+    backgroundColor: 'grey'
+  }
+ 
+});

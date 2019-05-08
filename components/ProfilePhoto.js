@@ -13,7 +13,7 @@ export default class ProfilePhoto extends React.Component{
         code=[]
         code.push(
         <Image
-        style={{width: 100, height:100}}
+        style={{width: 100, height:100, borderRadius: 100/2}}
         source={this._getImage()}/>
         )
         return code;

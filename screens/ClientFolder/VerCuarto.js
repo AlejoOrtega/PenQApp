@@ -17,12 +17,14 @@ class ViewCuarto extends React.Component {
 	render(){
 		return(
 			<View style={styles.container}>
-				<View style={styles.header}>
-				<SwiperC 
-          pictures={this.props.picsroom}/>
-				</View>
 				<View style={styles.center}>
-					<DetallesCuartos data={this.props.cuartoTarget}/>
+					<View style = {{width: '90%', alignItems: 'center', flex: 2}}>
+						<SwiperC 
+          	pictures={this.props.picsroom}/>
+					</View>
+					<View style = {{width: '90%',alignItems: 'flex-start', paddingHorizontal: '5%', flex:1, borderWidth: 1}}>
+							<DetallesCuartos data={this.props.cuartoTarget} />
+					</View>
 				</View>
 				<View style={styles.footer}>
 				</View>
@@ -54,16 +56,17 @@ function mapStateToProps(state){
 	  flex: 1,
 	  backgroundColor: '#fff',
 	},
-	header:{
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	  flex: 0.5,
-	  backgroundColor: 'lightblue',
-	},
 	center:{
 	  flex: 2,
-	  padding: 10
+		alignItems: 'center', 
 	},
+	logo:{
+		width: '90%',
+		height: '70%', 
+		alignSelf:'center',
+		borderWidth: 1,
+		borderColor:'black'
+  },
 	penOpt:{
 	  justifyContent: 'flex-end',
 	},
