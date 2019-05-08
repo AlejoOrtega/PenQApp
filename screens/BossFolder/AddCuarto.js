@@ -141,43 +141,67 @@ class AddCuarto extends Component {
 			<ScrollView style={styles.neatScroll}>
 				<View style={styles.header}></View>
 				<View style={styles.center}>
-					<Text>Ponle un nombre a este cuarto!</Text>
-					<TextInput
-					onChangeText={this._onChangeAlias}/>
-					<Text>Precio</Text>
-					<TextInput
-					onChangeText={this._onChangePrecio}/>
-					<Text>Capacidad del cuarto</Text>
-					<TextInput
-					onChangeText={this._onChangeCapacidad}/>
-					<Text>Descripcion</Text>
-					<TextInput
-					onChangeText={this._onChangeDescripcion}/>
-					<Text>Observaciones</Text>
-					<TextInput
-					onChangeText={this._onChangeObservaciones}/>
-					<Button
-                    title='Agrega fotos!'
-                    onPress={this._onPressPictures1}
-                    color={this.state.foto1 == true ? '#01ad1b':'#7c0a00'}
-                    />
-                    <Button
-                    title='Agrega fotos!'
-                    onPress={this._onPressPictures2}
-                    color={this.state.foto2 == true ? '#01ad1b':'#7c0a00'}
-                    />
-                    <Button
-                    title='Agrega fotos!'
-                    onPress={this._onPressPictures3}
-                    color={this.state.foto3 == true ? '#01ad1b':'#7c0a00'}
-                    />
+					<View style = {styles.inputsAndText}>
+						<Text style={{ fontSize: 20 }}>Ponle un nombre a este cuarto!</Text>
+						<TextInput
+							style = {{backgroundColor: 'grey',}}
+							onChangeText={this._onChangeAlias} />
+					</View>
+
+					<View style = {styles.inputsAndText}>
+						<Text style={{ fontSize: 20 }}>Precio</Text>
+						<TextInput
+							style = {{backgroundColor: 'grey',}}
+							onChangeText={this._onChangePrecio} />
+					</View>
+
+					<View style = {styles.inputsAndText}>
+						<Text style={{ fontSize: 20 }}>Capacidad del cuarto</Text>
+						<TextInput
+						style = {{backgroundColor: 'grey',}}
+							onChangeText={this._onChangeCapacidad} />
+					</View>
+
+					<View style = {styles.inputsAndText}>
+						<Text style={{ fontSize: 20 }}>Descripcion</Text>
+						<TextInput
+							style = {{backgroundColor: 'grey',}}
+							onChangeText={this._onChangeDescripcion} />
+					</View>
+
+					<View style = {styles.inputsAndText}>
+						<Text style={{ fontSize: 20 }}>Observaciones</Text>
+						<TextInput
+							style = {{backgroundColor: 'grey',}}
+							onChangeText={this._onChangeObservaciones} />
+					</View>
+
+					<View style={styles.AddPhotoButtons}>
+						<Button
+							title='Agrega fotos!'
+							onPress={this._onPressPictures1}
+							color={this.state.foto1 == true ? '#01ad1b' : '#7c0a00'}
+						/>
+						<Button
+							title='Agrega fotos!'
+							onPress={this._onPressPictures2}
+							color={this.state.foto2 == true ? '#01ad1b' : '#7c0a00'}
+						/>
+						<Button
+							title='Agrega fotos!'
+							onPress={this._onPressPictures3}
+							color={this.state.foto3 == true ? '#01ad1b' : '#7c0a00'}
+						/>
+					</View>
+					
 				</View>
 				<View style={styles.footer}>
 					<Button
-					title='Confirmar y enviar datos'
-					onPress={this._onPressSendData}/>
+						title='Confirmar y enviar datos'
+						color = '#7b68ee'
+						onPress={this._onPressSendData} />
 				</View>
-				</ScrollView>
+			</ScrollView>
 		);
 	}
 }
@@ -226,5 +250,13 @@ function mapStateToProps(state){
 	  justifyContent: 'flex-end',
 	  flex: 0.5,
 	},
+
+	inputsAndText:{
+		margin:10
+	},
+	AddPhotoButtons:{
+		height: 200,
+		justifyContent: 'space-evenly'
+	}
 
  });

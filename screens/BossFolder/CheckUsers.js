@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native'
+import {View, Text, StyleSheet, Button, Image} from 'react-native'
+import { Card} from 'react-native-elements'
 
 import firebase from 'firebase'
 
@@ -100,22 +101,38 @@ class CheckUser extends React.Component{
     UserCheck(){
         code=[]
         code.push(
-            <Text>Estos Usuarios vivieron en tu pension?</Text>
+            <Text style = {{fontSize: 20}}>Estos Usuarios vivieron en tu pension?{'\n'} </Text>
         )
         
         for (let index = 0; index < this.props.coments.length; index++) {
             
             if (this.props.coments[index].ValidadoBoss ==false) {
                 code.push(
-                    <View>
-                        <Text>{this.props.coments[index].NombreUser}</Text>
-                        <Button
-                        title="Confirmar"
-                        onPress={this._onPressConfirmComent.bind(this,this.props.coments[index])}/>
-                        <Button
-                        title="Cancelar"
-                        onPress={this._onPressCancelComent.bind(this,this.props.coments[index])}/>
+                  <Card>
+                    <View style={{ flexDirection: 'row' }}>
+                      <View style={styles.CircleShapeView}>
+                        <Image
+                          style={styles.CircleShapeView}
+                          source={{ uri: this.props.coments[index].photoUri }}
+                        />
+                      </View>
+                      <View style = {{flexDirection: 'row'}}>
+                        <Text style = {{ alignSelf: 'center',  marginLeft: '5%' }}>{this.props.coments[index].NombreUser}</Text>
+                        <View style={{ flexDirection: 'column', marginLeft: '5%', justifyContent: 'space-between' }}>
+                          <Button
+                            title="Confirmar"
+                            style = {{marginBottom: 10}}
+                            color='#7b68ee'
+                            onPress={this._onPressConfirmComent.bind(this, this.props.coments[index])} />
+                          <Button
+                            title="Cancelar"
+                            color='#7b68ee'
+                            onPress={this._onPressCancelComent.bind(this, this.props.coments[index])} />
+                        </View>
+                      </View>
+                      
                     </View>
+                  </Card>
                 )
             }
         }
@@ -125,7 +142,6 @@ class CheckUser extends React.Component{
     render(){
         return(
             <View style={styles.container}>
-                <View style={styles.header}></View>
                 <View style={styles.center}>
                     {this.UserCheck()}
                 </View>
@@ -161,18 +177,17 @@ function mapStateToProps(state){
       flex: 1,
       backgroundColor: '#fff',
     },
-    header:{
-      justifyContent: 'center',
-      alignItems: 'center',
-      flex: 0.5,
-      backgroundColor: 'lightblue',
+    CircleShapeView: {
+      width: 80,
+      height: 80,
+      borderRadius: 80/2,
+      backgroundColor: 'grey'
     },
     center:{
-      flex: 2,
+      flex: 1,
       padding: 10,
-      flexDirection:'row',
+      flexDirection:'column',
       alignItems:'stretch',
-      justifyContent:'space-between'
     },
     penOpt:{
       justifyContent: 'flex-end',

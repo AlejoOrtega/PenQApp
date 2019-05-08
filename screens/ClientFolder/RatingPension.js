@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, ScrollView } from 'react-native';
 import {isSignedIn} from '../../components/tools/Auth'
 
 
@@ -85,11 +85,8 @@ class RatingPension extends React.Component {
     }
     render(){
         return(
-          <View style={styles.container}>
-            <View styles={styles.header}>
-
-            </View>
-            <View style={{ margin: 10 }}>
+          <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.center}>
               <View style = {{margin: 10}}>
                 <Text style={{ fontSize: 18 }}>Aseo</Text>
                 <StarRating
@@ -140,7 +137,7 @@ class RatingPension extends React.Component {
                   color = '#7b68ee'
                   onPress={this.onClickCalificar}/>
             </View>
-          </View>
+          </ScrollView>
         );
     }
 }
@@ -166,7 +163,6 @@ function mapStateToProps(state){
 
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
@@ -182,25 +178,24 @@ function mapStateToProps(state){
     header:{
       justifyContent: 'center',
       alignItems: 'center',
-      flex: 3,
     },
     center:{
       justifyContent: 'center',
-      flex: 3,
+      height: 300,
+      margin: 10 
     },
     footer:{
       marginTop: '5%',
-      flexDirection: 'row',
       alignItems: 'baseline',
-      flex: 2,
+      height: 50
     },
     textAreaContainer: {
       borderColor: 'grey',
       borderWidth: 1,
-      padding: 5
+      padding: 5,
+      height: 200,
     },
     textArea: {
-      height: 150,
-      justifyContent: "flex-start"
+      justifyContent: "center"
     }
   });

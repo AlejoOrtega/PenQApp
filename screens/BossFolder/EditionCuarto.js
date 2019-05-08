@@ -113,56 +113,66 @@ class EditionCuarto extends Component {
 	render(){
 		return(
 			<ScrollView>
-				<View style={styles.header}>
-
-				<Text>Modifique los datos de este cuarto!</Text>
-
-				</View>
 				<View style={styles.center}>
+					<View style = {styles.inputsAndText}>
+						<Text style={{ fontSize: 20 }}>Descripcion</Text>
+						<TextInput
+							style={styles.textInput}
+							placeholder={this.props.cuartoTarget.Descrip}
+							onChangeText={this._onChangeDescrip} />
+					</View>
 
-					<Text>Descripcion</Text>
-					<TextInput
-					style={styles.textInput}
-					placeholder={this.props.cuartoTarget.Descrip}
-					onChangeText={this._onChangeDescrip}/>
-					<Text>Capacidad</Text>
-					<TextInput
-					style={styles.textInput}
-					placeholder={this.props.cuartoTarget.Capacidad}
-					onChangeText={this._onChangeCapa}/>
-					<Text>Observaciones</Text>
-					<TextInput
-					style={styles.textInput}
-					placeholder={this.props.cuartoTarget.Obser}
-					onChangeText={this._onChangeObser}/>
-					<Text>Precio</Text>
-					<TextInput
-					style={styles.textInput}
-					placeholder={this.props.cuartoTarget.Precio}
-					onChangeText={this._onChangePrecio}/>
+					<View style = {styles.inputsAndText}>
+						<Text style={{ fontSize: 20 }}>Capacidad</Text>
+						<TextInput
+							style={styles.textInput}
+							placeholder={this.props.cuartoTarget.Capacidad}
+							onChangeText={this._onChangeCapa} />
+					</View>
+
+					<View style = {styles.inputsAndText}>
+						<Text style={{ fontSize: 20 }}>Observaciones</Text>
+						<TextInput
+							style={styles.textInput}
+							placeholder={this.props.cuartoTarget.Obser}
+							onChangeText={this._onChangeObser} />
+					</View>
+
+					<View style = {styles.inputsAndText}>
+						<Text style={{ fontSize: 20 }}>Precio</Text>
+						<TextInput
+							style={styles.textInput}
+							placeholder={this.props.cuartoTarget.Precio}
+							onChangeText={this._onChangePrecio} />
+					</View>
+
 					<View style={styles.PhotoAndButton}>
-					<ProfilePhoto uri={this.props.picture1}/>
-					<Button
-					title="Cambiar"
-					onPress={this.onPressChangePicture}/>
-				</View>
-				<View style={styles.PhotoAndButton}>
-					<ProfilePhoto uri={this.props.picture2}/>
-					<Button
-					title="Cambiar"
-					onPress={this.onPressChangePicture2}/>
-				</View>
-				<View style={styles.PhotoAndButton}>
-					<ProfilePhoto uri={this.props.picture3}/>
-					<Button
-					title="Cambiar"
-					onPress={this.onPressChangePicture3}/>
-				</View>
+						<ProfilePhoto uri={this.props.picture1} />
+						<Button
+							title="Cambiar"
+							color = '#7b68ee'
+							onPress={this.onPressChangePicture} />
+					</View>
+					<View style={styles.PhotoAndButton}>
+						<ProfilePhoto uri={this.props.picture2} />
+						<Button
+							title="Cambiar"
+							color = '#7b68ee'
+							onPress={this.onPressChangePicture2} />
+					</View>
+					<View style={styles.PhotoAndButton}>
+						<ProfilePhoto uri={this.props.picture3} />
+						<Button
+							title="Cambiar"
+							color = '#7b68ee'
+							onPress={this.onPressChangePicture3} />
+					</View>
 				</View>
 				<View style={styles.footer}>
-				<Button
-					title='Confirmar y enviar datos!'
-					onPress={this._onPressSendData}/>
+					<Button
+						title='Confirmar y enviar datos!'
+						color = '#7b68ee'
+						onPress={this._onPressSendData} />
 				</View>
 			</ScrollView>
 		);
@@ -197,12 +207,6 @@ function mapStateToProps(state){
 	  flex: 1,
 	  backgroundColor: '#fff',
 	},
-	header:{
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	  flex: 0.5,
-	  backgroundColor: 'lightblue',
-	},
 	center:{
 	  flex: 2,
 	  padding: 10
@@ -210,7 +214,16 @@ function mapStateToProps(state){
 	footer:{
 	  justifyContent: 'flex-end',
 	  flex: 0.5,
-	},textInput:{
+	},
+	inputsAndText:{
+		margin:10
+	},
+	PhotoAndButton:{
+		flexDirection: 'row',
+		justifyContent:'center',
+		alignItems: 'center'
+	},
+	textInput:{
     borderColor: 'black',
     backgroundColor: 'grey',
   },

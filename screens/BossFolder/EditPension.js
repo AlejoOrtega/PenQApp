@@ -139,22 +139,21 @@ class EditPension extends Component {
       return(
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.header}>
-            <Text style={{ fontSize: 20 }}>Modifica los datos de tu pension</Text>
           </View>
           <View style={styles.center}>
-            <Text>Alias</Text>
+            <Text style={{ fontSize: 20 }}>Alias</Text>
             <TextInput
               style={styles.textInput}
               placeholder={this.props.target.Alias}
               onChangeText={this._changeAlias}
             ></TextInput>
-            <Text>Barrio</Text>
+            <Text style={{ fontSize: 20 }}>Barrio</Text>
             <TextInput
               style={styles.textInput}
               placeholder={this.props.target.Barrio}
               onChangeText={this._changeApellido}
             ></TextInput>
-            <Text>Direccion</Text>
+            <Text style={{ fontSize: 20 }}>Direccion</Text>
             <TextInput
               style={styles.textInput}
               placeholder={this.props.target.Direccion}
@@ -195,15 +194,19 @@ class EditPension extends Component {
               isChecked={this.state.llave}
               leftText={"al cliente se le da llaves de la casa"}
             />
-            <Text>Especificaciones de los servicios</Text>
+            <Text style={{ fontSize: 20 }}>Especificaciones de los servicios</Text>
             <TextInput
               style={styles.textInput}
+              numberOfLines={5}
+              multiline={true}
               placeholder={this.props.target.Especific}
               onChangeText={this._changeEspe}
             ></TextInput>
-            <Text>Reglas</Text>
+            <Text style={{ fontSize: 20 }}>Reglas</Text>
             <TextInput
               style={styles.textInput}
+              numberOfLines={5}
+              multiline={true}
               placeholder={this.props.target.Reglas}
               onChangeText={this._changeReglas}
             ></TextInput>
@@ -211,18 +214,21 @@ class EditPension extends Component {
               <ProfilePhoto uri={this.props.picture1} />
               <Button
                 title="Cambiar"
+                color='#7b68ee'
                 onPress={this.onPressChangePicture} />
             </View>
             <View style={styles.PhotoAndButton}>
               <ProfilePhoto uri={this.props.picture2} />
               <Button
                 title="Cambiar"
+                color='#7b68ee'
                 onPress={this.onPressChangePicture2} />
             </View>
             <View style={styles.PhotoAndButton}>
               <ProfilePhoto uri={this.props.picture3} />
               <Button
                 title="Cambiar"
+                color='#7b68ee'
                 onPress={this.onPressChangePicture3} />
             </View>
           </View>
@@ -270,7 +276,13 @@ const styles = StyleSheet.create({
   textInput:{
     borderColor: 'black',
     backgroundColor: 'grey',
-    width: 300
+    width: 300,
+    marginBottom: 10
+  },
+  PhotoAndButton:{
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems: 'center'
   },
   edit:{
     color: 'blue',
@@ -283,7 +295,7 @@ const styles = StyleSheet.create({
   },
   center:{
     justifyContent: 'center',
-    height: 800,
+    height: 900,
     margin: 10
   },
   footer:{

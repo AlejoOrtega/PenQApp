@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import {Button} from 'react-native-elements';
+import { View, StyleSheet, Button } from 'react-native';
 import DetallesCuartos from '../../components/DetallesCuarto';
 import SwiperC from '../../components/SwiperC';
 
@@ -53,9 +52,11 @@ class ViewCuarto extends React.Component {
 				<View style={styles.footer}>
 					<Button
 					title='Editar'
+					color = '#7b68ee'
 					onPress={this._onPressEditCuarto}/>
 					<Button
 					title='Eliminar Cuarto'
+					color = '#b22222'
 					onPress={this._onPressEliminarCuarto}/>
 				</View>
 			</View>
@@ -92,12 +93,12 @@ function mapStateToProps(state){
 	header:{
 	  justifyContent: 'center',
 	  alignItems: 'center',
-	  flex: 0.5,
+	  flex: 2,
 	  backgroundColor: 'lightblue',
 	},
 	center:{
 	  flex: 2,
-	  padding: 10
+		padding: 10
 	},
 	penOpt:{
 	  justifyContent: 'flex-end',
