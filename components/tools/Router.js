@@ -345,19 +345,6 @@ const homeStack = createStackNavigator({
       }
     }),
   },
-  Locate:{
-    screen: LocatePension,
-    navigationOptions: () => ({
-      title : 'Ubica tu pensión!!',
-      headerTintColor:'white',
-      headerTitleStyle:{
-        color: 'white'
-      },
-      headerStyle:{
-        backgroundColor: '#7b68ee'
-      }
-    }),
-  },
   PensionView:{
     screen: PensionView,
     navigationOptions: () => ({
@@ -467,7 +454,20 @@ const AddPensionStack = createStackNavigator({
         backgroundColor: '#7b68ee'
       }
     }),
-  }
+  },
+  Locate:{
+    screen: LocatePension,
+    navigationOptions: () => ({
+      title : 'Ubica tu pensión!!',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
+    }),
+  },
 },{
     initialRouteName: 'AddPension',
     headerLayoutPreset: 'center'

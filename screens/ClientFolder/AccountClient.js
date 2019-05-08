@@ -43,6 +43,7 @@ class AccountClient extends Component {
                 <Text style={{ fontSize: 18, fontWeight: 'bold'}}>Informacion de tu cuenta</Text>
                 <View style={styles.editar}>
                     <Text style={{ fontSize: 14}}>Correo: {this.props.user.Correo}</Text>
+                    <Text style={{ fontSize: 14}}>Celular: {this.props.user.Celular}</Text>
                     <View style={styles.EditButton}>
                         <Button
                             title='Editar'
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     },
     center:{
     //   justifyContent: 'center',
-        flex:0.7,
+        flex:0.9,
     },
     containerNF:{
         flex: 0.5,
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
         flex: 2,
       },
     footer:{
-        flex:0.3,
+        flex:0.2,
     },
     logOutButton:{
         width: 200,

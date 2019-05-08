@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import CuartosList from '../../components/CuartosList';
 
 import {connect} from 'react-redux';
@@ -17,6 +17,9 @@ class CuartosView extends React.Component {
 		
 		this.props.navigation.navigate('ViewCuarto')
 	}
+	_onPressAddCuarto=()=>{
+    this.props.navigation.navigate('AddCuarto')
+  }
 
 	render(){
 		return(
@@ -28,6 +31,9 @@ class CuartosView extends React.Component {
 					<CuartosList data={this.props.cuartos} Press={this._onPressCuarto}/>
 				</View>
 				<View style={styles.footer}>
+					<Button
+					title='Anadir cuarto'
+					onPress={this._onPressAddCuarto}/>
 				</View>
 			</View>
 		);

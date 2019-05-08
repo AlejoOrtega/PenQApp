@@ -14,8 +14,9 @@ class EditClient extends Component {
     constructor(props) {
       super(props)
       this.state={
-        nombre:this.props.user.nombre,
-        apellido:this.props.user.apellido,
+        nombre:this.props.user.Nombre,
+        apellido:this.props.user.Apellido,
+        celular: this.props.user.Celular
       };
     }
 
@@ -71,17 +72,21 @@ class EditClient extends Component {
     _changeApellido=(text)=>{
       this.setState({apellido: text});
     }
+    _changeCell=(text)=>{
+      this.setState({celular: text});
+    }
     _onPressSendChanges=() =>{
       isSignedIn('Log').then((value)=>{
-        value.nombre=this.state.nombre;
-        value.apellido=this.state.apellido;
+        value.Nombre=this.state.nombre;
+        value.Apellido=this.state.apellido;
         onSignIn('Log',value).then().catch((err)=>alert(err));
         this.props.updateData(value);
 
         user = firebase.auth().currentUser;
         firebase.database().ref('Users/'+user.uid+'/Account-Info').update({
           Nombre: this.state.nombre,
-          Apellido: this.state.apellido
+          Apellido: this.state.apellido,
+          Celular: this.state.celular
         })
         this.props.navigation.navigate('AccountClient');
       })
@@ -113,6 +118,14 @@ class EditClient extends Component {
                 style={styles.textInput}
                 placeholder={this.props.user.Apellido}
                 onChangeText={this._changeApellido}
+              ></TextInput>
+            </View>
+            <View>
+            <Text style = {{fontSize: 16}}>Celular</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder={this.props.user.Celular}
+                onChangeText={this._changeCell}
               ></TextInput>
             </View>
           </View>
@@ -155,7 +168,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width:'100%',
     justifyContent: 'space-evenly',
-    flex:2
+    flex:3
   },
   textInput:{
     borderColor: 'black',
@@ -182,6 +195,6 @@ const styles = StyleSheet.create({
   footer:{
     justifyContent:'center',
     alignItems: 'center',
-    flex: 3,
+    flex: 2,
   }
 });

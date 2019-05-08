@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableHighlight, Button as Btn } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableHighlight, Button, Alert } from 'react-native';
 import {} from 'react-native-elements';
-import {Button, Icon, Fab } from 'native-base';
 import Service from '../../components/Services';
 import StarRating from 'react-native-star-rating';
 import ComentLoaderBoss from '../../components/ComentLoaderBoss';
@@ -24,6 +23,7 @@ class PensionView extends React.Component {
         comida: this.props.target.Comida,
         render:false,
         pictures:[],
+        active:false,
       }
       
   }
@@ -63,7 +63,7 @@ class PensionView extends React.Component {
     this.props.uploadPics(pics)
   }
 
-  _onPressRemovePension=()=>{
+  removePension=()=>{
     firebase.database().ref('Pensiones/'+this.props.target.ID).remove();
     var query = firebase.database().ref('Pensiones/');
     query.once("value")
@@ -84,6 +84,22 @@ class PensionView extends React.Component {
       this.props.updateDataBoss(Pensiones);
       this.props.navigation.navigate('BossStart');
     });
+  }
+
+  _onPressRemovePension=()=>{
+    Alert.alert(
+      'Cuidado!',
+      'Seguro deseas eliminar esta pension?',
+      [
+        {
+          text: 'No',
+          onPress: () => console.log('Operation Aborted'),
+          style: 'cancel',
+        },
+        {text: 'Si', onPress: () => this.removePension},
+      ],
+      {cancelable: false},
+    );
   }
   _onPressAddCuarto=()=>{
     this.props.navigation.navigate('AddCuarto')
@@ -114,6 +130,9 @@ class PensionView extends React.Component {
   _onPressRating=()=>{
     this.props.navigation.navigate('ViewRating')
   }
+  _onPressFab=()=>{
+    this.setState({ active: !this.state.active });
+  }
 
     render() {
       return (
@@ -140,57 +159,48 @@ class PensionView extends React.Component {
               <View style={styles.InfoPen}>
 
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Administrador:</Text> {this.state.user.Nombre} {this.state.user.Apellido}</Text>
-
+                <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Celular:</Text> {this.state.user.Celular}</Text>
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Direccion:</Text> {this.props.target.Direccion}</Text>
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Barrio:</Text> {this.props.target.Barrio}</Text>
                 <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Servicios:</Text>
-                <Service data={this.props.target} />
-                <View>
-                  <Btn
-                    style={{ width: 200, height: 50, marginBottom: '5%' }}
-                    title='Editar'
-                    color='#7b68ee'
-                    onPress={this._onPressEditPension}
-                  ></Btn>
+                <View style={{width:'100%'}}>
+                  <Service data={this.props.target} />
                 </View>
-                <View style={styles.EditButton}>
-                  <Btn
-                    style={{ width: 200, height: 50 }}
-                    title="Ver Cuartos!"
-                    color='#8A2BE2'
-                    onPress={this._onPressVerCuartos} />
+                
+              <View style={{justifyContent:'space-between'}}>
+                <View style={{flexDirection:'row-reverse', width:'100%', justifyContent:'space-between'}}>
+                  <Button
+                      style={{ width: '50%', height: 50, marginBottom: '5%' }}
+                      title='Verificar Inquilinos'
+                      color='#0c7c1b'
+                      onPress={this._onPressCheckUsers}
+                    />
+                  <Button
+                    style={{ width: '50%', height: 50, marginBottom: '5%' }}
+                    title='Editar'
+                    color='#f4b942'
+                    onPress={this._onPressEditPension}
+                  />
+                  
+                </View>
+                  <View style={styles.EditButton}>
+                    <Button
+                      style={{ width: 200, height: 50 }}
+                      title="Ver Cuartos!"
+                      color='#8A2BE2'
+                      onPress={this._onPressVerCuartos} />
+                      <Button
+                    style={{ width: '50%', height: 50, marginBottom: '5%' }}
+                    title='Eliminar Pension'
+                    color='#c81d11'
+                    onPress={this._onPressRemovePension}
+                  />
+                  </View>
                 </View>
               </View>
 
             </View>
-            <Fab
-              active={this.state.active}
-              direction="up"
-              containerStyle={{}}
-              style={styles.fab}
-              position="bottomRight"
-              onPress={this._onPressFab}>
-              <Icon name="settings" />
-              <Button style={styles.logOutButton}
-                onPress={this._onPressVerCuartos}>
-                <Icon name="ios-albums" />
-              </Button>
-              <Button style={styles.addButton}
-                onPress={this._onPressAddCuarto}
-              >
-                <Icon name="ios-add-circle" />
-              </Button>
-              <Button style={styles.removeButton}
-                onPress={this._onPressRemovePension}
-              >
-                <Icon name="ios-remove-circle-outline" />
-              </Button>
-              <Button style={styles.checkPersons}
-                onPress={this._onPressCheckUsers}
-              >
-                <Icon name="nuclear" />
-              </Button>
-            </Fab>
+            
 
 
 
@@ -245,6 +255,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     fontSize: 14,
     margin: 5,
+    width:'100%',
     
   },
   CalificacionSty:{
@@ -254,7 +265,9 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   EditButton:{
-    margin: 10
+    margin: 10,
+    height:100,
+    justifyContent:'space-between'
   },
   logo:{
     height: 300

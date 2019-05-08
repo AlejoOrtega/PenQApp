@@ -1,10 +1,10 @@
 {
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
+  "expoServerNgrokUrl": "https://v9-m3d.anonymous.penqapp.exp.direct",
+  "packagerNgrokUrl": "https://packager.v9-m3d.anonymous.penqapp.exp.direct",
+  "ngrokPid": 10376,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 9220,
   "webpackServerPort": null,
   "devToolsPort": 19002
 }

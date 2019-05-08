@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
 //Componentes
 import Field from '../components/Field';
 import Button from '../components/Button';
+import Load from '../components/Load';
 
 //Fire Base
 import * as firebase from 'firebase';
@@ -27,6 +28,7 @@ class LogIn extends React.Component {
         this.state={
           correo:'',
           contra:'',
+          loading:false
         }
     }
 
@@ -39,6 +41,7 @@ class LogIn extends React.Component {
       isSignedIn('Log').then((value)=>{
         this.props.updateData(value);
         if(value != 'empty'){
+          this.setState({loading:true})
           firebase.auth().signInWithEmailAndPassword(value.Correo, value.Contra)
           .then(()=>{
             currentUser=firebase.auth().currentUser.uid;
@@ -78,6 +81,7 @@ class LogIn extends React.Component {
                    }
                  }
                this.props.updateDataBoss(Pensiones);
+               this.setState({loading:false})
                this.props.navigation.navigate('BossStart');
              });
              
@@ -85,6 +89,7 @@ class LogIn extends React.Component {
           }).catch((err)=>alert(err));
         }
       });
+      
     }
 
 
@@ -94,6 +99,7 @@ class LogIn extends React.Component {
       firebase.auth().signInWithEmailAndPassword(this.state.correo, this.state.contra)
       .then(()=>
       {
+        this.setState({loading:true})
         currentUser = firebase.auth().currentUser;
         firebase.database().ref('Users/'+currentUser.uid+'/Account-Info').once('value', (dataSnapshot)=>{
           this.props.updateData(dataSnapshot.val());
@@ -114,6 +120,7 @@ class LogIn extends React.Component {
                   Pensiones = Pensiones.concat(Pension[2]);
                 }               
                 this.props.updateDataBoss(Pensiones);
+                this.setState({loading:false})
                 this.props.navigation.navigate('ClientStart');
               });
           }else{
@@ -134,6 +141,7 @@ class LogIn extends React.Component {
                     }
                   }
                this.props.updateDataBoss(Pensiones);
+               this.setState({loading:false})
                this.props.navigation.navigate('BossStart');
              });
           }
@@ -159,46 +167,60 @@ class LogIn extends React.Component {
     }
 
     render() {
-      return (
-        <ImageBackground 
-        style={styles.style_elAlo}
-        source={require('./images/LoginScreen_elAlo_199356.jpg')}
-      >
-          <View style={styles.header}>
-            {/* Aqui deberia ir el logo */}
-            <Image
-              style ={styles.logo}
-              source={require('./Image/logo.png')}
-            /> 
+      if(this.state.loading){
+        return (
+          <ImageBackground 
+          style={styles.style_elAlo}
+          source={require('./images/LoginScreen_elAlo_199356.jpg')}
+        >
+          <View style={styles.loading}>
+            <Load/>
           </View>
-
-          <View style={styles.center}>
-              <View style={styles.fields}>
-                <Field placeholder='Correo' onChange={this._onChangeCorreo} pass={false}/>
-              </View>
-              <View style={styles.fields}>
-                <Field placeholder='Contraseña' onChange={this._onChangePass} pass={true} />
-              </View>
-              
-          </View>
-          <View style={styles.buttonEntry}>
-            <Button
-              title='Iniciar Sesión'
-              onPress={this._onPressLogIn}
-            />
-          </View>
-          <View style={styles.footer}>
-
-              <Text
-                style = {styles.style_elRegisterLink}
-                onPress={this._onPressRegister}
-                >¿No tienes cuenta? Registrate!
-              </Text>
-
-          </View>
-
-      </ImageBackground>
-      );
+          </ImageBackground>
+        );
+      }else{
+        return (
+          <ImageBackground 
+          style={styles.style_elAlo}
+          source={require('./images/LoginScreen_elAlo_199356.jpg')}
+        >
+            <View style={styles.header}>
+              {/* Aqui deberia ir el logo */}
+              <Image
+                style ={styles.logo}
+                source={require('./Image/logo.png')}
+              /> 
+            </View>
+  
+            <View style={styles.center}>
+                <View style={styles.fields}>
+                  <Field placeholder='Correo' onChange={this._onChangeCorreo} pass={false}/>
+                </View>
+                <View style={styles.fields}>
+                  <Field placeholder='Contraseña' onChange={this._onChangePass} pass={true} />
+                </View>
+                
+            </View>
+            <View style={styles.buttonEntry}>
+              <Button
+                title='Iniciar Sesión'
+                onPress={this._onPressLogIn}
+              />
+            </View>
+            <View style={styles.footer}>
+  
+                <Text
+                  style = {styles.style_elRegisterLink}
+                  onPress={this._onPressRegister}
+                  >¿No tienes cuenta? Registrate!
+                </Text>
+  
+            </View>
+  
+        </ImageBackground>
+        );
+      }
+      
     }
 }
 
@@ -220,6 +242,11 @@ const styles = StyleSheet.create({
   logo:{
     width: 240,
     height: 200,
+  },
+  loading:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center'
   },
   fields:{
     flex:1

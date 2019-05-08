@@ -43,6 +43,7 @@ class AccountBoss extends Component {
             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Informacion de tu cuenta</Text>
             <View style={styles.editar}>
               <Text style={{ fontSize: 14 }}>Correo: {this.props.user.Correo}</Text>
+              <Text style={{ fontSize: 14 }}>Celular: {this.props.user.Celular}</Text>
               <View style={styles.EditButton}>
                 <Button
                   title='Editar'

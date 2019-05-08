@@ -19,6 +19,7 @@ export default class Register extends React.Component {
         correo:'',
         contra:'',
         rcontra:'',
+        celular:'',
         selectedIndex: 0,
       }
       this.updateIndex = this.updateIndex.bind(this);
@@ -32,7 +33,7 @@ export default class Register extends React.Component {
   //Envia registro a firebase
   _Registration=()=>{
     
-    if(this.state.nombre != '' || this.state.apellido != '' || this.state.correo != '' || this.state.rcontra != ''){
+    if(this.state.nombre != '' || this.state.apellido != '' || this.state.correo != '' || this.state.rcontra != ''|| this.state.celular != ''){
       if(this.state.contra === this.state.rcontra){
 
         firebase.auth().createUserWithEmailAndPassword(this.state.correo, this.state.contra)
@@ -46,6 +47,7 @@ export default class Register extends React.Component {
             Correo: this.state.correo,
             Contra: this.state.contra,
             Type: this.state.selectedIndex,
+            Celular: this.state.celular,
             photoUri: "none"
           })
           
@@ -85,6 +87,10 @@ export default class Register extends React.Component {
   _onChangeRpass=(text)=>{
     this.setState({rcontra: text});
   }
+  //Actualiza el estado de rcontra
+  _onChangeCell=(text)=>{
+    this.setState({celular: text});
+  }
     render() {
       const buttons = ['Cliente', 'Dueño']
       const {selectedIndex} = this.state
@@ -97,9 +103,11 @@ export default class Register extends React.Component {
 
             <Field placeholder='Nombre' onChange={this._onChangeNombre}/>
             <Field placeholder='Apellido' onChange={this._onChangeApellido}/>
+            <Field placeholder='Celular' onChange={this._onChangeCell}/>
+            
             <Field placeholder='Ingresa tu correo' onChange={this._onChangeCorreo}/>
-            <Field placeholder='Ingresa tu contraseña' onChange={this._onChangePass}/>
-            <Field placeholder='Contraseña Nuevamente' onChange={this._onChangeRpass}/>
+            <Field placeholder='Ingresa tu contraseña' onChange={this._onChangePass} pass={true}/>
+            <Field placeholder='Contraseña Nuevamente' onChange={this._onChangeRpass} pass={true}/>
 
           <ButtonGroup
                 onPress={this.updateIndex}
@@ -142,7 +150,7 @@ const styles = StyleSheet.create({
     center:{
       justifyContent:'space-evenly',
       width: '90%',
-      flex: 6,
+      flex: 8,
     },
     footer:{
       justifyContent: 'center',

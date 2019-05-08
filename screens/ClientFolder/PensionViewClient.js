@@ -91,7 +91,7 @@ class PensionViewClient extends React.Component {
               <View style = {styles.InfoPen}>
                 
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Administrador:</Text> {this.state.user.Nombre} {this.state.user.Apellido}</Text>
-
+                <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Celular:</Text> {this.props.state.user.Celular}</Text>
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Direccion:</Text> {this.props.target.Direccion}</Text>
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Barrio:</Text> {this.props.target.Barrio}</Text>
                 <Text style = {{fontWeight:'bold', fontSize: 20}}>Servicios:</Text>

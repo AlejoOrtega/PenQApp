@@ -13,7 +13,6 @@ export default class CardList extends React.Component {
     let code=[]
     if(this.props.data!=null){
       var pensiones = Object.values(this.props.data);
-      console.log((this.props.data))
       for(var i=0; i< this.props.data.length;i=i+1){
         code.push(
           <Card>

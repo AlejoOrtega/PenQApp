@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Alert, Text } from 'react-native';
+import { View, Alert, Text, Image } from 'react-native';
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
 
@@ -11,7 +11,14 @@ export default class Services extends React.Component {
   stackServices(){
     code=[]
     if(this.props.data.Comida){
-      code.push(<Text>Comida</Text>)
+      code.push(
+          <View style={{alignItems:'center'}}>
+            <Image
+            style={{width:50, height:50}}
+            source={require('../screens/Image/dieta.png')}/>
+            <Text>Comida</Text>
+          </View> 
+      )
     }
     if(this.props.data.Aseo){
       code.push(<Text>Aseo</Text>)
@@ -29,7 +36,7 @@ export default class Services extends React.Component {
   }
     render() {
     return (
-      <View>
+      <View style={{flexDirection:'row', alignItems:'center', width:'100%'}}>
         {this.stackServices()}
       </View>
 

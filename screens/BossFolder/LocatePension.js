@@ -34,18 +34,23 @@ class LocatePension extends Component{
 		this.props.coordinate(this.state.x);
 		this.props.navigation.goBack();
 	}
+	changeRegion(newRegion){
+		this.setState({region: newRegion})
+	}
 	
     render(){
       return(
 			<View style={styles.container}>
 				<MapView style = {styles.map} 
-					region={{
+					initialRegion={{
 						latitude:10.9878,
 						longitude:-74.7889,
 						latitudeDelta:0.1,
 						longitudeDelta:0.1
 						
-					}}> 
+					}}
+					region={this.state.region}
+					onRegionChangeComplete={(region)=>this.changeRegion(region)}> 
 						<MapView.Marker
 							draggable
 							coordinate={this.state.x}

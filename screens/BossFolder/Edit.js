@@ -21,6 +21,7 @@ class Edit extends Component {
       this.state={
         nombre:this.props.user.Nombre,
         apellido:this.props.user.Apellido,
+        celular: this.props.user.Celular
       };
     }
 
@@ -31,17 +32,22 @@ class Edit extends Component {
     _changeApellido=(text)=>{
       this.setState({apellido: text});
     }
+    _changeCell=(text)=>{
+      this.setState({celular: text});
+    }
     _onPressSendChanges=() =>{
       isSignedIn('Log').then((value)=>{
         value.Nombre=this.state.nombre;
         value.Apellido=this.state.apellido;
+        value.Celular= this.state.celular;
         onSignIn('Log',value).then().catch((err)=>alert(err));
         this.props.updateData(value);
 
         user = firebase.auth().currentUser;
         firebase.database().ref('Users/'+user.uid+'/Account-Info').update({
           Nombre: this.state.nombre,
-          Apellido: this.state.apellido
+          Apellido: this.state.apellido,
+          Celular: this.state.celular
         })
         this.props.navigation.navigate('AccountBoss');
       })
@@ -133,6 +139,14 @@ class Edit extends Component {
                 style={styles.textInput}
                 placeholder={this.props.user.Apellido}
                 onChangeText={this._changeApellido}
+              ></TextInput>
+            </View>
+            <View>
+            <Text style = {{fontSize: 16}}>Celular</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder={this.props.user.Celular}
+                onChangeText={this._changeCell}
               ></TextInput>
             </View>
           </View>
