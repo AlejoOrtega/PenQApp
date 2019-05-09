@@ -214,6 +214,8 @@ class AddCuarto extends Component {
 							<Text style={{ fontSize: 20 }}>Descripcion</Text>
 							<TextInput
 								style = {{backgroundColor: 'grey',}}
+								numberOfLines={5}
+								multiline={true}
 								onChangeText={this._onChangeDescripcion} />
 						</View>
 	
@@ -221,6 +223,8 @@ class AddCuarto extends Component {
 							<Text style={{ fontSize: 20 }}>Observaciones</Text>
 							<TextInput
 								style = {{backgroundColor: 'grey',}}
+								numberOfLines={5}
+								multiline={true}
 								onChangeText={this._onChangeObservaciones} />
 						</View>
 	

@@ -163,13 +163,13 @@ class PensionView extends React.Component {
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Celular:</Text> {this.state.user.Celular}</Text>
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Direccion:</Text> {this.props.target.Direccion}</Text>
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Barrio:</Text> {this.props.target.Barrio}</Text>
-                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Servicios:</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 10 }}>Servicios:</Text>
                 <View style={{width:'100%'}}>
                   <Service data={this.props.target} />
                 </View>
                 
               <View style={{justifyContent:'space-between'}}>
-                <View style={{flexDirection:'row-reverse', width:'100%', justifyContent:'space-between'}}>
+                <View style={{flexDirection:'row-reverse', width:'95%', justifyContent:'space-between', alignItems: 'center', margin: 10}}>
                   <Button
                       style={{ width: '50%', height: 50, marginBottom: '5%' }}
                       title='Verificar Inquilinos'

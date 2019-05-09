@@ -523,8 +523,8 @@ const BossTav = createBottomTabNavigator({
     },
   }),
   tabBarOptions: {
-    activeTintColor: '#8A2BE2',
-    inactiveTintColor: 'gray',
+    activeTintColor: '#7b449a',
+    inactiveTintColor: '#d4a3ef',
   },
 },{
   initialRouteName: 'ClientStart',

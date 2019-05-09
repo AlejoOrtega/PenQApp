@@ -40,10 +40,10 @@ class AccountBoss extends Component {
             </View>
           </View>
           <View style={styles.center}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Informacion de tu cuenta</Text>
+            <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Informacion de tu cuenta</Text>
             <View style={styles.editar}>
-              <Text style={{ fontSize: 14 }}>Correo: {this.props.user.Correo}</Text>
-              <Text style={{ fontSize: 14 }}>Celular: {this.props.user.Celular}</Text>
+              <Text style={{ fontSize: 20 }}>Correo: {this.props.user.Correo}</Text>
+              <Text style={{ fontSize: 20}}>Celular: {this.props.user.Celular}</Text>
               <View style={styles.EditButton}>
                 <Button
                   title='Editar'
@@ -117,10 +117,12 @@ const styles = StyleSheet.create({
   },
   NombreYFoto:{
       flexDirection: 'row',
-      height:100,
+      height:50,
       alignItems: 'center',
       justifyContent: 'space-evenly',
       backgroundColor: '#7b68ee',
+      borderRadius: 20,
+      marginLeft: 5,
       flex: 2,
     },
   footer:{

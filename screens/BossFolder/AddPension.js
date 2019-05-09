@@ -341,6 +341,7 @@ class AddPension extends Component {
                     <View style={styles.footer}>
                         <Button
                             title='Confirmar y enviar datos'
+                            color='#7b68ee'
                             onPress={this._onPressSendData}
                         />
                     </View>
