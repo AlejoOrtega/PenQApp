@@ -21,6 +21,7 @@ import CuartosView from '../../screens/BossFolder/CuartosView';
 import ViewCuarto from '../../screens/BossFolder/ViewCuarto';
 import EditionCuarto from '../../screens/BossFolder/EditionCuarto';
 import CheckUsers from '../../screens/BossFolder/CheckUsers';
+import ViewBossRating from '../../screens/BossFolder/ViewRatingBoss';
 
 //Client Module
 import PensionViewClient from '../../screens/ClientFolder/PensionViewClient'
@@ -435,7 +436,20 @@ const homeStack = createStackNavigator({
         backgroundColor: '#7b68ee'
       }
     }),
-  }
+  },
+  ViewBossRating:{
+    screen: ViewBossRating,
+    navigationOptions: () => ({
+      title : 'Rating',
+      headerTintColor:'white',
+      headerTitleStyle:{
+        color: 'white'
+      },
+      headerStyle:{
+        backgroundColor: '#7b68ee'
+      }
+    }),
+  },
 },{
   initialRouteName: 'BossStart',
   headerLayoutPreset: 'center'

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image, TouchableHighlight, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, TouchableHighlight, ScrollView, Linking } from 'react-native';
 import Service from '../../components/Services';
 import StarRating from 'react-native-star-rating';
 import ComentsLoader from '../../components/ComentsLoader';
@@ -64,6 +64,9 @@ class PensionViewClient extends React.Component {
   _onPressRating=()=>{
     this.props.navigation.navigate('ViewRating')
   }
+  makeCall=()=>{
+    Linking.openURL('tel:'+this.state.user.Celular)
+  }
 
 
   render() {
@@ -75,13 +78,20 @@ class PensionViewClient extends React.Component {
           <View style={styles.CalificacionSty}>
           <TouchableHighlight
                 onPress={this._onPressRating}>
+                <View style={{flexDirection:'row'}}>
                 <StarRating
               disabled={true}
               fullStarColor={'#fccb00'}
               maxStars={5}
               rating={this.props.target.Rating}
             />
+            <Image
+                  style={{width:25, height:25, marginLeft:'10%', alignSelf:'center'}}
+                  source={require('../Image/aprovechar.png')}/>
+                </View>
+                
           </TouchableHighlight>
+          
           
 
           </View>
@@ -89,9 +99,20 @@ class PensionViewClient extends React.Component {
             <View style={styles.penInfo}>
               <Text style = {{fontSize: 30, fontWeight: 'bold', alignSelf: 'center'}}>{this.props.target.Alias}</Text>
               <View style = {styles.InfoPen}>
+
+
+              
                 
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Administrador:</Text> {this.state.user.Nombre} {this.state.user.Apellido}</Text>
-                <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Celular:</Text> {this.props.state.user.Celular}</Text>
+                <View style={{flexDirection:'row'}}>
+                  <TouchableHighlight
+                  onPress={this.makeCall}>
+                  <Text style = {{fontSize: 20, backgroundColor:'#f0e6f8'}}><Text style = {{fontWeight:'bold'}}>Celular:</Text> {this.state.user.Celular}</Text>
+                  </TouchableHighlight>
+                  <Image
+                  style={{width:25, height:25, marginLeft:'20%'}}
+                  source={require('../Image/aprovechar.png')}/>
+                </View>
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Direccion:</Text> {this.props.target.Direccion}</Text>
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Barrio:</Text> {this.props.target.Barrio}</Text>
                 <Text style = {{fontWeight:'bold', fontSize: 20}}>Servicios:</Text>
@@ -148,6 +169,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 300,
+    borderBottomWidth:4,
+
   },
   InfoPen:{
     justifyContent:'center',
@@ -157,8 +180,7 @@ const styles = StyleSheet.create({
     
   },
   CalificacionSty:{
-    justifyContent: 'center',
-    //alignItems:'center',
+    justifyContent:'center',
     flexDirection:'row', 
     marginTop: 10
   },

@@ -71,10 +71,20 @@ class EditionCuarto extends Component {
 		firebase.storage().ref().child('Images/'+ImageName).getDownloadURL().then(url=>{
 				if(picNumber==1){
 						this.props.uploadPicture1(url)
+						firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos/'+this.props.cuartoTarget.ID).update({
+							Url1: url
+						})
+
 				}else if (picNumber==2){
 						this.props.uploadPicture2(url)
+						firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos/'+this.props.cuartoTarget.ID).update({
+							Url2: url
+						})
 				}else{
 						this.props.uploadPicture3(url)
+						firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos/'+this.props.cuartoTarget.ID).update({
+							Url3: url
+						})
 				}
 		})
 	}

@@ -26,9 +26,10 @@ class ComentsLoader extends React.Component {
       });
     code=[]
     if(this.props.tipo == "cliente"){
-        if(this.props.coments!=null)
+        var ver=false;
+        if(typeof this.props.coments !== 'undefined')
         {
-          var ver=false;
+          
             for (let index = 0; index < this.props.coments.length; index++) {
               code.push(
 
@@ -48,19 +49,26 @@ class ComentsLoader extends React.Component {
 
                 </Card>
               )
-                if(firebase.auth().currentUser.uid == this.props.coments[index].comentadorPorUser){
-                  ver= true;
-                }
+              if(firebase.auth().currentUser.uid == this.props.coments[index].comentadorPorUser){
+                ver= true;
+              }
+                
             }
-            if(ver == false){
-              code.push(
-                  <Button
-                      title='Viviste aqui? Calificalo!'
-                      color = '#7b68ee'
-                      onPress={this.props.onPressCalificar.bind(this) }/>
-              )
+            
+          }else{
+            code.push(
+              <Text>Esta pension aun no tiene comentarios!</Text>
+            )
           }
+          if(ver == false){
+            code.push(
+                <Button
+                    title='Viviste aqui? Calificalo!'
+                    color = '#7b68ee'
+                    onPress={this.props.onPressCalificar.bind(this) }/>
+            )
         }
+        
     }
   return code;
 }

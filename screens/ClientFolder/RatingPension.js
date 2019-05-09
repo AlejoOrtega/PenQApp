@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, Button, ScrollView } from 'react-native';
 import {isSignedIn} from '../../components/tools/Auth'
-
+import Load from '../../components/Load';
 
 import StarRating from 'react-native-star-rating';
 
@@ -18,12 +18,13 @@ class RatingPension extends React.Component {
   
         this.state={
           NombreUser:"",
-          ratingaseo:1,
-          ratingambiente: 1,
-          ratingservicio: 1,
+          ratingaseo:0,
+          ratingambiente: 0,
+          ratingservicio: 0,
           totalRating: 0,
           comentario: '',
           validado:false,
+          loading:false
         }
         
     }
@@ -40,7 +41,11 @@ class RatingPension extends React.Component {
     }
 
     onClickCalificar=()=>{
-      var pensionComentariosref = firebase.database().ref('Pensiones/' + this.props.target.ID + '/Comentarios');
+      if(this.state.ratingambiente==0 ||this.state.ratingservicio==0 ||this.state.ratingaseo==0 ||this.state.comentario==""){
+        alert("Debes rellenar todos los campos!")
+      }else{
+        this.setState({loading:true})
+        var pensionComentariosref = firebase.database().ref('Pensiones/' + this.props.target.ID + '/Comentarios');
       pushID = pensionComentariosref.push().key;
       pensionComentariosref.child(pushID).set({
         NombreUser: this.props.user.Nombre + " "+ this.props.user.Apellido,
@@ -80,10 +85,20 @@ class RatingPension extends React.Component {
           comentarioValidado: totalComentarios
         })                
         });
-         
+        this.setState({loading:false})
       this.props.navigation.navigate('PensionViewClient',{render: true})
+      }
+      
     }
     render(){
+      if(this.state.loading){
+        return (
+          <View style={styles.loading}>
+              <Loading/>
+              <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos agregando tu nueva pension!</Text>
+          </View>
+           );
+      }else{
         return(
           <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.center}>
@@ -139,6 +154,7 @@ class RatingPension extends React.Component {
             </View>
           </ScrollView>
         );
+      }
     }
 }
 
@@ -197,5 +213,10 @@ function mapStateToProps(state){
     },
     textArea: {
       justifyContent: "center"
-    }
+    },
+    loading:{
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center'
+  },
   });

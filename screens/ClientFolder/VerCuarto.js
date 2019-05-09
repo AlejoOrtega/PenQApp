@@ -22,7 +22,7 @@ class ViewCuarto extends React.Component {
 						<SwiperC 
           	pictures={this.props.picsroom}/>
 					</View>
-					<View style = {{width: '90%',alignItems: 'flex-start', paddingHorizontal: '5%', flex:1, borderWidth: 1}}>
+					<View style = {{width: '90%',alignItems: 'flex-start', paddingHorizontal: '5%', flex:1}}>
 							<DetallesCuartos data={this.props.cuartoTarget} />
 					</View>
 				</View>
@@ -64,8 +64,7 @@ function mapStateToProps(state){
 		width: '90%',
 		height: '70%', 
 		alignSelf:'center',
-		borderWidth: 1,
-		borderColor:'black'
+
   },
 	penOpt:{
 	  justifyContent: 'flex-end',

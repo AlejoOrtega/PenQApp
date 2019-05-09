@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet, Text, View, TextInput, Button, Image, CameraRoll} from 'react-native';
 import {isSignedIn,onSignIn} from '../../components/tools/Auth'
 import firebase from 'firebase';
+import Load from '../../components/Load';
 
 import ProfilePhoto from '../../components/ProfilePhoto';
 
@@ -21,7 +22,8 @@ class Edit extends Component {
       this.state={
         nombre:this.props.user.Nombre,
         apellido:this.props.user.Apellido,
-        celular: this.props.user.Celular
+        celular: this.props.user.Celular,
+        loading:false,
       };
     }
 
@@ -36,6 +38,7 @@ class Edit extends Component {
       this.setState({celular: text});
     }
     _onPressSendChanges=() =>{
+      this.setState({loading: true})
       isSignedIn('Log').then((value)=>{
         value.Nombre=this.state.nombre;
         value.Apellido=this.state.apellido;
@@ -49,6 +52,7 @@ class Edit extends Component {
           Apellido: this.state.apellido,
           Celular: this.state.celular
         })
+        this.setState({loading: false})
         this.props.navigation.navigate('AccountBoss');
       })
     }
@@ -68,10 +72,11 @@ class Edit extends Component {
 
         let result = await ImagePicker.launchImageLibraryAsync();
         if(!result.cancelled){
+          this.setState({loading: true})
           let uid = firebase.auth().currentUser.uid;
           this.uploadImage2fire(result.uri, "ProfileImage"+uid)
           .then(()=>{
-            alert("Great!");
+            this.setState({loading: false})
           }).catch((error)=>{
             alert(error);
           })
@@ -113,52 +118,63 @@ class Edit extends Component {
     }
 
     render(){
-      return(
-        <View style={styles.container}>
-          <View style={styles.ChangePhoto}>
-            <ProfilePhoto uri={this.props.user.photoUri} />
-            <Button
-              title="Cambiar Foto!"
-              color='#7b68ee'
-              onPress={this._onChangePicture} />
-          </View>
-          <View style={styles.center}>
-          
-            <View>
-            <Text style = {{fontSize: 16}}>Nombre</Text>
-              <TextInput
-                style={styles.textInput}
-                placeholder={this.props.user.Nombre}
-                onChangeText={this._changeNombre}
-              ></TextInput>
-            </View>
-            
-            <View>
-            <Text style = {{fontSize: 16}}>Apellido</Text>
-              <TextInput
-                style={styles.textInput}
-                placeholder={this.props.user.Apellido}
-                onChangeText={this._changeApellido}
-              ></TextInput>
-            </View>
-            <View>
-            <Text style = {{fontSize: 16}}>Celular</Text>
-              <TextInput
-                style={styles.textInput}
-                placeholder={this.props.user.Celular}
-                onChangeText={this._changeCell}
-              ></TextInput>
-            </View>
-          </View>
-          <View style={styles.footer}>
-            <Button
-              title='Registrar cambios'
-              color='#7b68ee'
-              onPress={this._onPressSendChanges}
-            />
-          </View>
+      if(this.state.loading){
+        return(
+          <View style={styles.loading}>
+            <Load/>
+            <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos cargando tu informacion!</Text>
         </View>
-      );        
+        );
+        
+      }else{
+        return(
+          <View style={styles.container}>
+            <View style={styles.ChangePhoto}>
+              <ProfilePhoto uri={this.props.user.photoUri} />
+              <Button
+                title="Cambiar Foto!"
+                color='#7b68ee'
+                onPress={this._onChangePicture} />
+            </View>
+            <View style={styles.center}>
+            
+              <View>
+              <Text style = {{fontSize: 16}}>Nombre</Text>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder={this.props.user.Nombre}
+                  onChangeText={this._changeNombre}
+                ></TextInput>
+              </View>
+              
+              <View>
+              <Text style = {{fontSize: 16}}>Apellido</Text>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder={this.props.user.Apellido}
+                  onChangeText={this._changeApellido}
+                ></TextInput>
+              </View>
+              <View>
+              <Text style = {{fontSize: 16}}>Celular</Text>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder={this.props.user.Celular}
+                  onChangeText={this._changeCell}
+                ></TextInput>
+              </View>
+            </View>
+            <View style={styles.footer}>
+              <Button
+                title='Registrar cambios'
+                color='#7b68ee'
+                onPress={this._onPressSendChanges}
+              />
+            </View>
+          </View>
+        );        
+      }
+      
     }
 }
 
@@ -217,5 +233,10 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems: 'center',
     flex: 3,
-  }
+  },
+  loading:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center'
+},
 });

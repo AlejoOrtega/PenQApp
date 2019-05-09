@@ -21,22 +21,50 @@ export default class Services extends React.Component {
       )
     }
     if(this.props.data.Aseo){
-      code.push(<Text>Aseo</Text>)
+      code.push(
+      <View style={{alignItems:'center'}}>
+        <Image
+        style={{width:50, height:50}}
+        source={require('../screens/Image/escoba.png')}/>
+        <Text>Aseo</Text>
+      </View> 
+      )
     }
     if(this.props.data.Internet){
-      code.push(<Text>Internet</Text>)
+      code.push(
+      <View style={{alignItems:'center'}}>
+        <Image
+        style={{width:50, height:50}}
+        source={require('../screens/Image/wifi.png')}/>
+        <Text>Internet</Text>
+      </View>
+      )
     }
     if(this.props.data.Llaves){
-      code.push(<Text>Llaves de la Casa</Text>)
+      code.push(
+      <View style={{alignItems:'center'}}>
+        <Image
+        style={{width:50, height:50}}
+        source={require('../screens/Image/llaves.png')}/>
+        <Text>Llaves de la casa</Text>
+      </View>
+      )
     }
     if(this.props.data.Lavado){
-      code.push(<Text>Lavado de Ropa</Text>)
+      code.push(
+        <View style={{alignItems:'center'}}>
+        <Image
+        style={{width:50, height:50}}
+        source={require('../screens/Image/limpieza.png')}/>
+        <Text>Lavado</Text>
+      </View>
+      )
     }
     return code;
   }
     render() {
     return (
-      <View style={{flexDirection:'row', alignItems:'center', width:'100%'}}>
+      <View style={{flexDirection:'row', alignItems:'center', width:'100%', justifyContent:'space-evenly'}}>
         {this.stackServices()}
       </View>
 

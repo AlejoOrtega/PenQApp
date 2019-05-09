@@ -47,14 +47,15 @@ class PensionView extends React.Component {
       dataSnapShot.forEach(element => {
         var coment = element.val();
         if (typeof element.val()==='object') {
-          if(coment.ValidadoBoss==false){
-            coments = coments.concat(element.val());
-          }
+
+            coments = coments.concat(coment);
+          
           
         }
       })
       this.props.loadComents(coments)               
       });
+      
     
     this.props.uploadPicture1(this.props.target.Url1);
     this.props.uploadPicture2(this.props.target.Url2);
@@ -128,7 +129,7 @@ class PensionView extends React.Component {
   _doNothing=()=>{}
 
   _onPressRating=()=>{
-    this.props.navigation.navigate('ViewRating')
+    this.props.navigation.navigate('ViewBossRating')
   }
   _onPressFab=()=>{
     this.setState({ active: !this.state.active });

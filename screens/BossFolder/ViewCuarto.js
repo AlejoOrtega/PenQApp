@@ -93,7 +93,7 @@ function mapStateToProps(state){
 	header:{
 	  justifyContent: 'center',
 	  alignItems: 'center',
-	  flex: 2,
+	  flex: 3,
 	  backgroundColor: 'lightblue',
 	},
 	center:{
@@ -104,8 +104,9 @@ function mapStateToProps(state){
 	  justifyContent: 'flex-end',
 	},
 	footer:{
-	  justifyContent: 'flex-end',
-	  flex: 0.5,
+		flexDirection: 'row',
+	  justifyContent: 'space-evenly',
+		flex: 0.5,
 	},
 	fab:{
 	  backgroundColor: '#5067FF',

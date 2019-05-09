@@ -25,7 +25,7 @@ class ClientStart extends React.Component {
               }
           }
       }
-      this.props.engineResults(list);
+      this.props.uploadBest(list);
     
     
   }
@@ -39,7 +39,7 @@ class ClientStart extends React.Component {
     return (
       <View style={styles.container}>
           <Text style = {{fontSize: 20, alignSelf:'center', marginTop: '10%'}}>Pensiones que te recomendamos!</Text>
-          <Pensiones data={this.props.list} Press={this._onPressPension} />
+          <Pensiones data={this.props.best} Press={this._onPressPension} />
       </View>
     );
     
@@ -47,10 +47,10 @@ class ClientStart extends React.Component {
 }
 
 function mapStateToProps(state){
-  const {pensiones, list} = state;
+  const {pensiones, best} = state;
   return{
     pensiones,
-    list
+    best
   };
 }
 
@@ -58,7 +58,7 @@ function mapDispatchToProps(dispatch){
   return{
     pensionTarget: bindActionCreators(Actions.pensionTarget, dispatch),
     engineResults: bindActionCreators(Actions.engineResults,dispatch),
-    updateData: bindActionCreators(Actions.updateData,dispatch)
+    uploadBest: bindActionCreators(Actions.uploadBest,dispatch)
   };
 }
 

@@ -101,7 +101,7 @@ class CheckUser extends React.Component{
     UserCheck(){
         code=[]
         code.push(
-            <Text style = {{fontSize: 20}}>Estos Usuarios vivieron en tu pension?{'\n'} </Text>
+            <Text style = {{fontSize: 20}}>Estos clientes vivieron en tu pension?{'\n'} </Text>
         )
         
         for (let index = 0; index < this.props.coments.length; index++) {
@@ -116,17 +116,17 @@ class CheckUser extends React.Component{
                           source={{ uri: this.props.coments[index].photoUri }}
                         />
                       </View>
-                      <View style = {{flexDirection: 'row'}}>
+                      <View style={{justifyContent:'center'}}>
                         <Text style = {{ alignSelf: 'center',  marginLeft: '5%' }}>{this.props.coments[index].NombreUser}</Text>
-                        <View style={{ flexDirection: 'column', marginLeft: '5%', justifyContent: 'space-between' }}>
+                        <View style={{ flexDirection: 'row', marginLeft: '5%', justifyContent: 'space-between' }}>
                           <Button
                             title="Confirmar"
                             style = {{marginBottom: 10}}
-                            color='#7b68ee'
+                            color='#2e8e5e'
                             onPress={this._onPressConfirmComent.bind(this, this.props.coments[index])} />
                           <Button
                             title="Cancelar"
-                            color='#7b68ee'
+                            color='#8e2e30'
                             onPress={this._onPressCancelComent.bind(this, this.props.coments[index])} />
                         </View>
                       </View>

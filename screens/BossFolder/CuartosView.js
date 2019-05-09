@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import CuartosList from '../../components/CuartosList';
 
 import {connect} from 'react-redux';
@@ -31,7 +31,7 @@ class CuartosView extends React.Component {
 					<CuartosList data={this.props.cuartos} Press={this._onPressCuarto}/>
 				</View>
 				<View style={styles.footer}>
-					<Button
+				<Button
 					title='Anadir cuarto'
 					onPress={this._onPressAddCuarto}/>
 				</View>
@@ -56,7 +56,7 @@ function mapStateToProps(state){
  export default connect(mapStateToProps, mapDispatchToProps)(CuartosView);
  const styles = StyleSheet.create({
 	container: {
-	  flex: 1,
+		flex:1,
 	  backgroundColor: '#fff',
 	},
 	header:{

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, Picker, ScrollView} from 'react-native';
-
+import Load from '../../components/Load';
 import firebase from 'firebase';
 
 import {connect} from 'react-redux';
@@ -30,6 +30,7 @@ class EngineSearch extends Component {
         Barrio: 'Cualquier Barrio',
         Rating: 'Cualquier Valoracion',
         Precio: '0',
+        loading:false,
       }
     }
     
@@ -65,6 +66,7 @@ class EngineSearch extends Component {
       this.setState({llaves: !this.state.llaves})
     }
     _onPressSearch=()=>{
+      this.setState({loading:true})
       if(this.state.opcion =='pension'){
         var pension=[];
         for(var i=0; i<this.props.pensiones.length;i++){
@@ -98,6 +100,7 @@ class EngineSearch extends Component {
           }
         }
         this.props.engineResults(pension);
+        this.setState({loading:false})
         this.props.navigation.navigate('resultPen');
       }else if(this.state.opcion =='cuarto'){
 
@@ -146,6 +149,7 @@ class EngineSearch extends Component {
               }
           })
           this.props.engineResults(final);
+          this.setState({loading:false})
           this.props.navigation.navigate('resultCua');
           
         });
@@ -155,163 +159,173 @@ class EngineSearch extends Component {
     
 
   render() {
-
-    if(this.state.opcion =='pension'){
-      return(
-        <ScrollView contentContainerStyle = {styles.container}>
-          <View style = {styles.pickers}>
-            <Text style={{ fontSize: 18 }}>Seleccione que opcion desea buscar</Text>
-            <Picker
-              selectedValue={this.state.opcion}
-              style={{ height: 50, width: 200 }}
-              onValueChange={(itemValue, itemIndex) =>
-                this.setState({ opcion: itemValue })
-              }>
-              <Picker.Item label="Pension" value="pension" />
-              <Picker.Item label="Cuarto" value="cuarto" />
-            </Picker>
-
-            <Text style={{ fontSize: 18 }}>Te gustaria algun barrio en especial?</Text>
-            <Picker
-              selectedValue={this.state.Barrio}
-              style={{ height: 50, width: 200 }}
-              onValueChange={(itemValue, itemIndex) =>
-                this.setState({ Barrio: itemValue })
-              }>
-              {this._loadBarrios()}
-            </Picker>
-
-            <Text style={{ fontSize: 18 }}>Seleccione la valoracion minima de las pensiones</Text>
-            <Picker
-              selectedValue={this.state.Rating}
-              style={{ height: 50, width: 200 }}
-              onValueChange={(itemValue, itemIndex) =>
-                this.setState({ Rating: itemValue })
-              }>
-              <Picker.Item label="Cualquier Valoracion" value="0" />
-              <Picker.Item label="5" value="5" />
-              <Picker.Item label="4" value="4" />
-              <Picker.Item label="3" value="3" />
-              <Picker.Item label="2" value="2" />
-              <Picker.Item label="1" value="1" />
-            </Picker>
-
-          </View>
-
-          <View style = {styles.buttons}>
-            <Text style={{ fontSize: 18 }}>Que servicios te gustaria tener encuenta?</Text>
-            <Button
-              title='Internet'
-              color={this.state.internet == true ? '#01ad1b' : '#7c0a00'}
-              onPress={this._onPressInternet}
-            />
-            <Button
-              title='Aseo'
-              color={this.state.aseo == true ? '#01ad1b' : '#7c0a00'}
-              onPress={this._onPressAseo}
-            />
-            <Button
-              title='Comida'
-              color={this.state.comida == true ? '#01ad1b' : '#7c0a00'}
-              onPress={this._onPressComida}
-            />
-            <Button
-              title='Lavado'
-              color={this.state.lavado == true ? '#01ad1b' : '#7c0a00'}
-              onPress={this._onPressLavado}
-            />
-            <Button
-              title='Llaves de la casa'
-              color={this.state.llaves == true ? '#01ad1b' : '#7c0a00'}
-              onPress={this._onPressLlaves}
-            />
-            <View style={styles.buttom}>
-              <Button
-                title="Buscar"
-                style={styles.buttom}
-                color='#7b68ee'
-                onPress={this._onPressSearch}
-              />
+    if(this.state.loading){
+      return (
+        <View style={styles.loading}>
+            <Loading/>
+            <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos buscando la informacion!</Text>
+        </View>
+         );
+    }else{
+      if(this.state.opcion =='pension'){
+        return(
+          <ScrollView contentContainerStyle = {styles.container}>
+            <View style = {styles.pickers}>
+              <Text style={{ fontSize: 18 }}>Seleccione que opcion desea buscar</Text>
+              <Picker
+                selectedValue={this.state.opcion}
+                style={{ height: 50, width: 200 }}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ opcion: itemValue })
+                }>
+                <Picker.Item label="Pension" value="pension" />
+                <Picker.Item label="Cuarto" value="cuarto" />
+              </Picker>
+  
+              <Text style={{ fontSize: 18 }}>Te gustaria algun barrio en especial?</Text>
+              <Picker
+                selectedValue={this.state.Barrio}
+                style={{ height: 50, width: 200 }}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ Barrio: itemValue })
+                }>
+                {this._loadBarrios()}
+              </Picker>
+  
+              <Text style={{ fontSize: 18 }}>Seleccione la valoracion minima de las pensiones</Text>
+              <Picker
+                selectedValue={this.state.Rating}
+                style={{ height: 50, width: 200 }}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ Rating: itemValue })
+                }>
+                <Picker.Item label="Cualquier Valoracion" value="0" />
+                <Picker.Item label="5" value="5" />
+                <Picker.Item label="4" value="4" />
+                <Picker.Item label="3" value="3" />
+                <Picker.Item label="2" value="2" />
+                <Picker.Item label="1" value="1" />
+              </Picker>
+  
             </View>
-
-          </View>
-          
-        </ScrollView>
-      );
-      
-    }else if(this.state.opcion == 'cuarto'){
-      return(
-        <ScrollView contentContainerStyle = {styles.container}>
-          <View style = {styles.pickers}>
-            <Text style={{ fontSize: 18 }}>Seleccione que opcion desea buscar</Text>
-            <Picker
-              selectedValue={this.state.opcion}
-              style={{ height: 50, width: 200 }}
-              onValueChange={(itemValue, itemIndex) =>
-                this.setState({ opcion: itemValue })
-              }>
-              <Picker.Item label="Pension" value="pension" />
-              <Picker.Item label="Cuarto" value="cuarto" />
-            </Picker>
-
-            <Text style={{ fontSize: 18 }}>Seleccione hasta que precios desea manejar</Text>
-            <Picker
-              selectedValue={this.state.Precio}
-              style={{ height: 50, width: 200 }}
-              onValueChange={(itemValue, itemIndex) =>
-                this.setState({ Precio: itemValue })
-              }>
-              <Picker.Item label="Cualquier Precio" value="9999999" />
-              <Picker.Item label="$600.000 COP" value="600000" />
-              <Picker.Item label="$800.000 COP" value="800000" />
-              <Picker.Item label="$1.000.000 COP" value="1000000" />
-              <Picker.Item label="$1.200.000 COP" value="1200000" />
-              <Picker.Item label="$1.400.000 COP" value="1400000" />
-            </Picker>
-
-          </View>
-          
-
-          <View style = {styles.buttons}>
-            <Text style={{ fontSize: 18 }}>Que servicios te gustaria tener encuenta?</Text>
-            <Button
-              title='Internet'
-              color={this.state.internet == true ? '#01ad1b' : '#7c0a00'}
-              onPress={this._onPressInternet}
-            />
-            <Button
-              title='Aseo'
-              color={this.state.aseo == true ? '#01ad1b' : '#7c0a00'}
-              onPress={this._onPressAseo}
-            />
-            <Button
-              title='Comida'
-              color={this.state.comida == true ? '#01ad1b' : '#7c0a00'}
-              onPress={this._onPressComida}
-            />
-            <Button
-              title='Lavado'
-              color={this.state.lavado == true ? '#01ad1b' : '#7c0a00'}
-              onPress={this._onPressLavado}
-            />
-            <Button
-              title='Llaves de la casa'
-              color={this.state.llaves == true ? '#01ad1b' : '#7c0a00'}
-              onPress={this._onPressLlaves}
-            />
-            <View style={styles.buttom}>
+  
+            <View style = {styles.buttons}>
+              <Text style={{ fontSize: 18 }}>Que servicios te gustaria tener encuenta?</Text>
               <Button
-                title="Buscar"
-                color='#7b68ee'
-                onPress={this._onPressSearch}
+                title='Internet'
+                color={this.state.internet == true ? '#01ad1b' : '#7c0a00'}
+                onPress={this._onPressInternet}
               />
+              <Button
+                title='Aseo'
+                color={this.state.aseo == true ? '#01ad1b' : '#7c0a00'}
+                onPress={this._onPressAseo}
+              />
+              <Button
+                title='Comida'
+                color={this.state.comida == true ? '#01ad1b' : '#7c0a00'}
+                onPress={this._onPressComida}
+              />
+              <Button
+                title='Lavado'
+                color={this.state.lavado == true ? '#01ad1b' : '#7c0a00'}
+                onPress={this._onPressLavado}
+              />
+              <Button
+                title='Llaves de la casa'
+                color={this.state.llaves == true ? '#01ad1b' : '#7c0a00'}
+                onPress={this._onPressLlaves}
+              />
+              <View style={styles.buttom}>
+                <Button
+                  title="Buscar"
+                  style={styles.buttom}
+                  color='#7b68ee'
+                  onPress={this._onPressSearch}
+                />
+              </View>
+  
             </View>
             
-          </View>
-          
-
-        </ScrollView>
+          </ScrollView>
         );
+        
+      }else if(this.state.opcion == 'cuarto'){
+        return(
+          <ScrollView contentContainerStyle = {styles.container}>
+            <View style = {styles.pickers}>
+              <Text style={{ fontSize: 18 }}>Seleccione que opcion desea buscar</Text>
+              <Picker
+                selectedValue={this.state.opcion}
+                style={{ height: 50, width: 200 }}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ opcion: itemValue })
+                }>
+                <Picker.Item label="Pension" value="pension" />
+                <Picker.Item label="Cuarto" value="cuarto" />
+              </Picker>
+  
+              <Text style={{ fontSize: 18 }}>Seleccione hasta que precios desea manejar</Text>
+              <Picker
+                selectedValue={this.state.Precio}
+                style={{ height: 50, width: 200 }}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ Precio: itemValue })
+                }>
+                <Picker.Item label="Cualquier Precio" value="9999999" />
+                <Picker.Item label="$600.000 COP" value="600000" />
+                <Picker.Item label="$800.000 COP" value="800000" />
+                <Picker.Item label="$1.000.000 COP" value="1000000" />
+                <Picker.Item label="$1.200.000 COP" value="1200000" />
+                <Picker.Item label="$1.400.000 COP" value="1400000" />
+              </Picker>
+  
+            </View>
+            
+  
+            <View style = {styles.buttons}>
+              <Text style={{ fontSize: 18 }}>Que servicios te gustaria tener encuenta?</Text>
+              <Button
+                title='Internet'
+                color={this.state.internet == true ? '#01ad1b' : '#7c0a00'}
+                onPress={this._onPressInternet}
+              />
+              <Button
+                title='Aseo'
+                color={this.state.aseo == true ? '#01ad1b' : '#7c0a00'}
+                onPress={this._onPressAseo}
+              />
+              <Button
+                title='Comida'
+                color={this.state.comida == true ? '#01ad1b' : '#7c0a00'}
+                onPress={this._onPressComida}
+              />
+              <Button
+                title='Lavado'
+                color={this.state.lavado == true ? '#01ad1b' : '#7c0a00'}
+                onPress={this._onPressLavado}
+              />
+              <Button
+                title='Llaves de la casa'
+                color={this.state.llaves == true ? '#01ad1b' : '#7c0a00'}
+                onPress={this._onPressLlaves}
+              />
+              <View style={styles.buttom}>
+                <Button
+                  title="Buscar"
+                  color='#7b68ee'
+                  onPress={this._onPressSearch}
+                />
+              </View>
+              
+            </View>
+            
+  
+          </ScrollView>
+          );
+    }
+
+    
       
     }
   }
@@ -393,4 +407,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end', 
   },
+  loading:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center'
+},
 });
