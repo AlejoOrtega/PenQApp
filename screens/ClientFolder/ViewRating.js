@@ -59,8 +59,8 @@ class ViewRating extends React.Component{
     
     render(){
         return(
-          <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontSize: 20, margin: 10 }}>Mira los rating por diferentes categorias!!</Text>
+          <View style={{ justifyContent: 'center' }}>
+            <Text style={{ fontSize: 18, margin: 10, alignSelf:'center' }}>Mira los rating por diferentes categorias!!</Text>
             {this._loadRatings()}
           </View>
         );

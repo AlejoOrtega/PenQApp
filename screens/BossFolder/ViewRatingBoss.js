@@ -60,7 +60,7 @@ class ViewRatingBoss extends React.Component{
     render(){
         return(
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontSize: 20, margin: 10 }}>Mira los rating por diferentes categorias!!</Text>
+            <Text style={{ fontSize: 18, margin: 10 }}>Mira los rating por diferentes categorias!!</Text>
             {this._loadRatings()}
           </View>
         );

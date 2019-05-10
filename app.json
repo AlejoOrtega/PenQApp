@@ -23,7 +23,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "buildNumber": "1"
+    },
+    "android": {
+      "package" : "com.company.penqapp",
+      "versionCode": 1,
+      "permissions": []
     }
   }
 }

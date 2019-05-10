@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableHighlight, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableHighlight, Button, Alert, Image } from 'react-native';
 import {} from 'react-native-elements';
 import Service from '../../components/Services';
 import StarRating from 'react-native-star-rating';
 import ComentLoaderBoss from '../../components/ComentLoaderBoss';
 import * as firebase from 'firebase';
-import ImagesSwiper from "react-native-image-swiper";
 
 import SwiperC from '../../components/SwiperC';
 
@@ -146,12 +145,17 @@ class PensionView extends React.Component {
           <View style={styles.CalificacionSty}>
             <TouchableHighlight
               onPress={this._onPressRating}>
-              <StarRating
-                disabled={true}
-                fullStarColor={'#fccb00'}
-                maxStars={5}
-                rating={this.props.target.Rating}
-              />
+              <View style={{ flexDirection: 'row' }}>
+                <StarRating
+                  disabled={true}
+                  fullStarColor={'#fccb00'}
+                  maxStars={5}
+                  rating={this.props.target.Rating}
+                />
+                <Image
+                  style={{ width: 25, height: 25, marginLeft: '5%', alignSelf: 'center' }}
+                  source={require('../Image/aprovechar.png')} />
+              </View>
             </TouchableHighlight>
           </View>
           <View style={styles.center}>
@@ -163,6 +167,8 @@ class PensionView extends React.Component {
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Celular:</Text> {this.state.user.Celular}</Text>
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Direccion:</Text> {this.props.target.Direccion}</Text>
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Barrio:</Text> {this.props.target.Barrio}</Text>
+                <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Observaciones:</Text> {this.props.target.Especific}</Text>
+                <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Reglas:</Text> {this.props.target.Reglas}</Text>
                 <Text style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 10 }}>Servicios:</Text>
                 <View style={{width:'100%'}}>
                   <Service data={this.props.target} />

@@ -86,7 +86,7 @@ class PensionViewClient extends React.Component {
               rating={this.props.target.Rating}
             />
             <Image
-                  style={{width:25, height:25, marginLeft:'10%', alignSelf:'center'}}
+                  style={{width:25, height:25, marginLeft:'5%', alignSelf:'center'}}
                   source={require('../Image/aprovechar.png')}/>
                 </View>
                 
@@ -115,6 +115,8 @@ class PensionViewClient extends React.Component {
                 </View>
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Direccion:</Text> {this.props.target.Direccion}</Text>
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Barrio:</Text> {this.props.target.Barrio}</Text>
+                <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Observaciones:</Text> {this.props.target.Especific}</Text>
+                <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Reglas:</Text> {this.props.target.Reglas}</Text>
                 <Text style = {{fontWeight:'bold', fontSize: 20}}>Servicios:</Text>
                 <Service data={this.props.target} />
                 <View style={styles.EditButton}>
