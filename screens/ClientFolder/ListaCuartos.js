@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CuartosList from '../../components/CuartosList';
 
 import {connect} from 'react-redux';
@@ -19,7 +19,7 @@ class ListaCuartos extends React.Component {
 
 	render(){
 		return(
-			<View style={styles.container}>
+			<ScrollView contentContainerStyle={styles.container}>
 				<View style={styles.header}>
 				<Text>Estos son los cuarto disponible en esta pension</Text>
 				</View>
@@ -28,7 +28,7 @@ class ListaCuartos extends React.Component {
 				</View>
 				<View style={styles.footer}>
 				</View>
-			</View>
+			</ScrollView>
 		);
 	}
 }
@@ -60,7 +60,7 @@ function mapStateToProps(state){
 	},
 	center:{
 	  flex: 2,
-	  padding: 10
+		padding: 10,
 	},
 	penOpt:{
 	  justifyContent: 'flex-end',

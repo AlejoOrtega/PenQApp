@@ -3,7 +3,8 @@ import { View, StyleSheet, Text, Button } from 'react-native';
 
 //Componentes
 import {ButtonGroup} from 'react-native-elements';
-import Field from '../components/Field'
+import Field from '../components/Field';
+import Load from '../components/Load'
 
 //FireBase
 import * as firebase from 'firebase';
@@ -21,6 +22,7 @@ export default class Register extends React.Component {
         rcontra:'',
         celular:'',
         selectedIndex: 0,
+        loading:false
       }
       this.updateIndex = this.updateIndex.bind(this);
   }
@@ -35,7 +37,7 @@ export default class Register extends React.Component {
     
     if(this.state.nombre != '' || this.state.apellido != '' || this.state.correo != '' || this.state.rcontra != ''|| this.state.celular != ''){
       if(this.state.contra === this.state.rcontra){
-
+        this.setState({loading:true})
         firebase.auth().createUserWithEmailAndPassword(this.state.correo, this.state.contra)
         .then(()=>{
           
@@ -50,7 +52,7 @@ export default class Register extends React.Component {
             Celular: this.state.celular,
             photoUri: "none"
           })
-          
+          this.setState({loading:false})
           this.props.navigation.navigate('Login')
         })
         .catch((err)=>alert(err));
@@ -91,43 +93,53 @@ export default class Register extends React.Component {
   _onChangeCell=(text)=>{
     this.setState({celular: text});
   }
-    render() {
-      const buttons = ['Cliente', 'Dueño']
-      const {selectedIndex} = this.state
-      return (
-        <View style={styles.container}>
-        <View style={styles.header}>
-          <Text>Registrate como un nuevo usuario!</Text>
-        </View>
-        <View style={styles.center}>
-
-            <Field placeholder='Nombre' onChange={this._onChangeNombre}/>
-            <Field placeholder='Apellido' onChange={this._onChangeApellido}/>
-            <Field placeholder='Celular' onChange={this._onChangeCell}/>
-            
-            <Field placeholder='Ingresa tu correo' onChange={this._onChangeCorreo}/>
-            <Field placeholder='Ingresa tu contraseña' onChange={this._onChangePass} pass={true}/>
-            <Field placeholder='Contraseña Nuevamente' onChange={this._onChangeRpass} pass={true}/>
-
-          <ButtonGroup
-                onPress={this.updateIndex}
-                selectedIndex={selectedIndex}
-                buttons={buttons}
-                containerStyle={{height:'20%', width:'70%', alignSelf: 'center', marginTop: 10}}
-              />
+      render() {
+        const buttons = ['Cliente', 'Dueño']
+        const {selectedIndex} = this.state
+        if(this.state.loading){
+          return(
+            <View style={styles.loading}>
+                  <Load/>
+                  <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos registrando tu informacion</Text>
+              </View>
+          );
+        }else{
           
-        </View>
-        <View style={styles.footer}>
-          <Button 
-              title='Registrate!'
-              style={styles.pressButton}
-              onPress={this._Registration}
-              color='#7b68ee'/>
-        </View>
+        return (
+          <View style={styles.container}>
+          <View style={styles.header}>
+            <Text>Registrate como un nuevo usuario!</Text>
+          </View>
+          <View style={styles.center}>
 
-        
-    </View>
-      );
+              <Field placeholder='Nombre' onChange={this._onChangeNombre}/>
+              <Field placeholder='Apellido' onChange={this._onChangeApellido}/>
+              <Field placeholder='Celular' onChange={this._onChangeCell}/>
+              
+              <Field placeholder='Ingresa tu correo' onChange={this._onChangeCorreo} caps={'none'}/>
+              <Field placeholder='Ingresa tu contraseña' onChange={this._onChangePass} pass={true} caps={'none'}/>
+              <Field placeholder='Contraseña Nuevamente' onChange={this._onChangeRpass} pass={true} caps={'none'}/>
+
+            <ButtonGroup
+                  onPress={this.updateIndex}
+                  selectedIndex={selectedIndex}
+                  buttons={buttons}
+                  containerStyle={{height:'20%', width:'70%', alignSelf: 'center', marginTop: 10}}
+                />
+            
+          </View>
+          <View style={styles.footer}>
+            <Button 
+                title='Registrate!'
+                style={styles.pressButton}
+                onPress={this._Registration}
+                color='#7b68ee'/>
+          </View>
+
+          
+      </View>
+        );
+    }
   }
 }
 
@@ -156,5 +168,10 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       flex: 3,
       width:'60%',
-    }
+    },
+    loading:{
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center'
+  },
 });

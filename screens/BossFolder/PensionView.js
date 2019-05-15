@@ -136,7 +136,8 @@ class PensionView extends React.Component {
 
     render() {
       return (
-        <ScrollView contentContainerStyle={styles.container}>
+        
+        <ScrollView>
           <View style={styles.header}>
             <SwiperC
               pictures={this.props.pics} />
@@ -179,13 +180,13 @@ class PensionView extends React.Component {
                   <Button
                       style={{ width: '50%', height: 50, marginBottom: '5%' }}
                       title='Verificar Inquilinos'
-                      color='#0c7c1b'
+                      color='#8e54c4'
                       onPress={this._onPressCheckUsers}
                     />
                   <Button
                     style={{ width: '50%', height: 50, marginBottom: '5%' }}
                     title='Editar'
-                    color='#f4b942'
+                    color='#a666e2'
                     onPress={this._onPressEditPension}
                   />
                   
@@ -287,9 +288,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footer:{
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     alignItems:'center',
-    width: '100%'
+    width: '100%',
+
   },
   fab:{
     backgroundColor: '#5067FF',

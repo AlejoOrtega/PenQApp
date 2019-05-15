@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, Button, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, ScrollView, KeyboardAvoidingView } from 'react-native';
 import {isSignedIn} from '../../components/tools/Auth'
 import Load from '../../components/Load';
 
@@ -101,6 +101,7 @@ class RatingPension extends React.Component {
       }else{
         return(
           <ScrollView contentContainerStyle={styles.container}>
+          <KeyboardAvoidingView behavior="padding" enabled>  
             <View style={styles.center}>
               <View style = {{margin: 10}}>
                 <Text style={{ fontSize: 18 }}>Aseo</Text>
@@ -134,24 +135,28 @@ class RatingPension extends React.Component {
               </View>
 
             </View>
-            <View style = {styles.textAreaContainer}>
-              <TextInput
-                style={styles.textArea}
-                underlineColorAndroid="transparent"
-                placeholder="Escribe tu comentario sobre esta pension!"
-                placeholderTextColor="grey"
-                numberOfLines={10}
-                multiline={true}
-                onChangeText={(text) => this.setState({comentario:text})}
-                value={this.state.comentario}
-              />
-            </View>
+            
+              <View style = {styles.textAreaContainer}>
+                <TextInput
+                  style={styles.textArea}
+                  underlineColorAndroid="transparent"
+                  placeholder="Escribe tu comentario sobre esta pension!"
+                  placeholderTextColor="grey"
+                  numberOfLines={10}
+                  multiline={true}
+                  onChangeText={(text) => this.setState({comentario:text})}
+                  value={this.state.comentario}
+                />
+              </View>
+            
+            
             <View style={styles.footer}>
                 <Button 
                   title='Registrar calificacion y comentario'
                   color = '#7b68ee'
                   onPress={this.onClickCalificar}/>
             </View>
+            </KeyboardAvoidingView>
           </ScrollView>
         );
       }

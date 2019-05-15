@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, ScrollView} from 'react-native';
 import Pension from '../../components/CardList'
 
 import {connect} from 'react-redux';
@@ -22,9 +22,9 @@ class resultPension extends Component {
     render(){
       if(this.props.list.length != 0){
         return(
-            <View>
+            <ScrollView>
                 <Pension data={this.props.list} Press={this._onPressPension} />
-            </View>
+            </ScrollView>
         );
       }else{
         return(

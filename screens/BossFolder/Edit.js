@@ -59,16 +59,11 @@ class Edit extends Component {
     profileImage(){
     }
 
-    askPermissionsAsync = async () => {
-      await Permissions.askAsync(Permissions.CAMERA);
-      await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      // you would probably do something to verify that permissions
-      // are actually granted, but I'm skipping that for brevity
-    };
+    
 
     _onChangePicture= async ()=>{
       
-      await this.askPermissionsAsync();
+      
 
         let result = await ImagePicker.launchImageLibraryAsync();
         if(!result.cancelled){

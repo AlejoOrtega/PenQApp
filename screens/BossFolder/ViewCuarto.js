@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button, Alert } from 'react-native';
 import DetallesCuartos from '../../components/DetallesCuarto';
 import SwiperC from '../../components/SwiperC';
 
@@ -23,7 +23,8 @@ class ViewCuarto extends React.Component {
 	_onPressEditCuarto=()=>{
 		this.props.navigation.navigate('EditionCuarto')
 	}
-	_onPressEliminarCuarto=()=>{
+	eliminarCuarto=()=>{
+		console.log('WHAT HAPPEN?')
 		firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos/'+this.props.cuartoTarget.ID).remove();
 		var cuartos = firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos');
     cuartos.once('value', (snap)=>{
@@ -39,6 +40,23 @@ class ViewCuarto extends React.Component {
     })
     this.props.navigation.navigate('CuartosView');
 	}
+
+	_onPressEliminarCuarto=()=>{
+    Alert.alert(
+      'Cuidado!',
+      'Seguro deseas eliminar este cuarto?',
+      [
+        {
+          text: 'No',
+          onPress: () => console.log('Operation Aborted'),
+          style: 'cancel',
+        },
+        {text: 'Si', onPress:this.eliminarCuarto},
+      ],
+      {cancelable: false},
+    );
+  }
+	
 	render(){
 		return(
 			<View style={styles.container}>

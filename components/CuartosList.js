@@ -32,15 +32,15 @@ export default class CuartosList extends React.Component {
                     style={styles.CircleShapeView}
                     source={{ uri: cuartos[i].Url1 }} />
                 </View>
-                <View style={{ flexDirection: 'column', alignItems: 'center', margin: 10, justifyContent:'center' }}>
-                  <View style={styles.cardInfo}>
-                    <Text style={{ fontSize: 18 }}>{cuartos[i].Alias}    </Text>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>${cuartos[i].Precio}</Text>
-                  </View>
+                <View style={{ flexDirection: 'column', margin: 10, justifyContent:'center' }}>
+                  {/* <View style={styles.cardInfo}> */}
+                    <Text style={{ fontSize: 18 }}>{cuartos[i].Alias}</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>${cuartos[i].Precio}</Text>
+                  {/* </View> */}
                   
                 </View>
               </View>
-              <View style={{ flexDirection: 'row', height: 50, width:'80%', alignItems:'center', justifyContent:'space-evenly', marginLeft:'20%' }}>
+              <View style={{ flexDirection: 'row', height: 50, width:'80%', alignItems:'center', justifyContent:'space-evenly', marginLeft:'10%' }}>
                     <Button
                       title='Ver Cuarto'
                       color='#47449a'
@@ -71,10 +71,10 @@ export default class CuartosList extends React.Component {
                     source={{ uri: cuartos[i].Url1 }} />
                 </View>
                 <View style={{ flexDirection: 'column', margin: 10 }}>
-                  <View style={styles.cardInfo}>
+                  {/* <View style={styles.cardInfo}> */}
                     <Text style={{ fontSize: 18 }}>{cuartos[i].Alias}    </Text>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>${cuartos[i].Precio}</Text>
-                  </View>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>${cuartos[i].Precio}</Text>
+                  {/* </View> */}
                   <View style={{ height: 50, width: '80%' }}>
                     <Button
                       title='Ver cuarto'

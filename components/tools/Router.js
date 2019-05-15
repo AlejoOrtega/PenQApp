@@ -179,7 +179,7 @@ const ClientMapStack = createStackNavigator({
   Engine:{
      screen: EngineSearch,
      navigationOptions:()=>({
-      title : 'Búsqueda',
+      title : 'Busqueda Parametrizable',
       headerTintColor:'white',
       headerTitleStyle:{
         color: 'white'

@@ -8,6 +8,8 @@ import ApiKeys from './components/tools/ApiKeys';
 import {isSignedIn, onSignOut} from './components/tools/Auth';
 import { NavigationActions } from 'react-navigation';
 
+import {Permissions} from 'expo';
+
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import Reducer from './components/tools/redux/Reducers';
@@ -24,8 +26,19 @@ export default class App extends React.Component {
     if(!firebase.apps.length){
       firebase.initializeApp(ApiKeys.FirebaseConfig);
     }
+    this.perms();
     //onSignOut('Log');
   }
+  perms =async ()=>{
+    await this.askPermissionsAsync();
+  }
+
+  askPermissionsAsync = async () => {
+    await Permissions.askAsync(Permissions.CAMERA);
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    // you would probably do something to verify that permissions
+    // are actually granted, but I'm skipping that for brevity
+  };
 
   
   render() {

@@ -4,6 +4,7 @@ import CheckBox from 'react-native-check-box';
 import firebase from 'firebase';
 import ProfilePhoto from '../../components/ProfilePhoto'
 import {ImagePicker} from 'expo';
+import Load from '../../components/Load';
 
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
@@ -24,15 +25,24 @@ class EditPension extends Component {
         llave: this.props.target.Llaves,
         rating: this.props.target.Rating,
         reglas: this.props.target.Reglas,
+        loading: false,
       };
+    }
+
+    componentDidMount(){
+      this.props.uploadPicture1(this.props.target.Url1);
+      this.props.uploadPicture2(this.props.target.Url2);
+      this.props.uploadPicture3(this.props.target.Url3);
+
     }
     
     onPressChangePicture= async()=>{
       let result = await ImagePicker.launchImageLibraryAsync();
       if(!result.cancelled){
+        this.setState({loading:true});
         this.uploadImage2fire(result.uri, "Pen"+this.props.target.ID+"1",1)
         .then(()=>{
-          alert("Great!");
+          this.setState({loading:false});
         }).catch((error)=>{
           alert(error);
         })
@@ -41,9 +51,10 @@ class EditPension extends Component {
     onPressChangePicture2= async()=>{
       let result = await ImagePicker.launchImageLibraryAsync();
       if(!result.cancelled){
+        this.setState({loading:true});
         this.uploadImage2fire(result.uri, "Pen"+this.props.target.ID+"2",2)
         .then(()=>{
-          alert("Great!");
+          this.setState({loading:false});
         }).catch((error)=>{
           alert(error);
         })
@@ -52,9 +63,10 @@ class EditPension extends Component {
     onPressChangePicture3= async()=>{
       let result = await ImagePicker.launchImageLibraryAsync();
       if(!result.cancelled){
+        this.setState({loading:true});
         this.uploadImage2fire(result.uri, "Pen"+this.props.target.ID+"3",3)
         .then(()=>{
-          alert("Great!");
+          this.setState({loading:false});
         }).catch((error)=>{
           alert(error);
         })
@@ -121,7 +133,7 @@ class EditPension extends Component {
       this.props.target.Llaves = this.state.llave;
       this.props.target.Rating = this.state.rating;
       this.props.target.Reglas = this.state.reglas;
-
+      this.setState({loading:true});
       firebase.database().ref('Pensiones/'+this.props.target.ID+'/Pension-Info').update({
         Alias: this.state.alias,
         Aseo:this.state.aseo,
@@ -140,116 +152,130 @@ class EditPension extends Component {
       });
       pics=[this.props.picture1,this.props.picture2, this.props.picture3]
       this.props.uploadPics(pics);
-
+      this.setState({loading:false});
       this.props.navigation.navigate('PensionView',{render: true});
 
     }
     render(){
-      return(
-        <ScrollView contentContainerStyle={styles.container}>
-          <View style={styles.header}>
+
+      if(this.state.loading){
+        return(
+          <View style={styles.loading}>
+              <Load/>
+              <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos registrando tus cambios!</Text>
           </View>
-          <View style={styles.center}>
-            <Text style={{ fontSize: 20 }}>Alias</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder={this.props.target.Alias}
-              onChangeText={this._changeAlias}
-            ></TextInput>
-            <Text style={{ fontSize: 20 }}>Barrio</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder={this.props.target.Barrio}
-              onChangeText={this._changeApellido}
-            ></TextInput>
-            <Text style={{ fontSize: 20 }}>Direccion</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder={this.props.target.Direccion}
-              onChangeText={this._changeApellido}
-            ></TextInput>
-            <CheckBox
-              onClick={() => {
-                this.setState({ comida: !this.state.comida })
-              }}
-              isChecked={this.state.comida}
-              leftText={"Comida"}
-            />
-            <CheckBox
-              onClick={() => {
-                this.setState({ internet: !this.state.internet })
-              }}
-              isChecked={this.state.internet}
-              leftText={"Internet"}
-            />
-            <CheckBox
-              onClick={() => {
-                this.setState({ lavado: !this.state.lavado })
-              }}
-              isChecked={this.state.lavado}
-              leftText={"Lavado"}
-            />
-            <CheckBox
-              onClick={() => {
-                this.setState({ aseo: !this.state.aseo })
-              }}
-              isChecked={this.state.aseo}
-              leftText={"Aseo en los cuartos"}
-            />
-            <CheckBox
-              onClick={() => {
-                this.setState({ llave: !this.state.llave })
-              }}
-              isChecked={this.state.llave}
-              leftText={"al cliente se le da llaves de la casa"}
-            />
-            <Text style={{ fontSize: 20 }}>Especificaciones de los servicios</Text>
-            <TextInput
-              style={styles.textInput}
-              numberOfLines={5}
-              multiline={true}
-              placeholder={this.props.target.Especific}
-              onChangeText={this._changeEspe}
-            ></TextInput>
-            <Text style={{ fontSize: 20 }}>Reglas</Text>
-            <TextInput
-              style={styles.textInput}
-              numberOfLines={5}
-              multiline={true}
-              placeholder={this.props.target.Reglas}
-              onChangeText={this._changeReglas}
-            ></TextInput>
-            <View style={styles.PhotoAndButton}>
-              <ProfilePhoto uri={this.props.picture1} />
-              <Button
-                title="Cambiar"
-                color='#7b68ee'
-                onPress={this.onPressChangePicture} />
+    );
+      }else{
+        return(
+          <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.header}>
             </View>
-            <View style={styles.PhotoAndButton}>
-              <ProfilePhoto uri={this.props.picture2} />
-              <Button
-                title="Cambiar"
-                color='#7b68ee'
-                onPress={this.onPressChangePicture2} />
+            <View style={styles.center}>
+              <Text style={{ fontSize: 20 }}>Alias</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder={this.props.target.Alias}
+                onChangeText={this._changeAlias}
+              ></TextInput>
+              <Text style={{ fontSize: 20 }}>Barrio</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder={this.props.target.Barrio}
+                onChangeText={this._changeApellido}
+              ></TextInput>
+              <Text style={{ fontSize: 20 }}>Direccion</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder={this.props.target.Direccion}
+                onChangeText={this._changeApellido}
+              ></TextInput>
+              <CheckBox
+                onClick={() => {
+                  this.setState({ comida: !this.state.comida })
+                }}
+                isChecked={this.state.comida}
+                leftText={"Comida"}
+              />
+              <CheckBox
+                onClick={() => {
+                  this.setState({ internet: !this.state.internet })
+                }}
+                isChecked={this.state.internet}
+                leftText={"Internet"}
+              />
+              <CheckBox
+                onClick={() => {
+                  this.setState({ lavado: !this.state.lavado })
+                }}
+                isChecked={this.state.lavado}
+                leftText={"Lavado"}
+              />
+              <CheckBox
+                onClick={() => {
+                  this.setState({ aseo: !this.state.aseo })
+                }}
+                isChecked={this.state.aseo}
+                leftText={"Aseo en los cuartos"}
+              />
+              <CheckBox
+                onClick={() => {
+                  this.setState({ llave: !this.state.llave })
+                }}
+                isChecked={this.state.llave}
+                leftText={"al cliente se le da llaves de la casa"}
+              />
+              <Text style={{ fontSize: 20 }}>Especificaciones de los servicios</Text>
+              <TextInput
+                style={styles.textInput}
+                numberOfLines={5}
+                multiline={true}
+                placeholder={this.props.target.Especific}
+                onChangeText={this._changeEspe}
+              ></TextInput>
+              <Text style={{ fontSize: 20 }}>Reglas</Text>
+              <TextInput
+                style={styles.textInput}
+                numberOfLines={5}
+                multiline={true}
+                placeholder={this.props.target.Reglas}
+                onChangeText={this._changeReglas}
+              ></TextInput>
+              <View style={styles.PhotoAndButton}>
+                <ProfilePhoto uri={this.props.picture1} />
+                <Button
+                  title="Cambiar"
+                  color='#7b68ee'
+                  onPress={this.onPressChangePicture} />
+              </View>
+              <View style={styles.PhotoAndButton}>
+                <ProfilePhoto uri={this.props.picture2} />
+                <Button
+                  title="Cambiar"
+                  color='#7b68ee'
+                  onPress={this.onPressChangePicture2} />
+              </View>
+              <View style={styles.PhotoAndButton}>
+                <ProfilePhoto uri={this.props.picture3} />
+                <Button
+                  title="Cambiar"
+                  color='#7b68ee'
+                  onPress={this.onPressChangePicture3} />
+              </View>
             </View>
-            <View style={styles.PhotoAndButton}>
-              <ProfilePhoto uri={this.props.picture3} />
+            <View style={styles.footer}>
               <Button
-                title="Cambiar"
+                title='Registrar cambios'
                 color='#7b68ee'
-                onPress={this.onPressChangePicture3} />
+                onPress={this._onPressSendChanges}
+              />
             </View>
-          </View>
-          <View style={styles.footer}>
-            <Button
-              title='Registrar cambios'
-              color='#7b68ee'
-              onPress={this._onPressSendChanges}
-            />
-          </View>
-        </ScrollView>
-      );        
+          </ScrollView>
+        );
+      }
+
+
+
+              
     }
 }
 
@@ -310,5 +336,10 @@ const styles = StyleSheet.create({
   footer:{
     flexDirection: 'row',
     alignItems: 'baseline',
-  }
+  },
+  loading:{
+		flex:1,
+		justifyContent:'center',
+		alignItems:'center'
+},
 });

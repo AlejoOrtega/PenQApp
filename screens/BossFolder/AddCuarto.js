@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
 import firebase from 'firebase';
 
 import {ImagePicker} from 'expo';
@@ -186,7 +186,8 @@ class AddCuarto extends Component {
 			
 		}else{
 			return(
-				<ScrollView style={styles.neatScroll}>
+				<KeyboardAvoidingView style={styles.container} behavior="padding"enabled={true}>
+				<ScrollView>
 					<View style={styles.header}></View>
 					<View style={styles.center}>
 						<View style = {styles.inputsAndText}>
@@ -200,6 +201,7 @@ class AddCuarto extends Component {
 							<Text style={{ fontSize: 20 }}>Precio</Text>
 							<TextInput
 								style = {{backgroundColor: 'grey',}}
+								placeholder="Ejemplo: 700000"
 								onChangeText={this._onChangePrecio} />
 						</View>
 	
@@ -254,6 +256,7 @@ class AddCuarto extends Component {
 							onPress={this._onPressSendData} />
 					</View>
 				</ScrollView>
+				</KeyboardAvoidingView>
 			);
 		}
 		

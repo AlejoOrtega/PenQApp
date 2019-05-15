@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet, Button, ScrollView } from 'react-nat
 import firebase from 'firebase';
 import ProfilePhoto from '../../components/ProfilePhoto';
 import {ImagePicker} from 'expo';
+import Load from '../../components/Load';
 
 
 import {connect} from 'react-redux';
@@ -17,15 +18,17 @@ class EditionCuarto extends Component {
 			capa:this.props.cuartoTarget.Capacidad,
 			obser:this.props.cuartoTarget.Obser,
 			precio:this.props.cuartoTarget.Precio,
+			loading:false,
 		};
 	}
 	
 	onPressChangePicture= async()=>{
 		let result = await ImagePicker.launchImageLibraryAsync();
 		if(!result.cancelled){
+			this.setState({loading:true})
 			this.uploadImage2fire(result.uri, "Cuarto"+this.props.cuartoTarget.ID+"1",1)
 			.then(()=>{
-				alert("Great!");
+				this.setState({loading:false})
 			}).catch((error)=>{
 				alert(error);
 			})
@@ -34,9 +37,10 @@ class EditionCuarto extends Component {
 	onPressChangePicture2= async()=>{
 		let result = await ImagePicker.launchImageLibraryAsync();
 		if(!result.cancelled){
+			this.setState({loading:true})
 			this.uploadImage2fire(result.uri, "Cuarto"+this.props.cuartoTarget.ID+"2",2)
 			.then(()=>{
-				alert("Great!");
+				this.setState({loading:false})
 			}).catch((error)=>{
 				alert(error);
 			})
@@ -45,9 +49,10 @@ class EditionCuarto extends Component {
 	onPressChangePicture3= async()=>{
 		let result = await ImagePicker.launchImageLibraryAsync();
 		if(!result.cancelled){
+			this.setState({loading:true})
 			this.uploadImage2fire(result.uri, "Cuarto"+this.props.cuartoTarget.ID+"3",3)
 			.then(()=>{
-				alert("Great!");
+				this.setState({loading:false})
 			}).catch((error)=>{
 				alert(error);
 			})
@@ -94,6 +99,7 @@ class EditionCuarto extends Component {
 		this.props.cuartoTarget.Capacidad= this.state.capa;
 		this.props.cuartoTarget.Obser=this.state.obser;
 		this.props.cuartoTarget.Precio=this.state.precio;
+		this.setState({loading:true})
 		firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos/'+this.props.cuartoTarget.ID).update({
 			Capacidad: this.state.capa,
 			Descrip: this.state.descrip,
@@ -105,6 +111,7 @@ class EditionCuarto extends Component {
 		})
 		pics=[this.props.picture1, this.props.picture2, this.props.picture3]
 		this.props.uploadPics(pics)
+		this.setState({loading:false})
 		this.props.navigation.navigate('ViewCuarto',{render: true})
 	}
 	_onChangeDescrip=(text)=>{
@@ -121,71 +128,81 @@ class EditionCuarto extends Component {
 	}
 
 	render(){
-		return(
-			<ScrollView>
-				<View style={styles.center}>
-					<View style = {styles.inputsAndText}>
-						<Text style={{ fontSize: 20 }}>Descripcion</Text>
-						<TextInput
-							style={styles.textInput}
-							placeholder={this.props.cuartoTarget.Descrip}
-							onChangeText={this._onChangeDescrip} />
-					</View>
-
-					<View style = {styles.inputsAndText}>
-						<Text style={{ fontSize: 20 }}>Capacidad</Text>
-						<TextInput
-							style={styles.textInput}
-							placeholder={this.props.cuartoTarget.Capacidad}
-							onChangeText={this._onChangeCapa} />
-					</View>
-
-					<View style = {styles.inputsAndText}>
-						<Text style={{ fontSize: 20 }}>Observaciones</Text>
-						<TextInput
-							style={styles.textInput}
-							placeholder={this.props.cuartoTarget.Obser}
-							onChangeText={this._onChangeObser} />
-					</View>
-
-					<View style = {styles.inputsAndText}>
-						<Text style={{ fontSize: 20 }}>Precio</Text>
-						<TextInput
-							style={styles.textInput}
-							placeholder={this.props.cuartoTarget.Precio}
-							onChangeText={this._onChangePrecio} />
-					</View>
-
-					<View style={styles.PhotoAndButton}>
-						<ProfilePhoto uri={this.props.picture1} />
-						<Button
-							title="Cambiar"
-							color = '#7b68ee'
-							onPress={this.onPressChangePicture} />
-					</View>
-					<View style={styles.PhotoAndButton}>
-						<ProfilePhoto uri={this.props.picture2} />
-						<Button
-							title="Cambiar"
-							color = '#7b68ee'
-							onPress={this.onPressChangePicture2} />
-					</View>
-					<View style={styles.PhotoAndButton}>
-						<ProfilePhoto uri={this.props.picture3} />
-						<Button
-							title="Cambiar"
-							color = '#7b68ee'
-							onPress={this.onPressChangePicture3} />
-					</View>
+		if(this.state.loading){
+			return(
+				<View style={styles.loading}>
+						<Load/>
+						<Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos registrando la informacion</Text>
 				</View>
-				<View style={styles.footer}>
-					<Button
-						title='Confirmar y enviar datos!'
-						color = '#7b68ee'
-						onPress={this._onPressSendData} />
-				</View>
-			</ScrollView>
-		);
+			);
+		}else{
+			return(
+				<ScrollView>
+					<View style={styles.center}>
+						<View style = {styles.inputsAndText}>
+							<Text style={{ fontSize: 20 }}>Descripcion</Text>
+							<TextInput
+								style={styles.textInput}
+								placeholder={this.props.cuartoTarget.Descrip}
+								onChangeText={this._onChangeDescrip} />
+						</View>
+	
+						<View style = {styles.inputsAndText}>
+							<Text style={{ fontSize: 20 }}>Capacidad</Text>
+							<TextInput
+								style={styles.textInput}
+								placeholder={this.props.cuartoTarget.Capacidad}
+								onChangeText={this._onChangeCapa} />
+						</View>
+	
+						<View style = {styles.inputsAndText}>
+							<Text style={{ fontSize: 20 }}>Observaciones</Text>
+							<TextInput
+								style={styles.textInput}
+								placeholder={this.props.cuartoTarget.Obser}
+								onChangeText={this._onChangeObser} />
+						</View>
+	
+						<View style = {styles.inputsAndText}>
+							<Text style={{ fontSize: 20 }}>Precio</Text>
+							<TextInput
+								style={styles.textInput}
+								placeholder={this.props.cuartoTarget.Precio}
+								onChangeText={this._onChangePrecio} />
+						</View>
+	
+						<View style={styles.PhotoAndButton}>
+							<ProfilePhoto uri={this.props.picture1} />
+							<Button
+								title="Cambiar"
+								color = '#7b68ee'
+								onPress={this.onPressChangePicture} />
+						</View>
+						<View style={styles.PhotoAndButton}>
+							<ProfilePhoto uri={this.props.picture2} />
+							<Button
+								title="Cambiar"
+								color = '#7b68ee'
+								onPress={this.onPressChangePicture2} />
+						</View>
+						<View style={styles.PhotoAndButton}>
+							<ProfilePhoto uri={this.props.picture3} />
+							<Button
+								title="Cambiar"
+								color = '#7b68ee'
+								onPress={this.onPressChangePicture3} />
+						</View>
+					</View>
+					<View style={styles.footer}>
+						<Button
+							title='Confirmar y enviar datos!'
+							color = '#7b68ee'
+							onPress={this._onPressSendData} />
+					</View>
+				</ScrollView>
+			);
+		}
+		
 	}
 }
 
@@ -236,5 +253,10 @@ function mapStateToProps(state){
 	textInput:{
     borderColor: 'black',
     backgroundColor: 'grey',
-  },
+	},
+	loading:{
+		flex:1,
+		justifyContent:'center',
+		alignItems:'center'
+},
  });

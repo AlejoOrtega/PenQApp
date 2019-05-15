@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Pensiones from '../../components/CardList'
 
 import {connect} from 'react-redux';
@@ -26,8 +26,7 @@ class ClientStart extends React.Component {
           }
       }
       this.props.uploadBest(list);
-    
-    
+
   }
 
     _onPressPension=(pension)=>{
@@ -37,10 +36,10 @@ class ClientStart extends React.Component {
   
   render() {
     return (
-      <View style={styles.container}>
-          <Text style = {{fontSize: 20, alignSelf:'center', marginTop: '10%'}}>Pensiones que te recomendamos!</Text>
+      <ScrollView contentContainerStyle={styles.container}>
+          <Text style = {{fontSize: 20, alignSelf:'center', marginTop: '5%'}}>Pensiones que te recomendamos!</Text>
           <Pensiones data={this.props.best} Press={this._onPressPension} />
-      </View>
+      </ScrollView>
     );
     
   }

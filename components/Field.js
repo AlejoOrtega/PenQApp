@@ -15,6 +15,7 @@ export default class Field extends React.Component {
             placeholder={this.props.placeholder}
             onChangeText={this.props.onChange}
             secureTextEntry={this.props.pass}
+            autoCapitalize={this.props.caps}
         />
 
     );

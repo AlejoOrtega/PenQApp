@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, ScrollView} from 'react-native';
 import Cuartos from '../../components/CuartosList';
 
 import {connect} from 'react-redux';
@@ -32,9 +32,9 @@ class resultCuarto extends Component {
         
       }else{
         return(
-          <View>
+          <ScrollView>
               <Cuartos data={this.props.list} Press={this._onPressCuarto} pension={this.props.pensiones} ViewPension={this.onPressVerPension}/>
-          </View>
+          </ScrollView>
       );
       }
     }

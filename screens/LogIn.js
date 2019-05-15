@@ -96,60 +96,67 @@ class LogIn extends React.Component {
 
     //Inicia sesion y determina el tipo de usuario.
     _onPressLogIn=()=>{
-      firebase.auth().signInWithEmailAndPassword(this.state.correo, this.state.contra)
-      .then(()=>
-      {
-        this.setState({loading:true})
-        currentUser = firebase.auth().currentUser;
-        firebase.database().ref('Users/'+currentUser.uid+'/Account-Info').once('value', (dataSnapshot)=>{
-          this.props.updateData(dataSnapshot.val());
-          onSignIn('Log',dataSnapshot).then().catch((err)=>alert(err));
-          let type = dataSnapshot.val();
-          if(type.Type== 0){
-            var query = firebase.database().ref('Pensiones/');
-            query.once("value")
-              .then((snapshot) => {
-                currentUser = firebase.auth().currentUser;
-                var Pensiones = [];
-                var find = [];
-                snapshot.forEach((childSnapshot) => {
-                  find = find.concat(childSnapshot.val());
+      if(this.state.nombre=='admin' && this.state.contra==''){
+
+        
+
+      }else{
+
+        firebase.auth().signInWithEmailAndPassword(this.state.correo, this.state.contra)
+        .then(()=>
+        {
+          this.setState({loading:true})
+          currentUser = firebase.auth().currentUser;
+          firebase.database().ref('Users/'+currentUser.uid+'/Account-Info').once('value', (dataSnapshot)=>{
+            this.props.updateData(dataSnapshot.val());
+            onSignIn('Log',dataSnapshot).then().catch((err)=>alert(err));
+            let type = dataSnapshot.val();
+            if(type.Type== 0){
+              var query = firebase.database().ref('Pensiones/');
+              query.once("value")
+                .then((snapshot) => {
+                  currentUser = firebase.auth().currentUser;
+                  var Pensiones = [];
+                  var find = [];
+                  snapshot.forEach((childSnapshot) => {
+                    find = find.concat(childSnapshot.val());
+                  });
+                  for (var i = 0; i < find.length; i = i + 1) {
+                    var Pension = Object.values(find[i]);
+                    Pensiones = Pensiones.concat(Pension[2]);
+                  }               
+                  this.props.updateDataBoss(Pensiones);
+                  this.setState({loading:false})
+                  this.props.navigation.navigate('ClientStart');
                 });
-                for (var i = 0; i < find.length; i = i + 1) {
-                  var Pension = Object.values(find[i]);
-                  Pensiones = Pensiones.concat(Pension[2]);
-                }               
+            }else{
+              var query = firebase.database().ref('Pensiones/');
+                query.once("value")
+                .then((snapshot)=> {
+                  currentUser = firebase.auth().currentUser;
+                  var Pensiones=[];
+                  var find=[];
+                    snapshot.forEach((childSnapshot)=> {       
+                      find = find.concat(childSnapshot.val());
+                      });
+                    for(var i=0; i<find.length;i=i+1){
+                      var Pension=Object.values(find[i]);
+                      var PensionInfo = Pension[2];
+                      if(PensionInfo.bossID==currentUser.uid){
+                          Pensiones=Pensiones.concat(Pension[2]);
+                      }
+                    }
                 this.props.updateDataBoss(Pensiones);
                 this.setState({loading:false})
-                this.props.navigation.navigate('ClientStart');
+                this.props.navigation.navigate('BossStart');
               });
-          }else{
-            var query = firebase.database().ref('Pensiones/');
-              query.once("value")
-               .then((snapshot)=> {
-                 currentUser = firebase.auth().currentUser;
-                 var Pensiones=[];
-                 var find=[];
-                  snapshot.forEach((childSnapshot)=> {       
-                    find = find.concat(childSnapshot.val());
-                    });
-                  for(var i=0; i<find.length;i=i+1){
-                    var Pension=Object.values(find[i]);
-                    var PensionInfo = Pension[2];
-                    if(PensionInfo.bossID==currentUser.uid){
-                        Pensiones=Pensiones.concat(Pension[2]);
-                    }
-                  }
-               this.props.updateDataBoss(Pensiones);
-               this.setState({loading:false})
-               this.props.navigation.navigate('BossStart');
-             });
-          }
-          
+            }
+            
+          })
         })
-      })
-      .catch((err)=>alert(err));
+        .catch((err)=>alert(err));
     }
+  }
 
     //Redirige a la vista de registro
     _onPressRegister=()=>{
@@ -194,10 +201,10 @@ class LogIn extends React.Component {
   
             <View style={styles.center}>
                 <View style={styles.fields}>
-                  <Field placeholder='Correo' onChange={this._onChangeCorreo} pass={false}/>
+                  <Field placeholder='Correo' onChange={this._onChangeCorreo} pass={false} caps={'none'}/>
                 </View>
                 <View style={styles.fields}>
-                  <Field placeholder='Contraseña' onChange={this._onChangePass} pass={true} />
+                  <Field placeholder='Contraseña' onChange={this._onChangePass} pass={true} caps={'none'} />
                 </View>
                 
             </View>
