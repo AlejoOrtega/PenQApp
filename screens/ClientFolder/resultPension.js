@@ -15,6 +15,8 @@ class resultPension extends Component {
 
     _onPressPension=(pension)=>{
         this.props.pensionTarget(pension);
+        pics=[pension.Url1, pension.Url2, pension.Url3]
+        this.props.loadPics(pics)
         this.props.navigation.navigate('PensionViewClient');
     }
     render(){
@@ -43,9 +45,11 @@ function mapStateToProps(state){
   
 function mapDispatchToProps(dispatch){
 return{
+
     pensionTarget: bindActionCreators(Actions.pensionTarget, dispatch),
     engineResults: bindActionCreators(Actions.engineResults,dispatch),
-    updateData: bindActionCreators(Actions.updateData,dispatch)
+    updateData: bindActionCreators(Actions.updateData,dispatch),
+    loadPics: bindActionCreators(Actions.pics,dispatch)
 };
 }
 

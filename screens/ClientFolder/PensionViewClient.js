@@ -28,7 +28,7 @@ class PensionViewClient extends React.Component {
     this.props.loadPics(pics)
     var owner = firebase.database().ref('Users/'+this.props.target.bossID+'/Account-Info');
     owner.once('value',(dataSnapshot)=>{
-      this.setState({user: dataSnapshot.val()})
+       this.setState({user: dataSnapshot.val()})
     })
     var cuartos = firebase.database().ref('Pensiones/'+this.props.target.ID+'/Cuartos');
     cuartos.once('value', (snap)=>{

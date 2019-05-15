@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Button, TouchableHighlight, Image } from 'react-native';
 import Map from '../../components/Map'
 import {connect} from 'react-redux';
 import {actionsCreator as Actions} from '../../components/tools/redux/Actions';
@@ -11,11 +11,24 @@ class ClientMap extends React.Component {
     this.props.pensionTarget(pension);
     this.props.navigation.navigate('PensionViewClient');
   }
+  engine=()=>{
+    this.props.navigation.navigate('Engine')
+  }
   
   render() {
     return (
       <View style={styles.container}>
         <Map PressM={this._onPressMarker}></Map>
+        <View style={{width:'100%', alignItems:'flex-end'}}>
+          <TouchableHighlight
+          style={styles.button}
+          onPress={this.engine}>
+            <Image 
+            style={{width:50,height:50}}
+            source={require('../Image/filtro.png')}/>
+          </TouchableHighlight>
+        </View>
+
       </View>
     ); 
   }
@@ -42,6 +55,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
+  button:{
+    borderTopLeftRadius:20,
+    borderBottomLeftRadius:20,
+    backgroundColor:'#fff',
+    marginTop:20,
+    alignItems:'center',
+    height:60,
+    justifyContent:'center',
+    width:'20%',
+    opacity:0.9,
+  }
 });

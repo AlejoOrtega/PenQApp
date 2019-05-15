@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, Picker, ScrollView} from 'react-native';
-import Load from '../../components/Load';
+import Loading from '../../components/Load';
 import firebase from 'firebase';
 
 import {connect} from 'react-redux';
@@ -149,8 +149,8 @@ class EngineSearch extends Component {
               }
           })
           this.props.engineResults(final);
-          this.setState({loading:false})
-          this.props.navigation.navigate('resultCua');
+           this.setState({loading:false})
+           this.props.navigation.navigate('resultCua');
           
         });
       }

@@ -175,16 +175,10 @@ const ClientMapStack = createStackNavigator({
         backgroundColor: '#7b68ee'
       }
     }),
-  }
-},{
-    initialRouteName: 'ClientMapaView',
-    headerLayoutPreset: 'center'
-});
-
-const EngineStack = createStackNavigator({
+  },
   Engine:{
-    screen: EngineSearch,
-    navigationOptions:()=>({
+     screen: EngineSearch,
+     navigationOptions:()=>({
       title : 'Búsqueda',
       headerTintColor:'white',
       headerTitleStyle:{
@@ -222,9 +216,54 @@ const EngineStack = createStackNavigator({
     })
   }
 },{
-  initialRouteName: 'Engine',
-  headerLayoutPreset: 'center'
-})
+    initialRouteName: 'ClientMapaView',
+    headerLayoutPreset: 'center'
+});
+
+// const EngineStack = createStackNavigator({
+//   // Engine:{
+//   //   screen: EngineSearch,
+//   //   navigationOptions:()=>({
+//   //     title : 'Búsqueda',
+//   //     headerTintColor:'white',
+//   //     headerTitleStyle:{
+//   //       color: 'white'
+//   //     },
+//   //     headerStyle:{
+//   //       backgroundColor: '#7b68ee'
+//   //     }
+//   //   })
+//   // },
+//   // resultPen:{
+//   //   screen: resultPension,
+//   //   navigationOptions:()=>({
+//   //     title : 'Resultados',
+//   //     headerTintColor:'white',
+//   //     headerTitleStyle:{
+//   //       color: 'white'
+//   //     },
+//   //     headerStyle:{
+//   //       backgroundColor: '#7b68ee'
+//   //     }
+//   //   })
+//   // },
+//   // resultCua:{
+//   //   screen: resultCuarto,
+//   //   navigationOptions:()=>({
+//   //     title : 'Resultados',
+//   //     headerTintColor:'white',
+//   //     headerTitleStyle:{
+//   //       color: 'white'
+//   //     },
+//   //     headerStyle:{
+//   //       backgroundColor: '#7b68ee'
+//   //     }
+//   //   })
+//   // }
+// },{
+//   initialRouteName: 'Engine',
+//   headerLayoutPreset: 'center'
+// })
 
 const ClientStartStack = createStackNavigator({
   ClientStart: {
@@ -248,15 +287,16 @@ const ClientStartStack = createStackNavigator({
 
 // Client Stack - Usuarios que han iniciado sesion y son tipo clientes
 const ClientStack = createBottomTabNavigator({
-  Engine:{
-    screen: EngineStack,
-    navigationOptions: () => ({
-      title: 'Búsqueda'
-    }),
-  },ClientMapa:{
+  // Engine:{
+  //   screen: EngineStack,
+  //   navigationOptions: () => ({
+  //     title: 'Búsqueda'
+  //   }),
+  // },
+  ClientMapa:{
     screen: ClientMapStack,
     navigationOptions: () => ({
-      title: 'Mapa'
+      title: 'Buscar'
     }),
   },ClientStart:{
     screen: ClientStartStack,
@@ -282,9 +322,9 @@ const ClientStack = createBottomTabNavigator({
         iconName = 'ios-home';
       } else if (routeName === 'Account') {
         iconName = 'ios-contact';
-      }else if (routeName === 'Engine') {
+      }else if (routeName === 'ClientMapa') {
         iconName = 'ios-search';
-      }else if (routeName === 'ClientMapa'){
+      }else if (routeName === 'Engine'){
         iconName = 'md-map';
       }
 
