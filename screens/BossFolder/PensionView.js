@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footer:{
-    justifyContent: 'flex-start',
+    justifyContent:'center',
     alignItems:'center',
     width: '100%',
 

@@ -27,12 +27,12 @@ class ComentsLoader extends React.Component {
     code=[]
     if(this.props.tipo == "cliente"){
         var ver=false;
+        
         if(typeof this.props.coments !== 'undefined')
         {
-          
+          var chk = true;
             for (let index = 0; index < this.props.coments.length; index++) {
               code.push(
-
                 <Card>
                   <View style={{ flexDirection: 'row' }}>
                     <View style={styles.CircleShapeView}>
@@ -49,6 +49,7 @@ class ComentsLoader extends React.Component {
 
                 </Card>
               )
+              chk=false;
               if(firebase.auth().currentUser.uid == this.props.coments[index].comentadorPorUser){
                 ver= true;
               }
@@ -58,6 +59,16 @@ class ComentsLoader extends React.Component {
           }else{
             code.push(
               <Text>Esta pension aun no tiene comentarios!</Text>
+            )
+          }
+          if(chk){
+            code.push(
+              <View style={{alignItems:'center'}}>
+              <Text style = {{ fontSize: 18}}>Esta pension aun no tiene comentarios</Text>
+                <Image
+                style={{width:80, height:80}}
+                source={require('../screens/Image/noHay.png')}/>
+              </View>
             )
           }
           if(ver == false){

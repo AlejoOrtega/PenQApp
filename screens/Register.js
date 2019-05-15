@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import { View, StyleSheet, Text, Button, Alert } from 'react-native';
 
 //Componentes
 import {ButtonGroup} from 'react-native-elements';
@@ -32,6 +32,23 @@ export default class Register extends React.Component {
     this.setState({selectedIndex})
   }
 
+  termsCondition=()=>{
+    Alert.alert(
+      'Cuidado!',
+      'Al registrarte como usuario aceptas los terminos y condiciones de la aplicacion.',
+      [
+        {
+          text: 'No',
+          onPress: () => console.log('Operation Aborted'),
+          style: 'cancel',
+        },
+        {text: 'Si', onPress: () => this._Registration},
+      ],
+      {cancelable: false},
+    );
+  }
+
+
   //Envia registro a firebase
   _Registration=()=>{
     
@@ -50,7 +67,7 @@ export default class Register extends React.Component {
             Contra: this.state.contra,
             Type: this.state.selectedIndex,
             Celular: this.state.celular,
-            photoUri: "none"
+            photoUri: "https://firebasestorage.googleapis.com/v0/b/penq2000.appspot.com/o/utils%2FnoPhoto.png?alt=media&token=f4a445df-ad41-4ba5-a2db-bebdfcdcc91e"
           })
           this.setState({loading:false})
           this.props.navigation.navigate('Login')
@@ -132,7 +149,7 @@ export default class Register extends React.Component {
             <Button 
                 title='Registrate!'
                 style={styles.pressButton}
-                onPress={this._Registration}
+                onPress={this.termsCondition}
                 color='#7b68ee'/>
           </View>
 
