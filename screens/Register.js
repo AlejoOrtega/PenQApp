@@ -32,25 +32,11 @@ export default class Register extends React.Component {
     this.setState({selectedIndex})
   }
 
-  termsCondition=()=>{
-    Alert.alert(
-      'Cuidado!',
-      'Al registrarte como usuario aceptas los terminos y condiciones de la aplicacion.',
-      [
-        {
-          text: 'No',
-          onPress: () => console.log('Operation Aborted'),
-          style: 'cancel',
-        },
-        {text: 'Si', onPress: () => this._Registration},
-      ],
-      {cancelable: false},
-    );
-  }
+  
 
 
   //Envia registro a firebase
-  _Registration=()=>{
+  sendData=()=>{
     
     if(this.state.nombre != '' || this.state.apellido != '' || this.state.correo != '' || this.state.rcontra != ''|| this.state.celular != ''){
       if(this.state.contra === this.state.rcontra){
@@ -81,6 +67,25 @@ export default class Register extends React.Component {
       alert('No puede haber campo vacio')
     }
     
+  }
+
+  termsCondition=()=>{
+    Alert.alert(
+      'Cuidado!',
+      'Al registrarte como usuario de esta aplicacion, aceptas que los datos brindados son verdaderos y permites el uso de ello dentro de la aplicacion.',
+      [
+        {
+          text: 'No',
+          onPress: () => console.log('Operation Aborted'),
+          style: 'cancel',
+        },
+        {
+          text: 'Si', 
+          onPress:this.sendData
+        },
+      ],
+      {cancelable: false},
+    );
   }
 
   //Actualiza el estado de nombre
