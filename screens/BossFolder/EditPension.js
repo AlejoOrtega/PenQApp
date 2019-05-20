@@ -162,7 +162,7 @@ class EditPension extends Component {
         return(
           <View style={styles.loading}>
               <Load/>
-              <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos registrando tus cambios!</Text>
+              <Text style={{fontSize: 18, fontWeight:'bold'}}>¡Estamos registrando tus cambios!</Text>
           </View>
     );
       }else{
@@ -183,7 +183,7 @@ class EditPension extends Component {
                 placeholder={this.props.target.Barrio}
                 onChangeText={this._changeApellido}
               ></TextInput>
-              <Text style={{ fontSize: 20 }}>Direccion</Text>
+              <Text style={{ fontSize: 20 }}>Dirección</Text>
               <TextInput
                 style={styles.textInput}
                 placeholder={this.props.target.Direccion}
@@ -312,7 +312,8 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     backgroundColor: 'grey',
     width: 300,
-    marginBottom: 10
+    marginBottom: 10,
+    padding: 5
   },
   PhotoAndButton:{
     flexDirection:'row',

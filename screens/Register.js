@@ -61,10 +61,10 @@ export default class Register extends React.Component {
         .catch((err)=>alert(err));
   
       }else{
-        alert('Las contraseña no son iguales! ')
+        alert('¡Las contraseñas no son iguales! ')
       }
     }else{
-      alert('No puede haber campo vacio')
+      alert('No puede haber campo vacío')
     }
     
   }
@@ -72,7 +72,7 @@ export default class Register extends React.Component {
   termsCondition=()=>{
     Alert.alert(
       'Cuidado!',
-      'Al registrarte como usuario de esta aplicacion, aceptas que los datos brindados son verdaderos y permites el uso de ello dentro de la aplicacion.',
+      'Al registrarte como usuario de esta aplicaci+on, aceptas que los datos brindados son verdaderos y permites el uso de ello dentro de la aplicación.',
       [
         {
           text: 'No',
@@ -130,7 +130,7 @@ export default class Register extends React.Component {
         return (
           <View style={styles.container}>
           <View style={styles.header}>
-            <Text>Registrate como un nuevo usuario!</Text>
+            <Text>¡Regístrate como un nuevo usuario!</Text>
           </View>
           <View style={styles.center}>
 
@@ -152,7 +152,7 @@ export default class Register extends React.Component {
           </View>
           <View style={styles.footer}>
             <Button 
-                title='Registrate!'
+                title='¡Regístrate!'
                 style={styles.pressButton}
                 onPress={this.termsCondition}
                 color='#7b68ee'/>

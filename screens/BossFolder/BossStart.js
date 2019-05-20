@@ -50,7 +50,7 @@ import {bindActionCreators} from 'redux';
     return (  
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={{ fontSize: 20}}>{'Hola! '+ this.props.user.Nombre + ' ' +  this.props.user.Apellido}</Text>
+          <Text style={{ fontSize: 20}}>{'¡Hola! '+ this.props.user.Nombre + ' ' +  this.props.user.Apellido}</Text>
           <Text style={{ fontSize: 20}}> Estas son tus Pensiones</Text>
         </View>
         <View style={styles.center}>

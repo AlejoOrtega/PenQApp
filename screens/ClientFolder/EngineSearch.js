@@ -21,14 +21,14 @@ class EngineSearch extends Component {
     constructor(props) {
       super(props)
       this.state = {
-        opcion:'pension',
+        opcion:'pensión',
         internet: false,
         aseo: false,
         comida: false,
         lavado: false,
         llaves: false,
         Barrio: 'Cualquier Barrio',
-        Rating: 'Cualquier Valoracion',
+        Rating: 'Cualquier Valoración',
         Precio: '0',
         loading:false,
       }
@@ -67,14 +67,14 @@ class EngineSearch extends Component {
     }
     _onPressSearch=()=>{
       this.setState({loading:true})
-      if(this.state.opcion =='pension'){
+      if(this.state.opcion =='pensión'){
         var pension=[];
         for(var i=0; i<this.props.pensiones.length;i++){
           var checker= true;
           var list=[0,0,0,0,0];
           var pen=[0,0,0,0,0];
           if(this.state.Barrio=='Cualquier Barrio' || this.state.Barrio==this.props.pensiones[i].Barrio){
-            if(this.state.Rating=='Cualquier Valoracion' || parseInt(this.state.Rating,10)<=parseInt(this.props.pensiones[i].Rating,10)){
+            if(this.state.Rating=='Cualquier Valoración' || parseInt(this.state.Rating,10)<=parseInt(this.props.pensiones[i].Rating,10)){
               if(this.state.internet){list[0]=1;}
               if(this.state.aseo){list[1]=1;}
               if(this.state.comida){list[2]=1;}
@@ -163,26 +163,26 @@ class EngineSearch extends Component {
       return (
         <View style={styles.loading}>
             <Loading/>
-            <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos buscando la informacion!</Text>
+            <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos buscando la información!</Text>0
         </View>
          );
     }else{
-      if(this.state.opcion =='pension'){
+      if(this.state.opcion =='pensión'){
         return(
           <ScrollView contentContainerStyle = {styles.container}>
             <View style = {styles.pickers}>
-              <Text style={{ fontSize: 18 }}>Seleccione que opcion desea buscar</Text>
+              <Text style={{ fontSize: 18 }}>Seleccione que opción desea buscar</Text>
               <Picker
                 selectedValue={this.state.opcion}
                 style={{ height: 50, width: 200 }}
                 onValueChange={(itemValue, itemIndex) =>
                   this.setState({ opcion: itemValue })
                 }>
-                <Picker.Item label="Pension" value="pension" />
+                <Picker.Item label="Pensión" value="pensión" />
                 <Picker.Item label="Cuarto" value="cuarto" />
               </Picker>
   
-              <Text style={{ fontSize: 18 }}>Te gustaria algun barrio en especial?</Text>
+              <Text style={{ fontSize: 18 }}>¿Te gustaría algún barrio en especial?</Text>
               <Picker
                 selectedValue={this.state.Barrio}
                 style={{ height: 50, width: 200 }}
@@ -192,14 +192,14 @@ class EngineSearch extends Component {
                 {this._loadBarrios()}
               </Picker>
   
-              <Text style={{ fontSize: 18 }}>Seleccione la valoracion minima de las pensiones</Text>
+              <Text style={{ fontSize: 18 }}>Seleccione la valoración mínima de las pensiones</Text>
               <Picker
                 selectedValue={this.state.Rating}
                 style={{ height: 50, width: 200 }}
                 onValueChange={(itemValue, itemIndex) =>
                   this.setState({ Rating: itemValue })
                 }>
-                <Picker.Item label="Cualquier Valoracion" value="0" />
+                <Picker.Item label="Cualquier Valoración" value="0" />
                 <Picker.Item label="5" value="5" />
                 <Picker.Item label="4" value="4" />
                 <Picker.Item label="3" value="3" />
@@ -210,7 +210,7 @@ class EngineSearch extends Component {
             </View>
   
             <View style = {styles.buttons}>
-              <Text style={{ fontSize: 18 }}>Que servicios te gustaria tener encuenta?</Text>
+              <Text style={{ fontSize: 18 }}>¿Qué servicios te gustaría tener en cuenta?</Text>
               <Button
                 title='Internet'
                 color={this.state.internet == true ? '#01ad1b' : '#7c0a00'}
@@ -254,14 +254,14 @@ class EngineSearch extends Component {
         return(
           <ScrollView contentContainerStyle = {styles.container}>
             <View style = {styles.pickers}>
-              <Text style={{ fontSize: 18 }}>Seleccione que opcion desea buscar</Text>
+              <Text style={{ fontSize: 18 }}>Seleccione que opción desea buscar</Text>
               <Picker
                 selectedValue={this.state.opcion}
                 style={{ height: 50, width: 200 }}
                 onValueChange={(itemValue, itemIndex) =>
                   this.setState({ opcion: itemValue })
                 }>
-                <Picker.Item label="Pension" value="pension" />
+                <Picker.Item label="Pensión" value="pensión" />
                 <Picker.Item label="Cuarto" value="cuarto" />
               </Picker>
   
@@ -284,7 +284,7 @@ class EngineSearch extends Component {
             
   
             <View style = {styles.buttons}>
-              <Text style={{ fontSize: 18 }}>Que servicios te gustaria tener encuenta?</Text>
+              <Text style={{ fontSize: 18 }}>¿Qué servicios te gustaría tener en cuenta?</Text>
               <Button
                 title='Internet'
                 color={this.state.internet == true ? '#01ad1b' : '#7c0a00'}

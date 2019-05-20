@@ -113,7 +113,7 @@ class PensionViewClient extends React.Component {
                   style={{width:25, height:25, marginLeft:'20%'}}
                   source={require('../Image/aprovechar.png')}/>
                 </View>
-                <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Direccion:</Text> {this.props.target.Direccion}</Text>
+                <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Dirección:</Text> {this.props.target.Direccion}</Text>
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Barrio:</Text> {this.props.target.Barrio}</Text>
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Observaciones:</Text> {this.props.target.Especific}</Text>
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Reglas:</Text> {this.props.target.Reglas}</Text>
@@ -122,7 +122,7 @@ class PensionViewClient extends React.Component {
                 <View style={styles.EditButton}>
                   <Button
                     style = {{width: 200, height: 50}}
-                    title="Ver Cuartos!"
+                    title="¡Ver Cuartos!"
                     color = '#8A2BE2' 
                     onPress={this._onPressVerCuartos} />
               </View>

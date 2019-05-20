@@ -180,7 +180,7 @@ class AddCuarto extends Component {
 			return(
 						<View style={styles.loading}>
                 <Load/>
-                <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos agregando tu nuevo cuarto!</Text>
+                <Text style={{fontSize: 18, fontWeight:'bold'}}>¡Estamos agregando tu nuevo cuarto!</Text>
             </View>
 			);
 			
@@ -191,16 +191,16 @@ class AddCuarto extends Component {
 					<View style={styles.header}></View>
 					<View style={styles.center}>
 						<View style = {styles.inputsAndText}>
-							<Text style={{ fontSize: 20 }}>Ponle un nombre a este cuarto!</Text>
+							<Text style={{ fontSize: 20 }}>¡Ponle un nombre a este cuarto!</Text>
 							<TextInput
-								style = {{backgroundColor: 'grey',}}
+								style = {{backgroundColor: 'grey', padding:5}}
 								onChangeText={this._onChangeAlias} />
 						</View>
 	
 						<View style = {styles.inputsAndText}>
 							<Text style={{ fontSize: 20 }}>Precio</Text>
 							<TextInput
-								style = {{backgroundColor: 'grey',}}
+								style = {{backgroundColor: 'grey', padding:5}}
 								placeholder="Ejemplo: 700000"
 								onChangeText={this._onChangePrecio} />
 						</View>
@@ -208,14 +208,14 @@ class AddCuarto extends Component {
 						<View style = {styles.inputsAndText}>
 							<Text style={{ fontSize: 20 }}>Capacidad del cuarto</Text>
 							<TextInput
-							style = {{backgroundColor: 'grey',}}
+							style = {{backgroundColor: 'grey', padding:5}}
 								onChangeText={this._onChangeCapacidad} />
 						</View>
 	
 						<View style = {styles.inputsAndText}>
-							<Text style={{ fontSize: 20 }}>Descripcion</Text>
+							<Text style={{ fontSize: 20 }}>Descripción</Text>
 							<TextInput
-								style = {{backgroundColor: 'grey',}}
+								style = {{backgroundColor: 'grey', padding:5}}
 								numberOfLines={5}
 								multiline={true}
 								onChangeText={this._onChangeDescripcion} />
@@ -224,7 +224,7 @@ class AddCuarto extends Component {
 						<View style = {styles.inputsAndText}>
 							<Text style={{ fontSize: 20 }}>Observaciones</Text>
 							<TextInput
-								style = {{backgroundColor: 'grey',}}
+								style = {{backgroundColor: 'grey', padding:5}}
 								numberOfLines={5}
 								multiline={true}
 								onChangeText={this._onChangeObservaciones} />

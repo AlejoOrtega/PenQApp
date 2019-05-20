@@ -26,7 +26,7 @@ export default class CardList extends React.Component {
               <View style={{ flexDirection: 'column', alignItems:'center', margin: 10 }}>
                 <Text style={{ alignSelf: 'center', fontSize: 20}}>{pensiones[i].Alias}</Text>
                 <Button
-                  title='Ver pension'
+                  title='Ver pensión'
                   onPress={this.props.Press.bind(this, pensiones[i])}
                   color='#7b68ee'
                   style = {{width: 100, height: 50}}

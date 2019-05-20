@@ -140,7 +140,7 @@ class RatingPension extends React.Component {
                 <TextInput
                   style={styles.textArea}
                   underlineColorAndroid="transparent"
-                  placeholder="Escribe tu comentario sobre esta pension!"
+                  placeholder="¡Escribe tu comentario sobre esta pensión!"
                   placeholderTextColor="grey"
                   numberOfLines={10}
                   multiline={true}
@@ -152,7 +152,7 @@ class RatingPension extends React.Component {
             
             <View style={styles.footer}>
                 <Button 
-                  title='Registrar calificacion y comentario'
+                  title='Registrar calificación y comentario'
                   color = '#7b68ee'
                   onPress={this.onClickCalificar}/>
             </View>

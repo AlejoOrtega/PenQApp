@@ -219,7 +219,7 @@ class LogIn extends React.Component {
                 <Text
                   style = {styles.style_elRegisterLink}
                   onPress={this._onPressRegister}
-                  >¿No tienes cuenta? Registrate!
+                  >¿No tienes cuenta? ¡Regístrate!
                 </Text>
   
             </View>

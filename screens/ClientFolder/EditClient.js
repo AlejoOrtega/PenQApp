@@ -101,7 +101,7 @@ class EditClient extends Component {
         return(
           <View style={styles.loading}>
             <Load/>
-            <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos cargando tu informacion!</Text>
+            <Text style={{fontSize: 18, fontWeight:'bold'}}>¡Estamos cargando tu información!</Text>
         </View>
         );
       }else{
@@ -110,7 +110,7 @@ class EditClient extends Component {
             <View style={styles.ChangePhoto}>
               <ProfilePhoto uri={this.props.user.photoUri} />
               <Button
-                title="Cambiar Foto!"
+                title="¡Cambiar Foto!"
                 color='#7b68ee'
                 onPress={this._onChangePicture} />
             </View>
@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: '100%',
     fontFamily:'sans-serif-medium',
+    padding: 5
   },
   edit:{
     color: 'blue',

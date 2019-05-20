@@ -60,7 +60,7 @@ class LocatePension extends Component{
 				</MapView>
 				<Button
 					style={styles.button}
-					title='Termine!'
+					title='¡Terminé!'
 					color='#7b68ee'
 				  onPress={this._onPress}
 				  />

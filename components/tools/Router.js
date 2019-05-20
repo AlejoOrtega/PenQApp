@@ -179,7 +179,7 @@ const ClientMapStack = createStackNavigator({
   Engine:{
      screen: EngineSearch,
      navigationOptions:()=>({
-      title : 'Busqueda Parametrizable',
+      title : 'Búsqueda Parametrizable',
       headerTintColor:'white',
       headerTitleStyle:{
         color: 'white'
@@ -269,7 +269,7 @@ const ClientStartStack = createStackNavigator({
   ClientStart: {
     screen: ClientScreen,
     navigationOptions: () => ({
-      title : 'Bienvenido!!',
+      title : '¡¡Bienvenido!!',
       headerTintColor:'white',
       headerTitleStyle:{
         color: 'white'
@@ -345,7 +345,7 @@ const profile = createStackNavigator({
   AccountBoss:{
     screen: AccountBoss,
     navigationOptions: () => ({
-      title : 'Mi Perfil',
+      title : 'Perfil',
       headerTintColor:'white',
       headerTitleStyle:{
         color: 'white'
@@ -376,7 +376,7 @@ const homeStack = createStackNavigator({
   BossStart:{
     screen: BossScreen,
     navigationOptions: () => ({
-      title : 'Bienvenido!!',
+      title : '¡¡Bienvenido!!',
       headerTintColor:'white',
       headerTitleStyle:{
         color: 'white'

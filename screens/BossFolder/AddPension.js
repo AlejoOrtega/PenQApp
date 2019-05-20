@@ -130,10 +130,10 @@ class AddPension extends Component {
             alert("Debes rellenar todos los campos")
         }else{
             if(this.state.foto1==false || this.state.foto2==false || this.state.foto3==false ){
-                alert("Agregue las 3 fotos!")
+                alert("¡Agregue las 3 fotos!")
             }else{
                 if(typeof this.props.coordinates === 'undefined'){
-                    alert("Tienes que localizar tu pension!")
+                    alert("¡Tienes que localizar tu pension!")
                 }else{
                     this.setState({loading: true})
                 currentUser = firebase.auth().currentUser;
@@ -162,10 +162,10 @@ class AddPension extends Component {
                     Url3: this.props.picture3,
                 });
                 newItem.child(pushID+'/Comentarios').set({
-                    Comentario:'Aqui van los comentarios'
+                    Comentario:'Aquí van los comentarios'
                 });
                 newItem.child(pushID+'/Cuartos').set({
-                    Cuartos:'Aqui van cuartos'
+                    Cuartos:'Aquí van cuartos'
                 });
                 if(this.props.picture1!="none"){
                     if(!this.props.picture1.cancelled){
@@ -226,7 +226,7 @@ class AddPension extends Component {
              return (
             <View style={styles.loading}>
                 <Loading/>
-                <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos agregando tu nueva pension!</Text>
+                <Text style={{fontSize: 18, fontWeight:'bold'}}>¡Estamos agregando tu nueva pensión!</Text>
             </View>
              );
         }else{
@@ -236,14 +236,14 @@ class AddPension extends Component {
                     
                     <View style={styles.center}>
                         <View>
-                            <Text style={styles.textos}>Ponle un nombre a tu casa!</Text>
+                            <Text style={styles.textos}>¡Ponle un nombre a tu casa!</Text>
                             <TextInput
                                 style={styles.textInput}
                                 onChangeText={this._onChangeAlias} />
                         </View>
     
                         <View>
-                            <Text style={styles.textos}>Direccion</Text>
+                            <Text style={styles.textos}>Dirección</Text>
                             <TextInput
                                 style={styles.textInput}
                                 onChangeText={this._onChangeDirection} />
@@ -307,21 +307,21 @@ class AddPension extends Component {
                                 onChangeText={this._onChangeSpecifications} />
                         </View>
                         <View>
-                            <Text style={styles.textos}>Ahora, agregue reglas generales de la casa que deberia saber el cliente</Text>
+                            <Text style={styles.textos}>Ahora, agregue reglas generales de la casa que debería saber el cliente</Text>
                             <TextInput
                                 numberOfLines={5}
                                 multiline={true}
                                 style={styles.textInput}
-                                placeholder='Por ejemplo, no se pueden recibir visitas sin autorizacion'
+                                placeholder='Por ejemplo, no se pueden recibir visitas sin autorización'
                                 onChangeText={this._onChangeRules} />
                         </View>
     
                         <Button
-                            title='Localiza tu pension!'
+                            title='¡Localiza tu pensión!'
                             onPress={this._onPressLocatePension}
                             color={typeof this.props.coordinates == "object" ? '#01ad1b' : '#7c0a00'}
                         />
-                        <Text style={styles.textos}>Agrega 3 Fotos!</Text>
+                        <Text style={styles.textos}>¡Agrega 3 Fotos!</Text>
                         <Button
                             title='Foto #1'
                             onPress={this._onPressPictures1}
@@ -408,6 +408,7 @@ const styles = StyleSheet.create({
     textInput:{
         borderColor: 'black',
         backgroundColor: 'grey',
+        padding: 5
       },
     contentContainer: {
       },

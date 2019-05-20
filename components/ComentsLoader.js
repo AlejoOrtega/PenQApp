@@ -74,7 +74,7 @@ class ComentsLoader extends React.Component {
           if(ver == false){
             code.push(
                 <Button
-                    title='Viviste aqui? Calificalo!'
+                    title='¿Viviste aquí? ¡Califícalo!'
                     color = '#7b68ee'
                     onPress={this.props.onPressCalificar.bind(this) }/>
             )

@@ -25,7 +25,7 @@ class CuartosView extends React.Component {
 		return(
 			<View style={styles.container}>
 				<View style={styles.header}>
-				<Text>Estos son los cuarto disponible en tu pension</Text>
+				<Text>Estos son los cuarto disponible en tu pensión</Text>
 				</View>
 				<View style={styles.center}>
 					<CuartosList data={this.props.cuartos} Press={this._onPressCuarto}/>
@@ -33,6 +33,7 @@ class CuartosView extends React.Component {
 				<View style={styles.footer}>
 				<Button
 					title='Anadir cuarto'
+					color = '#7b68ee'
 					onPress={this._onPressAddCuarto}/>
 				</View>
 			</View>

@@ -15,10 +15,10 @@ class ViewCuarto extends React.Component {
 
 	componentDidMount(){
 		pics=[this.props.cuartoTarget.Url1,this.props.cuartoTarget.Url2,this.props.cuartoTarget.Url3]
-		this.props.uploadPicture1(this.props.cuartoTarget.Url1)
-		this.props.uploadPicture2(this.props.cuartoTarget.Url2)
-		this.props.uploadPicture3(this.props.cuartoTarget.Url3)
-		this.props.uploadPics(pics);
+		// this.props.uploadPicture1(this.props.cuartoTarget.Url1)
+		// this.props.uploadPicture2(this.props.cuartoTarget.Url2)
+		// this.props.uploadPicture3(this.props.cuartoTarget.Url3)
+		this.props.uploadPicsroom(pics);
 	}
 	_onPressEditCuarto=()=>{
 		this.props.navigation.navigate('EditionCuarto')
@@ -43,8 +43,8 @@ class ViewCuarto extends React.Component {
 
 	_onPressEliminarCuarto=()=>{
     Alert.alert(
-      'Cuidado!',
-      'Seguro deseas eliminar este cuarto?',
+      '¡Cuidado!',
+      '¿Seguro deseas eliminar este cuarto?',
       [
         {
           text: 'No',
@@ -62,7 +62,7 @@ class ViewCuarto extends React.Component {
 			<View style={styles.container}>
 				<View style={styles.header}>
 				<SwiperC 
-        pictures={this.props.pics}/>
+        pictures={this.props.picsroom}/>
 				</View>
 				<View style={styles.center}>
 					<DetallesCuartos data={this.props.cuartoTarget}/>
@@ -83,11 +83,11 @@ class ViewCuarto extends React.Component {
 }
 
 function mapStateToProps(state){
-	const {cuartoTarget,target,pics}=state;
+	const {cuartoTarget,target,picsroom}=state;
 	return {
 		cuartoTarget,
 		target,
-		pics
+		picsroom
 	};
  }
  
@@ -97,7 +97,7 @@ function mapStateToProps(state){
 		uploadPicture1: bindActionCreators(Actions.picture1, dispatch),
     uploadPicture2: bindActionCreators(Actions.picture2, dispatch),
     uploadPicture3: bindActionCreators(Actions.picture3, dispatch),
-		uploadPics: bindActionCreators(Actions.pics,dispatch),
+		uploadPicsroom: bindActionCreators(Actions.picsroom,dispatch),
 	};
  }
  

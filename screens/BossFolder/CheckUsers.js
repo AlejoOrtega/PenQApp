@@ -101,7 +101,7 @@ class CheckUser extends React.Component{
     UserCheck(){
         code=[]
         code.push(
-            <Text style = {{fontSize: 20}}>Estos clientes vivieron en tu pension?{'\n'} </Text>
+            <Text style = {{fontSize: 18}}>¿Estos clientes vivieron en tu pensión?{'\n'} </Text>
         )
         
         for (let index = 0; index < this.props.coments.length; index++) {

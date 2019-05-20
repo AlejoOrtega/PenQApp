@@ -15,7 +15,7 @@ export default class DetallesCuarto extends React.Component {
 		code.push(
       <View>
       <Text style = {{fontSize: 32}}><Text style={{ fontWeight: 'bold' }}>Precio: </Text> ${this.props.data.Precio}</Text>
-      <Text style = {{fontSize: 20}}><Text style={{ fontWeight: 'bold' }}>Descripcion: </Text> {this.props.data.Descrip}</Text>
+      <Text style = {{fontSize: 20}}><Text style={{ fontWeight: 'bold' }}>Descripción: </Text> {this.props.data.Descrip}</Text>
       <Text style = {{fontSize: 20}}><Text style={{ fontWeight: 'bold' }}>Capacidad: </Text>{this.props.data.Capacidad}</Text>
       <Text style = {{fontSize: 20}}><Text style={{ fontWeight: 'bold' }}>Observaciones: </Text> {this.props.data.Obser}</Text>
     </View>

@@ -40,7 +40,7 @@ class AccountBoss extends Component {
             </View>
           </View>
           <View style={styles.center}>
-            <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Informacion de tu cuenta</Text>
+            <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Información de tu cuenta</Text>
             <View style={styles.editar}>
               <Text style={{ fontSize: 20 }}>Correo: {this.props.user.Correo}</Text>
               <Text style={{ fontSize: 20}}>Celular: {this.props.user.Celular}</Text>
@@ -57,7 +57,7 @@ class AccountBoss extends Component {
 
           <View style={styles.footer}>
             <Button
-              title='Cerrar Sesion'
+              title='Cerrar Sesión'
               style={styles.logOutButton}
               color='#7b68ee'
               onPress={this._onPressLogOut}>

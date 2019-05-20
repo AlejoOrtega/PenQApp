@@ -37,7 +37,7 @@ class ClientStart extends React.Component {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.container}>
-          <Text style = {{fontSize: 20, alignSelf:'center', marginTop: '5%'}}>Pensiones que te recomendamos!</Text>
+          <Text style = {{fontSize: 20, alignSelf:'center', marginTop: '5%'}}>¡Pensiones que te recomendamos!</Text>
           <Pensiones data={this.props.best} Press={this._onPressPension} />
       </ScrollView>
     );

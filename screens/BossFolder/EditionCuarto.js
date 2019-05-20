@@ -140,7 +140,7 @@ class EditionCuarto extends Component {
 				<ScrollView>
 					<View style={styles.center}>
 						<View style = {styles.inputsAndText}>
-							<Text style={{ fontSize: 20 }}>Descripcion</Text>
+							<Text style={{ fontSize: 20 }}>Descripción</Text>
 							<TextInput
 								style={styles.textInput}
 								placeholder={this.props.cuartoTarget.Descrip}
@@ -252,7 +252,8 @@ function mapStateToProps(state){
 	},
 	textInput:{
     borderColor: 'black',
-    backgroundColor: 'grey',
+		backgroundColor: 'grey',
+		padding: 5
 	},
 	loading:{
 		flex:1,

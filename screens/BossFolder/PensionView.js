@@ -88,8 +88,8 @@ class PensionView extends React.Component {
 
   _onPressRemovePension=()=>{
     Alert.alert(
-      'Cuidado!',
-      'Seguro deseas eliminar esta pension?',
+      '¡Cuidado!',
+      '¿Seguro deseas eliminar esta pensión?',
       [
         {
           text: 'No',
@@ -166,7 +166,7 @@ class PensionView extends React.Component {
 
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Administrador:</Text> {this.state.user.Nombre} {this.state.user.Apellido}</Text>
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Celular:</Text> {this.state.user.Celular}</Text>
-                <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Direccion:</Text> {this.props.target.Direccion}</Text>
+                <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Dirección:</Text> {this.props.target.Direccion}</Text>
                 <Text style={{ fontSize: 20 }}><Text style={{ fontWeight: 'bold' }}>Barrio:</Text> {this.props.target.Barrio}</Text>
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Observaciones:</Text> {this.props.target.Especific}</Text>
                 <Text style = {{fontSize: 20}}><Text style = {{fontWeight:'bold'}}>Reglas:</Text> {this.props.target.Reglas}</Text>
@@ -194,12 +194,12 @@ class PensionView extends React.Component {
                   <View style={styles.EditButton}>
                     <Button
                       style={{ width: 200, height: 50 }}
-                      title="Ver Cuartos!"
+                      title="¡Ver Cuartos!"
                       color='#8A2BE2'
                       onPress={this._onPressVerCuartos} />
                       <Button
                     style={{ width: '50%', height: 50, marginBottom: '5%' }}
-                    title='Eliminar Pension'
+                    title='Eliminar Pensión'
                     color='#c81d11'
                     onPress={this._onPressRemovePension}
                   />
