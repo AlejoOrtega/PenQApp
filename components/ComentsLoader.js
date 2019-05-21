@@ -64,7 +64,7 @@ class ComentsLoader extends React.Component {
           if(chk){
             code.push(
               <View style={{alignItems:'center'}}>
-              <Text style = {{ fontSize: 18}}>Esta pension aun no tiene comentarios</Text>
+              <Text style = {{ fontSize: 18}}>Esta pensión aún no tiene comentarios</Text>
                 <Image
                 style={{width:80, height:80}}
                 source={require('../screens/Image/noHay.png')}/>
