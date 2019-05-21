@@ -148,7 +148,7 @@ class EngineSearch extends Component {
                 final = final.concat(result)
               }
           })
-          this.props.engineResults(final);
+           this.props.engineResults(final);
            this.setState({loading:false})
            this.props.navigation.navigate('resultCua');
           
@@ -163,7 +163,7 @@ class EngineSearch extends Component {
       return (
         <View style={styles.loading}>
             <Loading/>
-            <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos buscando la información!</Text>0
+            <Text style={{fontSize: 18, fontWeight:'bold'}}>Estamos buscando la información!</Text>
         </View>
          );
     }else{

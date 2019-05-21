@@ -23,19 +23,20 @@ class resultCuarto extends Component {
       this.props.navigation.navigate("PensionViewClient")
     }
     render(){
-      if(this.props.list.length === 0){
-        return(
-          <View style={{marginTop:30}}>
-              <Text>No hay pensiones con los parametros indicados</Text>
-          </View>
-        );
-        
-      }else{
+      if(this.props.list.length != 0){
         return(
           <ScrollView>
               <Cuartos data={this.props.list} Press={this._onPressCuarto} pension={this.props.pensiones} ViewPension={this.onPressVerPension}/>
           </ScrollView>
       );
+        
+        
+      }else{
+        return(
+          <View style={{marginTop:30}}>
+              <Text>No hay pensiones con los parametros indicados</Text>
+          </View>
+        );
       }
     }
 }
