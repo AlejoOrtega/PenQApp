@@ -72,7 +72,7 @@ export default class Register extends React.Component {
   termsCondition=()=>{
     Alert.alert(
       'Cuidado!',
-      'Al registrarte como usuario de esta aplicaci+on, aceptas que los datos brindados son verdaderos y permites el uso de ello dentro de la aplicación.',
+      'Al registrarte como usuario de esta aplicación, aceptas que los datos brindados son verdaderos y permites el uso de ello dentro de la aplicación. PenQApp no se hace responsable por la información suministrada.',
       [
         {
           text: 'No',
